@@ -11,6 +11,7 @@ export const metadata = {
   description: "Boutique agency built on trust. Elite representation.",
   icons: {
     icon: '/assets/logo-mark-dark.png',
+    apple: '/assets/logo-mark-dark.png',
   },
 };
 
