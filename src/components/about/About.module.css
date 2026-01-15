@@ -52,8 +52,6 @@
     flex-direction: column;
     /* Vertical flow */
     gap: 0.5rem;
-    margin-bottom: 12rem;
-    /* FORCED SPACING before Services */
 }
 
 .standardsContent {
