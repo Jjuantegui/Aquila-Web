@@ -45,7 +45,8 @@
 
 /* STANDARDS BLOCK - Simple Text Vertical */
 .standardsBlock {
-    margin-top: 2.5rem;
+    margin-top: 6rem;
+    /* Increased from 2.5rem to create clear separation */
     padding-top: 2rem;
     border-top: 1px solid rgba(35, 59, 53, 0.1);
     display: flex;
@@ -193,6 +194,8 @@
     .container {
         flex-direction: column;
         gap: 3rem;
+        padding: 0 1.5rem;
+        /* Force side padding on mobile to prevent text touching edges */
     }
 
     .standardsCallout {
@@ -200,7 +203,6 @@
         align-items: flex-start;
         gap: 1.5rem;
         border-top: none;
-        /* No separator on mobile if stacked differently? Or keep it. */
         padding-top: 1rem;
     }
 
