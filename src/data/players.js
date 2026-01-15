@@ -1,0 +1,122 @@
+export const players = [
+    {
+        id: 1,
+        name: "Victor Campuzano",
+        position: "Striker",
+        secondaryPosition: "No. 10 / Winger",
+        birthDate: "31/05/1997",
+        nationality: "Spanish",
+        height: "1.74m",
+        preferredFoot: "Left",
+        currentClub: "Sydney FC - Australia",
+        league: "A-League",
+        contractUntil: "2027",
+        status: "Under Contract",
+        transfermarktUrl: "https://www.transfermarkt.es/victor-campuzano/profil/spieler/394285",
+        photoUrl: "/assets/players/victor-campuzano.jpg",
+        bioBullets: [
+            "Versatile forward with La Liga experience.",
+            "Technical skill and close control.",
+            "Intelligent off-the-ball movements."
+        ],
+        strengths: ["Finishing", "Off-ball Movement", "Versatility"],
+        instagramUrl: "https://www.instagram.com/vcampuzano23/?hl=es",
+        seasonStats: []
+    },
+    {
+        id: 2,
+        name: "Christian Rivera",
+        position: "Defensive Midfielder",
+        secondaryPosition: "Defender",
+        birthDate: "09/07/1997",
+        nationality: "Spanish",
+        height: "1.91m",
+        preferredFoot: "Right",
+        currentClub: "Real Avilés Industrial - Spain",
+        league: "Segunda Federación",
+        contractUntil: "2026",
+        status: "Under Contract",
+        transfermarktUrl: "https://www.transfermarkt.es/christian-rivera/profil/spieler/374077",
+        photoUrl: "/assets/players/christian-rivera.jpg",
+        bioBullets: [
+            "Commanding presence in midfield.",
+            "Exceptional aerial ability and distribution.",
+            "Experienced in Spanish professional leagues."
+        ],
+        strengths: ["Aerial Ability", "Distribution", "Tactical Discipline"],
+        instagramUrl: "https://www.instagram.com/c6rive/?hl=es",
+        seasonStats: []
+    },
+    {
+        id: 3,
+        name: "Dani Fernandez",
+        position: "Striker",
+        secondaryPosition: "Winger",
+        birthDate: "31/08/2001",
+        nationality: "Spanish",
+        height: "1.77m",
+        preferredFoot: "Right",
+        currentClub: "SD Logroñés - Spain",
+        league: "Segunda Federación",
+        contractUntil: "2026",
+        status: "Under Contract",
+        transfermarktUrl: "https://www.transfermarkt.es/dani-fernandez/profil/spieler/717942",
+        photoUrl: "/assets/players/dani-fernandez.jpg",
+        bioBullets: [
+            "Promising young forward.",
+            "Great goal-scoring instinct.",
+            "Combines physical strength with finishing."
+        ],
+        strengths: ["Finishing", "Speed", "Dribbling"],
+        instagramUrl: "https://www.instagram.com/daniel31fernandez/?hl=es",
+        seasonStats: []
+    },
+    {
+        id: 4,
+        name: "Christian Jimenez",
+        position: "Defender",
+        secondaryPosition: "Right/Left Back",
+        birthDate: "04/07/1996",
+        nationality: "Spanish",
+        height: "1.85m",
+        preferredFoot: "Ambidentrous",
+        currentClub: "AC Escaldes - Andorra",
+        league: "Primera Divisió",
+        contractUntil: "2026",
+        status: "Under Contract",
+        transfermarktUrl: "https://www.transfermarkt.es/christian-jimenez/profil/spieler/680190",
+        photoUrl: "/assets/players/christian-jimenez.jpg",
+        bioBullets: [
+            "Ambidextrous defender.",
+            "Capable of playing across the back line.",
+            "Brings international experience."
+        ],
+        strengths: ["Versatility", "Ambidextrous", "Defensive Awareness"],
+        instagramUrl: "https://www.instagram.com/christianjime27/?hl=es",
+        seasonStats: []
+    },
+    {
+        id: 5,
+        name: "Matias Hernandez",
+        position: "Central Midfielder",
+        secondaryPosition: "Defender",
+        birthDate: "10/09/1997",
+        nationality: "Spanish",
+        height: "1.86m",
+        preferredFoot: "Right",
+        currentClub: "Gokulam Kerala - India",
+        league: "I-League",
+        contractUntil: "2026",
+        status: "Under Contract",
+        transfermarktUrl: "https://www.transfermarkt.es/matias-hernandez/profil/spieler/598616",
+        photoUrl: "/assets/players/matias-hernandez.jpg",
+        bioBullets: [
+            "Dynamic midfielder with high work rate.",
+            "Adapts well to different styles.",
+            "Brings energy to the midfield."
+        ],
+        strengths: ["Work Rate", "Ball Recovery", "Physicality"],
+        instagramUrl: "https://www.instagram.com/lmatiashernandz/?hl=es",
+        seasonStats: []
+    }
+];

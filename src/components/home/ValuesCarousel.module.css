@@ -1,0 +1,66 @@
+.carouselContainer {
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--color-aquila-green);
+    padding: 0.75rem 0;
+    white-space: nowrap;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 10;
+}
+
+.track {
+    display: flex;
+    /* Changed to flex to align items easily if needed, or inline-block works too */
+    display: inline-block;
+    animation: scroll 40s linear infinite;
+    /* Slower scroll for elegance */
+}
+
+.item {
+    display: inline-flex;
+    /* Use flex to manage gap between text and dot */
+    align-items: center;
+    color: var(--color-aquila-beige);
+    font-size: 1.1rem;
+    font-weight: 200;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    opacity: 0.9;
+
+    /* 
+       Centering Logic:
+       Gap between Text and Dot = 5rem
+       Margin right (after Dot to next Text) = 5rem
+       Total symmetry.
+    */
+    gap: 6rem;
+    margin-right: 6rem;
+    margin-left: 0;
+}
+
+.separator {
+    display: block;
+    /* Just a block in the flex item */
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-aquila-beige);
+    border-radius: 50%;
+    opacity: 0.5;
+    margin: 0;
+    /* Margin handled by parent gap */
+}
+
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.carouselContainer:hover .track {
+    animation-play-state: paused;
+}

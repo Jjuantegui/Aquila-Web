@@ -1,0 +1,143 @@
+.container {
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: var(--color-aquila-green);
+    margin: 0;
+}
+
+.select {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: transparent;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.select:hover,
+.select:focus {
+    border-color: var(--color-aquila-green);
+}
+
+.card {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-sm);
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.statBlock {
+    display: flex;
+    flex-direction: column;
+}
+
+.value {
+    font-size: 2.5rem;
+    font-weight: 300;
+    /* Light weight for elegance */
+    color: var(--color-aquila-green);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-light);
+}
+
+/* Micro bar styling */
+.barContainer {
+    width: 100%;
+    height: 4px;
+    background: #f0f0f0;
+    margin-top: 0.5rem;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.barFill {
+    height: 100%;
+    background: var(--color-aquila-green);
+    border-radius: 2px;
+}
+
+.divider {
+    grid-column: 1 / -1;
+    height: 1px;
+    background: var(--color-border);
+    margin: 1rem 0;
+    opacity: 0.5;
+}
+
+.metaInfo {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+}
+
+.cardsContainer {
+    display: flex;
+    gap: 1rem;
+}
+
+.cardStat {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.yellowCard,
+.redCard {
+    width: 12px;
+    height: 16px;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+.yellowCard {
+    background: #FFD700;
+}
+
+.redCard {
+    background: #DC143C;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 2rem;
+    color: var(--color-text-light);
+    font-style: italic;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--border-radius-sm);
+}

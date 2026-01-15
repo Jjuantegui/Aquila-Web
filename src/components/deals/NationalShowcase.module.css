@@ -1,0 +1,158 @@
+/* CONTAINER */
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 4rem;
+    background: linear-gradient(to bottom, #1a2e29, #233B35);
+    color: var(--color-aquila-beige);
+    position: relative;
+    overflow: hidden;
+}
+
+/* DECORATIVE BACKGROUND */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Subtle topographic lines or grain */
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23e9dcc9' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    z-index: 0;
+}
+
+/* HEADER Summary */
+.header {
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+}
+
+.label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
+}
+
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--color-aquila-beige);
+    margin: 0;
+}
+
+/* FEATURED DEAL */
+.featured {
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.featuredLabel {
+    display: block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-aquila-green);
+    background: var(--color-aquila-beige);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    width: max-content;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.featuredCard {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(233, 220, 201, 0.15);
+    padding: 2rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.featuredPlayer {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #F5F5F7;
+    margin: 0 0 0.5rem 0;
+}
+
+.featuredRoute {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1.5rem;
+}
+
+.arrow {
+    color: var(--color-aquila-beige);
+    opacity: 0.6;
+}
+
+.featuredMeta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* TIMELINE */
+.timeline {
+    position: relative;
+    z-index: 1;
+    border-left: 1px solid rgba(233, 220, 201, 0.1);
+    padding-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.timelineItem {
+    position: relative;
+}
+
+.timelineItem::before {
+    content: "";
+    position: absolute;
+    left: -2.35rem;
+    /* center on line (-2rem padding - 0.35rem half dot) */
+    top: 0.5rem;
+    width: 0.7rem;
+    height: 0.7rem;
+    background: var(--color-aquila-beige);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(26, 46, 41, 1);
+    /* Fake hole mask */
+}
+
+.timelineDate {
+    display: block;
+    font-size: 0.7rem;
+    opacity: 0.5;
+    margin-bottom: 0.2rem;
+}
+
+.timelinePlayer {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #F5F5F7;
+    margin: 0;
+}
+
+.timelineClubs {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}

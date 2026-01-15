@@ -1,66 +1,76 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Hero from "../components/home/Hero";
+import ValuesCarousel from "../components/home/ValuesCarousel";
+import GlobalPresenceMap from "../components/home/GlobalPresenceMap";
+import PlayerGrid from "../components/players/PlayerGrid";
+import Services from "../components/services/Services";
+
+import About from "../components/about/About";
+import Contact from "../components/contact/Contact";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <Hero />
+
+
+
+      {/* 2. THE BOUTIQUE MODEL */}
+      <section id="about" className="section container animate-fade-in" style={{ paddingTop: '6rem' }}>
+        <About />
+      </section>
+
+      {/* 3. OUR SERVICES (SUMMARY) */}
+      <section id="services" className="section container animate-fade-in" style={{ paddingBottom: '2rem' }}>
+        <Services />
+      </section>
+
+
+      {/* 6. PLAYERS */}
+      <section id="players" className="section container animate-fade-in">
+        <h2 style={{
+          fontSize: '2rem',
+          marginBottom: '2rem',
+          color: 'var(--color-aquila-green)',
+          borderBottom: '1px solid var(--color-aquila-green)',
+          paddingBottom: '1rem'
+        }}>
+          Selected Players
+        </h2>
+        <PlayerGrid />
+      </section>
+
+      {/* 5. GLOBAL REACH */}
+      <section className="section animate-fade-in" style={{ padding: '4rem 0' }}>
+        <div className="container">
+          <h2 style={{
+            fontSize: '2rem',
+            marginBottom: '2rem',
+            color: 'var(--color-aquila-green)',
+            borderBottom: '1px solid var(--color-aquila-green)',
+            paddingBottom: '1rem'
+          }}>
+            Global Reach
+          </h2>
+          <GlobalPresenceMap />
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+
+      {/* 6. WORD CAROUSEL (BRIDGE) */}
+      <ValuesCarousel />
+
+      {/* 7. CONTACT US */}
+      <section id="contact" className="section container animate-fade-in">
+        <h2 style={{
+          fontSize: '2rem',
+          marginBottom: '2rem',
+          color: 'var(--color-aquila-green)',
+          borderBottom: '1px solid var(--color-aquila-green)',
+          paddingBottom: '1rem'
+        }}>
+          Contact Us
+        </h2>
+        <Contact />
+      </section>
+    </>
   );
 }

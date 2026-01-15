@@ -1,0 +1,133 @@
+.card {
+    position: relative;
+    display: block;
+    /* For Link */
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+
+    /* Ultra-thin border */
+    border: 1px solid rgba(35, 59, 53, 0.12);
+
+    /* Aspect Ratio for consistency */
+    aspect-ratio: 4/5;
+    background-color: var(--color-aquila-beige);
+    /* Fallback */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(35, 59, 53, 0.08);
+    /* Soft shadow */
+}
+
+.imageContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.card:hover .image {
+    transform: scale(1.03);
+    /* Subtle zoom */
+}
+
+/* Gradient Overlay - Always present but subtle, intensifies on hover if needed */
+.gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    /* Covers bottom 70% */
+    background: linear-gradient(to top, rgba(35, 59, 53, 0.9) 0%, rgba(35, 59, 53, 0.5) 50%, rgba(35, 59, 53, 0) 100%);
+    pointer-events: none;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover .gradient {
+    opacity: 1;
+}
+
+/* Status Badge - Top Left/Right */
+.statusBadge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: rgba(233, 220, 201, 0.85);
+    /* Beige semi-transparent */
+    backdrop-filter: blur(4px);
+    color: var(--color-aquila-green);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    border: 1px solid rgba(233, 220, 201, 0.6);
+    z-index: 2;
+}
+
+/* Bottom Info Area */
+.info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem;
+    z-index: 2;
+    color: var(--color-white);
+}
+
+.name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--color-white);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.meta {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.separator {
+    opacity: 0.5;
+    font-size: 0.6rem;
+}
+
+.cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-aquila-beige);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.card:hover .cta {
+    opacity: 1;
+    transform: translateY(0);
+}

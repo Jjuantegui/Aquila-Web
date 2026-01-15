@@ -1,0 +1,362 @@
+/* Page Layout */
+.main {
+    position: relative;
+    min-height: 100vh;
+    background-color: #1a2e29;
+    /* Match map darker tone */
+}
+
+/* SPLIT LAYOUT (Desktop) */
+.splitLayout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* 50/50 split or adjustable */
+    height: 100vh;
+    /* Lock viewport height */
+    overflow: hidden;
+    /* Prevent body scroll */
+}
+
+/* LEFT COLUMN - CONTENT */
+.scrollableContent {
+    padding: 6rem 4rem 4rem 4rem;
+    /* Top padding for header space */
+    position: relative;
+    z-index: 2;
+    background-color: var(--color-aquila-green);
+    height: 100vh;
+    overflow-y: auto;
+    /* Enable internal scrolling */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+/* Hide scrollbar for Chrome/Safari/Opera */
+.scrollableContent::-webkit-scrollbar {
+    display: none;
+}
+
+/* RIGHT COLUMN - STATIC MAP */
+.stickyMapColumn {
+    position: relative;
+    /* No longer sticky, just fills height */
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to bottom, #1a2e29, #233B35);
+    border-left: 1px solid rgba(233, 220, 201, 0.1);
+    overflow: hidden;
+    z-index: 1;
+}
+
+.mapContainer {
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+/* Overlay gradient at bottom of map if desired, or remove */
+.heroOverlay {
+    display: none;
+    /* Not needed in side layout */
+}
+
+/* STATS DASHBOARD */
+.statsDashboard {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 3rem;
+}
+
+.dashboardValues {
+    display: flex;
+    gap: 4rem;
+    margin-bottom: 2rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--color-aquila-beige);
+}
+
+.statItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.statValue {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--color-aquila-beige);
+    line-height: 1;
+}
+
+.statLabel {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 0.5rem;
+}
+
+/* FILTERS & TOGGLES */
+.controlsBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.toggleContainer {
+    display: inline-flex;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50px;
+    padding: 0.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toggleBtn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggleBtn.active {
+    background-color: var(--color-aquila-beige);
+    color: var(--color-aquila-green);
+    font-weight: 600;
+}
+
+.secondaryFilters {
+    display: flex;
+    gap: 1rem;
+}
+
+.filterSelect {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+}
+
+/* GRID SECTION WRAPPER */
+.grid {
+    display: grid;
+    /* Adjust grid to fit in 50% width - single column or dense 2 col */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    position: relative;
+    width: 100%;
+}
+
+/* DEAL CARDS - STANDARD DESIGN (REVERTED) */
+.card {
+    position: relative;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 180px;
+}
+
+.card:hover {
+    border-color: var(--color-aquila-beige);
+    background-color: rgba(255, 255, 255, 0.02);
+    transform: translateY(-2px);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+
+.cardTitle {
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: #F5F5F7;
+    /* Off-white for max readability */
+    margin: 0;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+
+.badges {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    align-items: flex-end;
+}
+
+.badge {
+    /* Premium Pill */
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 50px;
+    background-color: rgba(233, 220, 201, 0.15);
+    /* Beige tint */
+    color: var(--color-aquila-beige);
+    font-weight: 600;
+    white-space: nowrap;
+    border: 1px solid rgba(233, 220, 201, 0.1);
+}
+
+.badgeIntermediation {
+    background-color: var(--color-aquila-beige);
+    color: var(--color-aquila-green);
+    border: none;
+}
+
+/* Transfer Route */
+.transferRoute {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: auto;
+}
+
+.club {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: rgba(255, 255, 255, 0.9);
+    /* High contrast */
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.flag {
+    width: 20px;
+    height: 14px;
+    object-fit: cover;
+    border-radius: 1px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    opacity: 0.9;
+}
+
+.arrow {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1.2rem;
+}
+
+.cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.date {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* Link Style */
+.linkWrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--color-aquila-beige);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    /* Slight box */
+}
+
+.linkWrapper:hover {
+    opacity: 1;
+    background-color: var(--color-aquila-beige);
+    color: var(--color-aquila-green);
+}
+
+.linkText {
+    /* Always visible now per stronger affordance request */
+    margin-right: 0.2rem;
+}
+
+@media (max-width: 1024px) {
+
+    /* STACK LAYOUT ON TABLET/MOBILE */
+    .splitLayout {
+        display: flex;
+        flex-direction: column-reverse;
+        /* Content bottom, Map top? Or map top standard */
+        flex-direction: column;
+        height: auto;
+        /* Restore auto height */
+        overflow: visible;
+    }
+
+    .stickyMapColumn {
+        position: relative;
+        height: 50vh;
+        /* Restore "Hero" feel on mobile */
+        border-left: none;
+        border-bottom: 1px solid rgba(233, 220, 201, 0.1);
+    }
+
+    .scrollableContent {
+        padding: 2rem 1.5rem;
+        width: 100%;
+        background-color: var(--color-aquila-green);
+        height: auto;
+        /* Restore auto height */
+        overflow-y: visible;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        /* Single column cards on mobile */
+    }
+
+    .statsDashboard {
+        margin-top: 2rem;
+    }
+
+    .dashboardValues {
+        flex-direction: column;
+        gap: 1.5rem;
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .controlsBar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

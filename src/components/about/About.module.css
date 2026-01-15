@@ -1,0 +1,220 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 3.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Background Overlay to reduce global grid noise locally */
+.container::before {
+    content: "";
+    position: absolute;
+    top: -2rem;
+    left: -2rem;
+    right: -2rem;
+    bottom: -2rem;
+    background: radial-gradient(circle at center, rgba(233, 220, 201, 0.8) 0%, rgba(233, 220, 201, 0.4) 70%, transparent 100%);
+    z-index: -1;
+    filter: blur(20px);
+    opacity: 0.6;
+}
+
+.content {
+    flex: 1.1;
+}
+
+.heading {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    color: var(--color-aquila-green);
+    font-weight: 400;
+}
+
+.text {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--color-aquila-green);
+    opacity: 0.95;
+    margin-bottom: 2.5rem;
+    max-width: 75ch;
+    /* Limited width for readability */
+    font-weight: 400;
+}
+
+
+/* STANDARDS BLOCK - Simple Text Vertical */
+.standardsBlock {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(35, 59, 53, 0.1);
+    display: flex;
+    flex-direction: column;
+    /* Vertical flow */
+    gap: 0.5rem;
+}
+
+.standardsContent {
+    width: 100%;
+}
+
+.standardsKicker {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-light);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.standardsHeadline {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--color-aquila-green);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.standardsText {
+    /* STRICT EXACT MATCH to .text (lines 34-43) */
+    font-size: 1.15rem;
+    line-height: 1.6;
+    /* Changed from 1.7 to 1.6 */
+    color: var(--color-aquila-green);
+    opacity: 0.95;
+    font-weight: 400;
+    margin: 0;
+    max-width: 75ch;
+    /* Match max-width for same line breaking feel */
+}
+
+.valueChip {
+    padding: 0.35rem 0.85rem;
+    border: 1px solid rgba(35, 59, 53, 0.08);
+    /* Minimal border */
+    border-radius: 50px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-aquila-green);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background-color: rgba(233, 220, 201, 0.25);
+    /* Glassy beige tint */
+    cursor: default;
+}
+
+.valueChip:hover {
+    background-color: var(--color-aquila-green);
+    color: var(--color-aquila-beige);
+    border-color: var(--color-aquila-green);
+}
+
+
+
+/* RIGHT SIDE - MINI CARDS */
+.pillarContainer {
+    flex: 0.9;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.miniCard {
+    background-color: rgba(233, 220, 201, 0.45);
+    /* Single subtle border as requested */
+    border: 1px solid rgba(35, 59, 53, 0.08);
+
+    padding: 1.25rem 1.75rem;
+    /* Slightly more side padding for balance */
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.miniCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(35, 59, 53, 0.04);
+    /* Soft shadow */
+    background-color: rgba(233, 220, 201, 0.65);
+    border-color: rgba(35, 59, 53, 0.12);
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    /* Above number */
+}
+
+.cardLabel {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-light);
+    margin-bottom: 0.2rem;
+    opacity: 0.8;
+}
+
+.cardHeadline {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-aquila-green);
+}
+
+/* Integrated Number Watermark */
+/* Watermark SVG Style */
+.watermark {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-aquila-green);
+    opacity: 0.08;
+    /* User requested 0.06-0.10 */
+    pointer-events: none;
+    z-index: 1;
+    width: 2.5rem;
+    /* Adjust size as needed */
+    height: 2.5rem;
+}
+
+
+
+
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .standardsCallout {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        border-top: none;
+        /* No separator on mobile if stacked differently? Or keep it. */
+        padding-top: 1rem;
+    }
+
+    .standardsChipsGrid {
+        width: 100%;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        margin-top: 0;
+    }
+
+    .standardsText {
+        max-width: 100%;
+    }
+
+    .pillarContainer {
+        width: 100%;
+    }
+}
