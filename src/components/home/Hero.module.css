@@ -63,6 +63,8 @@
     z-index: 2;
     width: 100%;
     padding-top: 60px;
+    padding-bottom: 8rem;
+    /* Explicit spacing before next section */
 }
 
 .content {
