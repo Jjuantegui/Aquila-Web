@@ -13,8 +13,8 @@
   --spacing-sm: 1rem;
   --spacing-md: 2rem;
   --spacing-lg: 5rem;
-  --spacing-xl: 20rem;
-  /* Increased drastically to 20rem for maximum vertical separation */
+  --spacing-xl: 12rem;
+  /* Reverted to 12rem (standard large). With inline styles removed, this should be plenty */
 
   --border-radius-sm: 4px;
   --border-radius-md: 8px;

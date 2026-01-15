@@ -15,15 +15,14 @@ export default function Home() {
 
 
       {/* 2. THE BOUTIQUE MODEL */}
-      <section id="about" className="section container animate-fade-in" style={{ paddingTop: '6rem' }}>
+      <section id="about" className="section container animate-fade-in">
         <About />
       </section>
 
       {/* 3. OUR SERVICES (SUMMARY) */}
-      <section id="services" className="section container animate-fade-in" style={{ paddingBottom: '2rem' }}>
+      <section id="services" className="section container animate-fade-in">
         <Services />
       </section>
-
 
       {/* 6. PLAYERS */}
       <section id="players" className="section container animate-fade-in">
