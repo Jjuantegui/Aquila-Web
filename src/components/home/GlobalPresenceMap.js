@@ -50,7 +50,7 @@ const GlobalPresenceMap = () => {
 
                             // Flag HTML for tooltip
                             const flagUrl = getFlagUrl(countryName);
-                            const flagHtml = flagUrl ? `<img src="${flagUrl}" style="width: 20px; height: 15px; margin-right: 8px; vertical-align: middle; border-radius: 2px;" />` : '';
+                            const flagHtml = flagUrl ? `<img src="${flagUrl}" style="width: 24px; height: 16px; margin-right: 8px; vertical-align: middle; border-radius: 2px;" />` : '';
 
                             if (activePlayers) {
                                 fillColor = "#233B35"; // Aquila Dark Green

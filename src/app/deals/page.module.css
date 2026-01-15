@@ -245,8 +245,8 @@
 }
 
 .flag {
-    width: 20px;
-    height: 14px;
+    width: 24px;
+    height: 16px;
     object-fit: cover;
     border-radius: 1px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);

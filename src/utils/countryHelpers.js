@@ -56,5 +56,5 @@ export const getFlagUrl = (countryName) => {
     if (!iso && countryName === "UK") iso = "gb";
 
     if (!iso) return null;
-    return `https://flagcdn.com/20x15/${iso}.png`; // Slightly larger for better visibility in tooltip
+    return `https://flagcdn.com/${iso}.svg`; // Switched to SVG for crispness at any size
 };
