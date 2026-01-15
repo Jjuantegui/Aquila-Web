@@ -9,6 +9,9 @@ const inter = Inter({
 export const metadata = {
   title: "Aquila Sports Management",
   description: "Boutique agency built on trust. Elite representation.",
+  icons: {
+    icon: '/assets/logo-mark-dark.png',
+  },
 };
 
 import Header from "../components/layout/Header";
