@@ -12,8 +12,9 @@
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
   --spacing-md: 2rem;
-  --spacing-lg: 4rem;
-  --spacing-xl: 8rem;
+  --spacing-lg: 5rem;
+  --spacing-xl: 12rem;
+  /* Increased from 8rem for more premium vertical spacing */
 
   --border-radius-sm: 4px;
   --border-radius-md: 8px;
