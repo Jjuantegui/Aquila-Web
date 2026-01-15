@@ -147,8 +147,11 @@
     }
 
     .info {
-        padding: 1.25rem;
-        /* Increased from 0.75rem to get text away from edges */
+        padding: 1.5rem;
+        /* MAXIMIZED padding for air */
+        width: 100%;
+        box-sizing: border-box;
+        /* Ensure padding doesn't overflow */
     }
 
     .statusBadge {
