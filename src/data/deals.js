@@ -102,7 +102,7 @@ export const deals = [
         date: "Jan 2026",
         fromClub: { name: "Gokulam Kerala", city: "Kozhikode", country: "India", iso: "in", lat: 11.2588, lon: 75.7804 },
         toClub: { name: "Kerala Blasters", city: "Kochi", country: "India", iso: "in", lat: 9.9312, lon: 76.2673 },
-        scope: "National",
+        scope: "International",
         featured: true,
         notes: "Step up to ISL.",
         links: { transfermarkt: "https://www.transfermarkt.es/matias-hernandez/profil/spieler/598616" }
