@@ -31,7 +31,7 @@ export const deals = [
     {
         id: 3,
         playerId: 5,
-        playerName: "Matias Hernandez",
+        playerName: "Luis Matias Hernandez \"Mati\"",
         dealType: "Free Transfer",
         season: "2025/26",
         date: "Aug 2025",
@@ -96,7 +96,7 @@ export const deals = [
     {
         id: 7,
         playerId: 5,
-        playerName: "Matias Hernandez",
+        playerName: "Luis Matias Hernandez \"Mati\"",
         dealType: "Free Transfer",
         season: "2025/26",
         date: "Jan 2026",

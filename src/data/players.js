@@ -97,7 +97,7 @@ export const players = [
     },
     {
         id: 5,
-        name: "Matias Hernandez",
+        name: "Luis Matias Hernandez \"Mati\"",
         position: "Central Midfielder",
         secondaryPosition: "Defender",
         birthDate: "10/09/1997",
