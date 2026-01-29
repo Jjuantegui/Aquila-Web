@@ -97,7 +97,7 @@ export const deals = [
         id: 7,
         playerId: 5,
         playerName: "Matias Hernandez",
-        dealType: "Transfer",
+        dealType: "Free Transfer",
         season: "2025/26",
         date: "Jan 2026",
         fromClub: { name: "Gokulam Kerala", city: "Kozhikode", country: "India", iso: "in", lat: 11.2588, lon: 75.7804 },
