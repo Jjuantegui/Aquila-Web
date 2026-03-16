@@ -113,12 +113,29 @@ export const deals = [
         playerName: "Miguel López",
         dealType: "Free Transfer",
         season: "2025/26",
-        date: "Mar 2026",
-        fromClub: { name: "Free Agent", city: "Unknown", country: "Spain", iso: "es", lat: 40.4168, lon: -3.7038 },
+        date: "Feb 2026",
+        fromClub: { name: "FC Rànger's", city: "Andorra la Vella", country: "Andorra", iso: "ad", lat: 42.5063, lon: 1.5218 },
         toClub: { name: "UE Santa Coloma", city: "Santa Coloma", country: "Andorra", iso: "ad", lat: 42.5050, lon: 1.5280 },
         scope: "International",
         featured: true,
         notes: "New arrival in Andorra.",
         links: { transfermarkt: "https://www.transfermarkt.es/miguel-lopez/profil/spieler/741874" }
+    },
+    {
+        id: 9,
+        // No playerId as it's an intermediation
+        playerName: "Víctor Bertomeu",
+        dealType: "Transfer",
+        intermediation: true,
+        season: "2025/26",
+        date: "Jan 2026",
+        fromClub: { name: "Eastern SC", city: "Hong Kong", country: "Hong Kong", iso: "hk", lat: 22.3193, lon: 114.1694 },
+        toClub: { name: "Kerala Blasters", city: "Kochi", country: "India", iso: "in", lat: 9.9312, lon: 76.2673 },
+        scope: "International",
+        featured: true,
+        notes: "Intermediation deal to ISL.",
+        links: {
+            transfermarkt: "https://www.transfermarkt.es/victor-bertomeu/profil/spieler/372243"
+        }
     }
 ];
