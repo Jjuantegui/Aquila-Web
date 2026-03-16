@@ -118,5 +118,29 @@ export const players = [
         strengths: ["Work Rate", "Ball Recovery", "Physicality"],
         instagramUrl: "https://www.instagram.com/lmatiashernandz/?hl=es",
         seasonStats: []
+    },
+    {
+        id: 6,
+        name: "Miguel López",
+        position: "Midfielder",
+        secondaryPosition: "",
+        birthDate: "01/01/1998",
+        nationality: "Spanish",
+        height: "1.78m",
+        preferredFoot: "Right",
+        currentClub: "UE Santa Coloma - Andorra",
+        league: "Primera Divisió",
+        contractUntil: "2026",
+        status: "Under Contract",
+        transfermarktUrl: "https://www.transfermarkt.es/miguel-lopez/profil/spieler/741874",
+        photoUrl: "/assets/players/miguel-lopez.jpg",
+        bioBullets: [
+            "Technical midfielder with great vision.",
+            "Controls the tempo of the game.",
+            "Brings experience to the Andorran league."
+        ],
+        strengths: ["Vision", "Passing", "Game Control"],
+        instagramUrl: "https://www.instagram.com/miguelopez_18/",
+        seasonStats: []
     }
 ];
