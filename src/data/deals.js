@@ -129,7 +129,7 @@ export const deals = [
         intermediation: true,
         season: "2025/26",
         date: "Jan 2026",
-        fromClub: { name: "Eastern SC", city: "Hong Kong", country: "Hong Kong", iso: "hk", lat: 22.3193, lon: 114.1694 },
+        fromClub: { name: "Free Agent", city: "Unknown", country: "Spain", iso: "es", lat: null, lon: null },
         toClub: { name: "Kerala Blasters", city: "Kochi", country: "India", iso: "in", lat: 9.9312, lon: 76.2673 },
         scope: "International",
         featured: true,
