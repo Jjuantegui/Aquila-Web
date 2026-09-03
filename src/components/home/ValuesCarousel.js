@@ -1,18 +1,9 @@
 import styles from './ValuesCarousel.module.css';
 
-const VALUES = [
-    "Transparency",
-    "Dedication",
-    "Integrity",
-    "International",
-    "Comfort",
-    "Long-term Vision"
-];
-
-const ValuesCarousel = () => {
+const ValuesCarousel = ({ values = [] }) => {
     // Duplicate values enough times to ensure smooth scrolling on wide screens
     // and to create the seamless loop effect
-    const carouselItems = [...VALUES, ...VALUES, ...VALUES, ...VALUES];
+    const carouselItems = [...values, ...values, ...values, ...values];
 
     return (
         <div className={styles.carouselContainer}>

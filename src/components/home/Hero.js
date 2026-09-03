@@ -1,7 +1,8 @@
 import Link from 'next/link';
+import { localePath } from '../../i18n/config';
 import styles from './Hero.module.css';
 
-const Hero = () => {
+const Hero = ({ lang = 'en', dict }) => {
     return (
         <section className={styles.hero}>
             {/* Background Banner */}
@@ -13,28 +14,27 @@ const Hero = () => {
             <div className={`container ${styles.heroContainer}`}>
                 <div className={styles.content}>
                     <h1 className={styles.title}>
-                        A boutique agency <br />
-                        <span className={styles.highlight}>built on trust.</span>
+                        {dict.titleA} <br />
+                        <span className={styles.highlight}>{dict.titleB}</span>
                     </h1>
-                    <p className={styles.subtitle}>
-                        Selective representation with a human approach. We manage careers, not just contracts.
-                    </p>
+                    <p className={styles.subtitle}>{dict.subtitle}</p>
                     <div className={styles.actions}>
-                        <Link href="/#players" className={styles.primaryBtn}>
-                            Explore Players
+                        <Link href={localePath(lang, '#players')} className={styles.primaryBtn}>
+                            {dict.explorePlayers}
                             <span className={styles.btnIcon}>→</span>
                         </Link>
-                        <Link href="/deals" className={styles.secondaryBtn}>
-                            View Deals
+                        <Link href={localePath(lang, '/deals')} className={styles.secondaryBtn}>
+                            {dict.viewDeals}
                         </Link>
                     </div>
 
                     <div className={styles.trustSignals}>
-                        <span className={styles.trustChip}>Selective Roster</span>
-                        <span className={styles.separator}>·</span>
-                        <span className={styles.trustChip}>International Network</span>
-                        <span className={styles.separator}>·</span>
-                        <span className={styles.trustChip}>Discreet Execution</span>
+                        {dict.chips.map((chip, i) => (
+                            <span key={chip} style={{ display: 'contents' }}>
+                                {i > 0 && <span className={styles.separator}>·</span>}
+                                <span className={styles.trustChip}>{chip}</span>
+                            </span>
+                        ))}
                     </div>
                 </div>
             </div>

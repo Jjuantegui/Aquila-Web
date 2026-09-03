@@ -28,7 +28,7 @@
     line-height: 1.2;
     color: var(--color-aquila-green);
     margin-bottom: 1.25rem;
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-playfair), 'Playfair Display', serif;
     font-weight: 400;
 }
 

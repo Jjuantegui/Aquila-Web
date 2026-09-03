@@ -1,32 +1,56 @@
 import Link from 'next/link';
-import { players } from '../../../data/players';
-import { deals } from '../../../data/deals';
-import { calculateAge } from '../../../utils/dateHelpers';
-import { getFlagUrl } from '../../../utils/countryHelpers';
-import styles from './page.module.css';
+import { players } from '../../../../data/players';
+import { deals } from '../../../../data/deals';
+import { getNewsForPlayer } from '../../../../data/news';
+import { calculateAge } from '../../../../utils/dateHelpers';
+import { getDictionary, locales, localePath, alternatesFor, term, clubLabel, dealDate, fill } from '../../../../i18n';
+import NewsCard from '../../../../components/news/NewsCard';
+import newsStyles from '../../../../components/news/News.module.css';
+import styles from '../../../../components/players/PlayerProfile.module.css';
 
 export function generateStaticParams() {
-    return players.map((player) => ({
-        id: player.id.toString(),
-    }));
+    return locales.flatMap((lang) =>
+        players.map((player) => ({ lang, id: player.id.toString() }))
+    );
+}
+
+export async function generateMetadata({ params }) {
+    const { lang, id } = await params;
+    const dict = getDictionary(lang);
+    const player = players.find((p) => p.id.toString() === id);
+    if (!player) return {};
+    return {
+        title: { absolute: fill(dict.meta.player, { name: player.name }) },
+        description: fill(dict.meta.playerDescription, { name: player.name, position: term(dict, player.position), club: clubLabel(dict, player.currentClub) }),
+        alternates: alternatesFor(`/players/${id}`),
+        openGraph: {
+            title: player.name,
+            images: [player.photoUrl],
+            type: 'profile',
+        },
+    };
 }
 
 export default async function PlayerProfile({ params }) {
-    const { id } = await params;
+    const { lang, id } = await params;
+    const dict = getDictionary(lang);
+    const t = dict.players;
     const player = players.find((p) => p.id.toString() === id);
 
     if (!player) {
-        return <div className="container section">Player not found</div>;
+        return <div className="container section">{t.notFound}</div>;
     }
 
     const age = calculateAge(player.birthDate);
     const playerDeals = deals.filter(d => d.playerId === parseInt(player.id));
+    const playerNews = getNewsForPlayer(player.id);
+    const bullets = (lang === 'es' && player.bioBullets_es) ? player.bioBullets_es : player.bioBullets;
 
     return (
         <article className={`container section ${styles.profileContainer}`}>
             {/* Breadcrumb / Back */}
-            <Link href="/#players" className={styles.backLink}>
-                Players <span className={styles.breadcrumb}>/</span> {player.name}
+            <Link href={localePath(lang, '#players')} className={styles.backLink}>
+                {t.breadcrumb} <span className={styles.breadcrumb}>/</span> {player.name}
             </Link>
 
             <div className={styles.grid}>
@@ -54,19 +78,18 @@ export default async function PlayerProfile({ params }) {
                 <div className={styles.rightColumn}>
                     {/* Header */}
                     <header className={styles.header}>
-                        <span className={styles.statusBadge}>{player.status}</span>
+                        <span className={styles.statusBadge}>{term(dict, player.status)}</span>
                         <h1 className={styles.name}>{player.name}</h1>
                         <p className={styles.metaPosition}>
-                            {player.position}
-                            {player.secondaryPosition && <span style={{ opacity: 0.6 }}> / {player.secondaryPosition}</span>}
+                            {term(dict, player.position)}
+                            {player.secondaryPosition && <span style={{ opacity: 0.6 }}> / {term(dict, player.secondaryPosition)}</span>}
                             <span style={{ margin: '0 0.8rem', opacity: 0.3 }}>|</span>
-                            {player.currentClub}
+                            {clubLabel(dict, player.currentClub)}
                         </p>
 
                         <div className={styles.actions}>
-                            {/* Primary CTA: Watch (scroll to video or external) */}
                             {player.videoUrl && (
-                                <button className="btn btn-primary">Watch Highlights</button>
+                                <button className="btn btn-primary">{t.watchHighlights}</button>
                             )}
                             <a
                                 href={player.transfermarktUrl}
@@ -102,35 +125,34 @@ export default async function PlayerProfile({ params }) {
                     {/* Info Chips Grid */}
                     <div className={styles.infoGrid}>
                         <div className={styles.infoChip}>
-                            <span className={styles.chipLabel}>Nationality</span>
-                            <span className={styles.chipValue}>{player.nationality}</span>
+                            <span className={styles.chipLabel}>{t.nationality}</span>
+                            <span className={styles.chipValue}>{term(dict, player.nationality)}</span>
                         </div>
                         <div className={styles.infoChip}>
-                            <span className={styles.chipLabel}>Age</span>
-                            <span className={styles.chipValue}>{age} Years</span>
+                            <span className={styles.chipLabel}>{t.age}</span>
+                            <span className={styles.chipValue}>{age} {t.years}</span>
                         </div>
                         <div className={styles.infoChip}>
-                            <span className={styles.chipLabel}>Preferred Foot</span>
-                            <span className={styles.chipValue}>{player.preferredFoot}</span>
+                            <span className={styles.chipLabel}>{t.preferredFoot}</span>
+                            <span className={styles.chipValue}>{term(dict, player.preferredFoot)}</span>
                         </div>
                         <div className={styles.infoChip}>
-                            <span className={styles.chipLabel}>Height</span>
-                            <span className={styles.chipValue}>{player.height || "N/A"}</span>
+                            <span className={styles.chipLabel}>{t.height}</span>
+                            <span className={styles.chipValue}>{player.height || t.na}</span>
                         </div>
                         <div className={styles.infoChip}>
-                            <span className={styles.chipLabel}>Contract Until</span>
-                            <span className={styles.chipValue}>{player.contractUntil || "N/A"}</span>
+                            <span className={styles.chipLabel}>{t.contractUntil}</span>
+                            <span className={styles.chipValue}>{player.contractUntil || t.na}</span>
                         </div>
                     </div>
 
-
                     {/* Scouting Report */}
                     <div className={styles.scoutingSection}>
-                        <h3 className={styles.sectionTitle}>Scouting Report</h3>
+                        <h3 className={styles.sectionTitle}>{t.scoutingReport}</h3>
                         <div className={styles.scoutingText}>
-                            {player.bioBullets ? (
+                            {bullets ? (
                                 <ul>
-                                    {player.bioBullets.map((bullet, index) => (
+                                    {bullets.map((bullet, index) => (
                                         <li key={index}>{bullet}</li>
                                     ))}
                                 </ul>
@@ -141,7 +163,7 @@ export default async function PlayerProfile({ params }) {
                         {player.strengths && (
                             <div className={styles.strengthsList}>
                                 {player.strengths.map(s => (
-                                    <span key={s} className={styles.strengthChip}>{s}</span>
+                                    <span key={s} className={styles.strengthChip}>{term(dict, s)}</span>
                                 ))}
                             </div>
                         )}
@@ -150,21 +172,33 @@ export default async function PlayerProfile({ params }) {
                     {/* Timeline (Aquila Movements) */}
                     {playerDeals.length > 0 && (
                         <div>
-                            <h3 className={styles.sectionTitle}>Aquila Movements</h3>
+                            <h3 className={styles.sectionTitle}>{t.movements}</h3>
                             <div className={styles.timeline}>
                                 {playerDeals.map(deal => (
                                     <div key={deal.id} className={styles.timelineItem}>
                                         <div className={styles.timelineDot}></div>
-                                        <div className={styles.timelineDate}>{deal.season} • {deal.date}</div>
+                                        <div className={styles.timelineDate}>{deal.season} • {dealDate(dict, deal.date)}</div>
                                         <div className={styles.timelineContent}>
                                             <div className={styles.timelineTitle}>
-                                                {deal.fromClub.name} &rarr; {deal.toClub.name}
+                                                {term(dict, deal.fromClub.name)} &rarr; {term(dict, deal.toClub.name)}
                                             </div>
                                             <div className={styles.timelineSubtitle}>
-                                                {deal.dealType}
+                                                {term(dict, deal.dealType)}
                                             </div>
                                         </div>
                                     </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Related news */}
+                    {playerNews.length > 0 && (
+                        <div style={{ marginTop: '3rem' }}>
+                            <h3 className={styles.sectionTitle}>{t.relatedNews}</h3>
+                            <div className={newsStyles.compactList}>
+                                {playerNews.map(item => (
+                                    <NewsCard key={item.slug} item={item} lang={lang} dict={dict} compact />
                                 ))}
                             </div>
                         </div>

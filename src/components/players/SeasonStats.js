@@ -3,16 +3,17 @@
 import { useState } from 'react';
 import styles from './SeasonStats.module.css';
 
-const SeasonStats = ({ stats }) => {
+const SeasonStats = ({ stats, dict }) => {
+    const t = (dict && dict.players) || {};
     // If no stats available
     if (!stats || stats.length === 0) {
         return (
             <div className={styles.container}>
                 <div className={styles.header}>
-                    <h3 className={styles.title}>Season Metrics</h3>
+                    <h3 className={styles.title}>{t.seasonMetrics || 'Season Metrics'}</h3>
                 </div>
                 <div className={styles.emptyState}>
-                    Stats available soon
+                    {t.statsSoon || 'Stats available soon'}
                 </div>
             </div>
         );
@@ -25,7 +26,7 @@ const SeasonStats = ({ stats }) => {
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <h3 className={styles.title}>Season Metrics</h3>
+                <h3 className={styles.title}>{t.seasonMetrics || 'Season Metrics'}</h3>
                 <select
                     className={styles.select}
                     onChange={(e) => setSelectedSeasonIndex(Number(e.target.value))}
@@ -45,7 +46,7 @@ const SeasonStats = ({ stats }) => {
                     {/* Appearances */}
                     <div className={styles.statBlock}>
                         <span className={styles.value}>{currentStats.appearances}</span>
-                        <span className={styles.label}>Appearances</span>
+                        <span className={styles.label}>{t.appearances || 'Appearances'}</span>
                         {/* Micro Bar: max assumed e.g., 50 matches */}
                         <div className={styles.barContainer}>
                             <div className={styles.barFill} style={{ width: `${Math.min((currentStats.appearances / 50) * 100, 100)}%` }}></div>
@@ -55,7 +56,7 @@ const SeasonStats = ({ stats }) => {
                     {/* Minutes */}
                     <div className={styles.statBlock}>
                         <span className={styles.value}>{currentStats.minutes}</span>
-                        <span className={styles.label}>Minutes</span>
+                        <span className={styles.label}>{t.minutes || 'Minutes'}</span>
                         {/* Micro Bar: max assumed e.g., 4500 min */}
                         <div className={styles.barContainer}>
                             <div className={styles.barFill} style={{ width: `${Math.min((currentStats.minutes / 4000) * 100, 100)}%` }}></div>
@@ -65,7 +66,7 @@ const SeasonStats = ({ stats }) => {
                     {/* Goals */}
                     <div className={styles.statBlock}>
                         <span className={styles.value}>{currentStats.goals}</span>
-                        <span className={styles.label}>Goals</span>
+                        <span className={styles.label}>{t.goals || 'Goals'}</span>
                         {/* Micro Bar: goal ratio roughly */}
                         <div className={styles.barContainer}>
                             <div className={styles.barFill} style={{ width: `${Math.min((currentStats.goals / 25) * 100, 100)}%` }}></div>
@@ -75,7 +76,7 @@ const SeasonStats = ({ stats }) => {
                     {/* Assists */}
                     <div className={styles.statBlock}>
                         <span className={styles.value}>{currentStats.assists}</span>
-                        <span className={styles.label}>Assists</span>
+                        <span className={styles.label}>{t.assists || 'Assists'}</span>
                         <div className={styles.barContainer}>
                             <div className={styles.barFill} style={{ width: `${Math.min((currentStats.assists / 15) * 100, 100)}%` }}></div>
                         </div>
@@ -96,7 +97,7 @@ const SeasonStats = ({ stats }) => {
                             <span>{currentStats.redCards}</span>
                         </div>
                     </div>
-                    <span>Last updated: {currentStats.lastUpdated}</span>
+                    <span>{t.lastUpdated || 'Last updated'}: {currentStats.lastUpdated}</span>
                 </div>
             </div>
         </div>
