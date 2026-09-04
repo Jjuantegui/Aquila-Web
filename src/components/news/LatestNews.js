@@ -9,7 +9,7 @@ const LatestNews = ({ lang, dict, limit = 3 }) => {
     if (items.length === 0) return null;
 
     return (
-        <section id="news" className="container animate-fade-in" style={{ paddingTop: '5rem', paddingBottom: '2rem' }}>
+        <section id="news" className="section container animate-fade-in">
             <div className={styles.sectionHead}>
                 <h2 className={styles.sectionTitle}>{dict.home.latestNews}</h2>
                 <Link href={localePath(lang, '/news')} className={styles.sectionLink}>{dict.home.allNews} →</Link>

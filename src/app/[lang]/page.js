@@ -35,35 +35,35 @@ export default async function Home({ params }) {
     <>
       <Hero lang={lang} dict={dict.hero} />
 
-      {/* 1. LATEST NEWS */}
-      <LatestNews lang={lang} dict={dict} />
-
-      {/* 2. THE BOUTIQUE MODEL */}
+      {/* 1. THE BOUTIQUE MODEL */}
       <section id="about" className="section container animate-fade-in">
         <About dict={dict.about} />
       </section>
 
-      {/* 3. OUR SERVICES (SUMMARY) */}
+      {/* 2. OUR SERVICES (SUMMARY) */}
       <section id="services" className="section container animate-fade-in">
         <Services lang={lang} dict={dict.services} />
       </section>
 
-      {/* 4. PLAYERS */}
+      {/* 3. PLAYERS */}
       <section id="players" className="section container animate-fade-in">
         <h2 style={sectionTitleStyle}>{dict.home.players}</h2>
         <PlayerGrid lang={lang} dict={dict} />
       </section>
 
-      {/* 5. GLOBAL REACH */}
+      {/* 4. GLOBAL REACH */}
       <section className="section animate-fade-in" style={{ padding: '4rem 0' }}>
         <div className="container">
           <h2 style={sectionTitleStyle}>{dict.home.globalReach}</h2>
-          <GlobalPresenceMap />
+          <GlobalPresenceMap labels={dict.map} terms={dict.terms} />
         </div>
       </section>
 
-      {/* 6. WORD CAROUSEL (BRIDGE) */}
+      {/* 5. WORD CAROUSEL (BRIDGE) */}
       <ValuesCarousel values={dict.values} />
+
+      {/* 6. LATEST NEWS — what is happening now, once the visitor knows who we are */}
+      <LatestNews lang={lang} dict={dict} />
 
       {/* 7. CONTACT US */}
       <section id="contact" className="section container animate-fade-in">

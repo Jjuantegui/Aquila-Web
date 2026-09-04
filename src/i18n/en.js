@@ -126,6 +126,8 @@ const en = {
         allNews: 'All news',
     },
 
+    map: { activePlayers: 'Active Players', network: 'Global Network' },
+
     values: ['Transparency', 'Dedication', 'Integrity', 'International', 'Commitment', 'Long-term Vision'],
 
     contact: {
