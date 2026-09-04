@@ -4,16 +4,20 @@ import React from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { Tooltip } from "react-tooltip";
 import { getFlagUrl } from "../../utils/countryHelpers";
+import { players } from "../../data/players";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
-// Active Players: Country -> List of names
-const ACTIVE_PLAYERS = {
-    "Spain": ["Christian Rivera", "Dani Fernandez"],
-    "Australia": ["Victor Campuzano"],
-    "India": ["Matias Hernandez"],
-    "Andorra": ["Christian Jimenez"]
-};
+// Active Players: Country -> List of names, derived from src/data/players.js
+// (currentClub is "Club - Country"), so the map stays in sync with the roster.
+const ACTIVE_PLAYERS = players.reduce((acc, p) => {
+    const country = (p.currentClub || "").split(" - ")[1];
+    if (!country) return acc;
+    (acc[country] = acc[country] || []).push(p.name);
+    return acc;
+}, {});
+
+const DEFAULT_LABELS = { activePlayers: "Active Players", network: "Global Network" };
 
 // Countries with "Llegada/Contacto" (Reach)
 const REACH_COUNTRIES = [
@@ -26,7 +30,9 @@ const REACH_COUNTRIES = [
     "Romania", "Ireland", "Scotland", "Wales", "Czech Republic", "Hungary"
 ];
 
-const GlobalPresenceMap = () => {
+const GlobalPresenceMap = ({ labels = DEFAULT_LABELS, terms = {} }) => {
+    const t = { ...DEFAULT_LABELS, ...labels };
+    const localName = (name) => terms[name] || name;
     return (
         <div style={{ position: 'relative', width: "100%", height: "600px", display: 'flex', flexDirection: 'column' }}>
             <ComposableMap
@@ -59,7 +65,7 @@ const GlobalPresenceMap = () => {
                                 const playersHtml = activePlayers.map(p => `<div>• ${p}</div>`).join('');
                                 tooltipContent = `
                                     <div style="font-weight: bold; margin-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px;">
-                                        ${flagHtml} ${countryName}
+                                        ${flagHtml} ${localName(countryName)}
                                     </div>
                                     <div style="font-size: 0.9em;">${playersHtml}</div>
                                 `;
@@ -69,16 +75,16 @@ const GlobalPresenceMap = () => {
                                 tooltipContent = `
                                     <div style="display: flex; align-items: center;">
                                         ${flagHtml} 
-                                        <span>${countryName}</span>
+                                        <span>${localName(countryName)}</span>
                                     </div>
-                                    <div style="font-size: 0.8em; margin-top: 4px; font-style: italic;">Global Network</div>
+                                    <div style="font-size: 0.8em; margin-top: 4px; font-style: italic;">${t.network}</div>
                                 `;
                             } else {
                                 // For other countries, just show flag + name on hover
                                 tooltipContent = `
                                     <div style="display: flex; align-items: center;">
                                         ${flagHtml} 
-                                        <span>${countryName}</span>
+                                        <span>${localName(countryName)}</span>
                                     </div>
                                 `;
                             }
@@ -135,11 +141,11 @@ const GlobalPresenceMap = () => {
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
                     <span style={{ width: '12px', height: '12px', background: '#233B35', borderRadius: '50%', marginRight: '8px' }}></span>
-                    <span>Active Players</span>
+                    <span>{t.activePlayers}</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
                     <span style={{ width: '12px', height: '12px', background: '#8FA8A1', borderRadius: '50%', marginRight: '8px' }}></span>
-                    <span>Global Network</span>
+                    <span>{t.network}</span>
                 </div>
                 {/* 
                 <div style={{ display: 'flex', alignItems: 'center' }}>

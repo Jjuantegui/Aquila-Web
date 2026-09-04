@@ -40,7 +40,7 @@ export const news = [
             ],
             es: [
                 'Miguel López es nuevo jugador de la UE Santa Coloma. El centrocampista llega libre desde el FC Rànger’s y continúa su carrera en la Primera Divisió de Andorra.',
-                'Centrocampista técnico y con visión, Miguel aporta experiencia a un club que compite en la parte alta del fútbol andorrano. La operación fue estructurada y cerrada por Aquila Sports Management durante el mercado de invierno.',
+                'Centrocampista técnico y con visión de juego, Miguel aporta experiencia a un club que compite en la parte alta del fútbol andorrano. Operación estructurada y cerrada por Aquila Sports Management en el mercado de invierno.',
                 'Le deseamos a Miguel una gran segunda vuelta.',
             ],
         },
@@ -69,7 +69,7 @@ export const news = [
             es: [
                 'Christian Rivera es nuevo jugador del Real Avilés Industrial. El mediocentro defensivo llega como agente libre y vuelve al fútbol español para la segunda vuelta de la temporada 2025/26.',
                 'Con 1,91 m, Christian aporta presencia en el centro del campo, un juego aéreo excepcional y experiencia en el fútbol profesional español. Puede actuar también como central.',
-                'La operación fue negociada y cerrada por Aquila Sports Management en el mercado de enero.',
+                'Operación negociada y cerrada por Aquila Sports Management en el mercado de enero.',
             ],
         },
     },
@@ -97,8 +97,8 @@ export const news = [
             ],
             es: [
                 'Luis Matías “Mati” Hernández ya es jugador de Kerala Blasters. El centrocampista pasa del Gokulam Kerala a la Indian Super League como agente libre, solo unos meses después de llegar a la India.',
-                'Mati fichó por el Gokulam Kerala en agosto de 2025 procedente del DPMM FC (Brunéi). Su intensidad y su adaptación en la I-League le abrieron la puerta de uno de los clubes con más seguidores de Asia, con contrato hasta 2027.',
-                'Dos movimientos en seis meses, ambos cerrados por Aquila Sports Management: así es un plan de carrera cuando el jugador responde en el campo.',
+                'Mati fichó por el Gokulam Kerala en agosto de 2025 procedente del DPMM FC (Brunéi). Su intensidad y su rápida adaptación a la I-League le abrieron la puerta de uno de los clubes con más afición de Asia, donde firma hasta 2027.',
+                'Dos operaciones en seis meses, las dos cerradas por Aquila Sports Management: así funciona un plan de carrera cuando el jugador responde en el campo.',
             ],
         },
     },
@@ -114,7 +114,7 @@ export const news = [
         },
         excerpt: {
             en: 'A second Spanish player lands in Kochi in the same window, this time through an intermediation mandate.',
-            es: 'Un segundo jugador español aterriza en Kochi en la misma ventana, esta vez a través de un mandato de intermediación.',
+            es: 'Segundo jugador español que llega a Kochi en el mismo mercado, esta vez a través de un mandato de intermediación.',
         },
         body: {
             en: [
@@ -123,7 +123,7 @@ export const news = [
             ],
             es: [
                 'Víctor Bertomeu es nuevo jugador de Kerala Blasters. Aquila Sports Management actuó como intermediario en la operación, que lleva al jugador español a la Indian Super League como agente libre.',
-                'Es la segunda llegada española al club de Kochi en el mercado de enero gestionada por Aquila, y un buen ejemplo de nuestro servicio de intermediación: identificar al interlocutor adecuado, estructurar la operación y coordinar a todas las partes hasta la firma.',
+                'Es el segundo jugador español que Aquila lleva al club de Kochi en el mercado de enero, y un buen ejemplo de nuestro servicio de intermediación: identificar al interlocutor adecuado, estructurar la operación y coordinar a todas las partes hasta la firma.',
             ],
         },
     },
@@ -140,7 +140,7 @@ export const news = [
         },
         excerpt: {
             en: 'The forward leaves Sporting Gijón and joins Sydney FC on a contract until 2027, a strategic step into the A-League.',
-            es: 'El delantero deja el Sporting de Gijón y se incorpora al Sydney FC con contrato hasta 2027, un paso estratégico hacia la A-League.',
+            es: 'El delantero deja el Sporting de Gijón y firma con el Sydney FC hasta 2027: un paso estratégico en su carrera, ahora en la A-League.',
         },
         body: {
             en: [
@@ -150,8 +150,8 @@ export const news = [
             ],
             es: [
                 'Víctor Campuzano es nuevo jugador del Sydney FC. El delantero llega libre desde el Sporting de Gijón y firma hasta 2027 con uno de los clubes más laureados del fútbol australiano.',
-                'Atacante polivalente con experiencia en LaLiga, Víctor puede jugar como delantero, mediapunta o extremo. La A-League le ofrece un papel protagonista en una liga competitiva y con gran visibilidad internacional.',
-                'La operación fue planificada y ejecutada por Aquila Sports Management.',
+                'Atacante polivalente con experiencia en LaLiga, Víctor puede jugar de punta, de mediapunta o en banda. La A-League le ofrece un papel protagonista en una liga competitiva y con mucha visibilidad internacional.',
+                'Una operación planificada y cerrada por Aquila Sports Management.',
             ],
         },
     },
@@ -177,7 +177,7 @@ export const news = [
             ],
             es: [
                 'Luis Matías “Mati” Hernández ha fichado por el Gokulam Kerala. El centrocampista llega libre desde el DPMM FC (Brunéi) para competir en la I-League.',
-                'El mercado asiático es una de las zonas en las que Aquila Sports Management trabaja con más actividad. El perfil de Mati, un centrocampista dinámico y de gran intensidad, encaja con las exigencias del fútbol indio y mantiene su carrera en línea ascendente.',
+                'El mercado asiático es uno de los que Aquila Sports Management trabaja con más intensidad. El perfil de Mati, un centrocampista dinámico y de mucho despliegue, encaja con lo que exige el fútbol indio y mantiene su carrera en línea ascendente.',
             ],
         },
     },
@@ -203,7 +203,7 @@ export const news = [
             ],
             es: [
                 'Christian Jiménez es nuevo jugador del AC Escaldes. El defensa llega libre desde la UD Torre del Mar y competirá en la Primera Divisió de Andorra.',
-                'Ambidiestro y capaz de jugar en toda la línea defensiva, Christian fue un fichaje clave para la zaga del club. La operación fue cerrada por Aquila Sports Management en el mercado de verano.',
+                'Ambidiestro y capaz de jugar en cualquier posición de la defensa, Christian fue una pieza clave para reforzar la zaga del club. Operación cerrada por Aquila Sports Management en el mercado de verano.',
             ],
         },
     },
@@ -229,7 +229,7 @@ export const news = [
             ],
             es: [
                 'Dani Fernández ha fichado por la SD Logroñés. El delantero llega libre desde el CD Numancia y continúa en Segunda Federación.',
-                'Con 23 años, Dani combina fortaleza física con un instinto goleador natural. El movimiento le da protagonismo en un club con ambición y mantiene su progresión. Operación cerrada por Aquila Sports Management.',
+                'Con 23 años, Dani combina potencia física con olfato de gol. El fichaje le da protagonismo en un club con ambición y le permite seguir creciendo. Operación cerrada por Aquila Sports Management.',
             ],
         },
     },
@@ -254,7 +254,7 @@ export const news = [
             ],
             es: [
                 'Pablo Margallo es nuevo jugador de la UD Santa Coloma. Aquila Sports Management actuó como intermediario en la operación, que lleva al jugador del CD Unión Sur Yaiza a la Primera Divisió de Andorra.',
-                'Andorra se ha convertido en un destino natural para jugadores españoles que buscan una liga competitiva con exposición europea, y Aquila ha cerrado allí varias operaciones en las últimas temporadas.',
+                'Andorra se ha convertido en un destino natural para jugadores españoles que buscan una liga competitiva con escaparate europeo, y Aquila ha cerrado allí varias operaciones en las últimas temporadas.',
             ],
         },
     },
