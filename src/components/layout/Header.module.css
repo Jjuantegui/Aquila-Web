@@ -120,7 +120,7 @@
 
 .mobileNavLink {
     font-size: 1.5rem;
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-playfair), 'Playfair Display', serif;
     /* Optional: simpler serif for menu */
     color: var(--color-aquila-green);
     font-weight: 500;
@@ -143,4 +143,22 @@
         display: flex;
         /* Show hamburger on mobile */
     }
+}
+/* LANGUAGE SWITCH */
+.langSwitch {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--color-aquila-green);
+    border: 1px solid rgba(35, 59, 53, 0.35);
+    border-radius: var(--border-radius-sm);
+    padding: 0.35rem 0.55rem;
+    line-height: 1;
+    transition: all 0.2s ease;
+}
+
+.langSwitch:hover {
+    background: var(--color-aquila-green);
+    color: var(--color-aquila-beige);
+    border-color: var(--color-aquila-green);
 }

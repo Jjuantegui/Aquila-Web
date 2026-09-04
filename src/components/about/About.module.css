@@ -72,7 +72,7 @@
 }
 
 .standardsHeadline {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-playfair), 'Playfair Display', serif;
     font-size: 1.5rem;
     color: var(--color-aquila-green);
     margin-bottom: 1rem;

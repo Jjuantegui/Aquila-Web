@@ -19,6 +19,11 @@ export const players = [
             "Technical skill and close control.",
             "Intelligent off-the-ball movements."
         ],
+        bioBullets_es: [
+            "Delantero polivalente con experiencia en LaLiga.",
+            "Calidad técnica y control en corto.",
+            "Desmarques inteligentes sin balón.",
+        ],
         strengths: ["Finishing", "Off-ball Movement", "Versatility"],
         instagramUrl: "https://www.instagram.com/vcampuzano23/?hl=es",
         seasonStats: []
@@ -42,6 +47,11 @@ export const players = [
             "Commanding presence in midfield.",
             "Exceptional aerial ability and distribution.",
             "Experienced in Spanish professional leagues."
+        ],
+        bioBullets_es: [
+            "Presencia dominante en el centro del campo.",
+            "Juego aéreo y distribución excepcionales.",
+            "Experiencia en el fútbol profesional español.",
         ],
         strengths: ["Aerial Ability", "Distribution", "Tactical Discipline"],
         instagramUrl: "https://www.instagram.com/c6rive/?hl=es",
@@ -67,6 +77,11 @@ export const players = [
             "Great goal-scoring instinct.",
             "Combines physical strength with finishing."
         ],
+        bioBullets_es: [
+            "Delantero joven con proyección.",
+            "Gran instinto goleador.",
+            "Combina potencia física con definición.",
+        ],
         strengths: ["Finishing", "Speed", "Dribbling"],
         instagramUrl: "https://www.instagram.com/daniel31fernandez/?hl=es",
         seasonStats: []
@@ -79,7 +94,7 @@ export const players = [
         birthDate: "04/07/1996",
         nationality: "Spanish",
         height: "1.85m",
-        preferredFoot: "Ambidentrous",
+        preferredFoot: "Ambidextrous",
         currentClub: "AC Escaldes - Andorra",
         league: "Primera Divisió",
         contractUntil: "2026",
@@ -90,6 +105,11 @@ export const players = [
             "Ambidextrous defender.",
             "Capable of playing across the back line.",
             "Brings international experience."
+        ],
+        bioBullets_es: [
+            "Defensa ambidiestro.",
+            "Capaz de jugar en toda la línea defensiva.",
+            "Aporta experiencia internacional.",
         ],
         strengths: ["Versatility", "Ambidextrous", "Defensive Awareness"],
         instagramUrl: "https://www.instagram.com/christianjime27/?hl=es",
@@ -115,6 +135,11 @@ export const players = [
             "Adapts well to different styles.",
             "Brings energy to the midfield."
         ],
+        bioBullets_es: [
+            "Centrocampista dinámico de gran intensidad.",
+            "Se adapta bien a distintos estilos.",
+            "Aporta energía al centro del campo.",
+        ],
         strengths: ["Work Rate", "Ball Recovery", "Physicality"],
         instagramUrl: "https://www.instagram.com/lmatiashernandz/?hl=es",
         seasonStats: []
@@ -138,6 +163,11 @@ export const players = [
             "Technical midfielder with great vision.",
             "Controls the tempo of the game.",
             "Brings experience to the Andorran league."
+        ],
+        bioBullets_es: [
+            "Centrocampista técnico con gran visión.",
+            "Controla el ritmo del partido.",
+            "Aporta experiencia a la liga andorrana.",
         ],
         strengths: ["Vision", "Passing", "Game Control"],
         instagramUrl: "https://www.instagram.com/miguelopez_18/",

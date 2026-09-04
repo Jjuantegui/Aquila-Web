@@ -2,7 +2,10 @@
 
 import styles from './NationalShowcase.module.css';
 
-const NationalShowcase = ({ deals }) => {
+import { term, dealDate } from '../../i18n';
+
+const NationalShowcase = ({ deals, dict }) => {
+    const t = dict.deals;
     // Basic stats
     const total = deals.length;
     const featured = deals[0]; // Pick the latest/first deal as featured
@@ -14,26 +17,26 @@ const NationalShowcase = ({ deals }) => {
         <section className={styles.container}>
             {/* Header / Summary */}
             <div className={styles.header}>
-                <span className={styles.label}>National Market Dominance</span>
+                <span className={styles.label}>{t.nationalLabel}</span>
                 <h2 className={styles.title}>
-                    {total} Major<br />Domestic Deals
+                    {total} {t.nationalTitleA}<br />{t.nationalTitleB}
                 </h2>
             </div>
 
             {/* Featured Deal */}
             <div className={styles.featured}>
-                <span className={styles.featuredLabel}>Latest Movement</span>
+                <span className={styles.featuredLabel}>{t.latestMovement}</span>
                 <div className={styles.featuredCard}>
                     <h3 className={styles.featuredPlayer}>{featured.playerName}</h3>
                     <div className={styles.featuredRoute}>
-                        <span>{featured.fromClub.name}</span>
+                        <span>{term(dict, featured.fromClub.name)}</span>
                         <span className={styles.arrow}>→</span>
-                        <span>{featured.toClub.name}</span>
+                        <span>{term(dict, featured.toClub.name)}</span>
                     </div>
                     <div className={styles.featuredMeta}>
                         <span>{featured.season}</span>
                         <span>•</span>
-                        <span>{featured.dealType}</span>
+                        <span>{term(dict, featured.dealType)}</span>
                     </div>
                 </div>
             </div>
@@ -42,10 +45,10 @@ const NationalShowcase = ({ deals }) => {
             <div className={styles.timeline}>
                 {timeline.map(deal => (
                     <div key={deal.id} className={styles.timelineItem}>
-                        <span className={styles.timelineDate}>{deal.date}</span>
+                        <span className={styles.timelineDate}>{dealDate(dict, deal.date)}</span>
                         <h4 className={styles.timelinePlayer}>{deal.playerName}</h4>
                         <div className={styles.timelineClubs}>
-                            {deal.fromClub.name} → {deal.toClub.name}
+                            {term(dict, deal.fromClub.name)} → {term(dict, deal.toClub.name)}
                         </div>
                     </div>
                 ))}

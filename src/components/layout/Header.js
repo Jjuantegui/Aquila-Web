@@ -2,42 +2,55 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { localePath, stripLocale } from '../../i18n/config';
 import styles from './Header.module.css';
 
-const Header = () => {
+const Header = ({ lang = 'en', dict }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname() || '/';
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const closeMenu = () => setIsMenuOpen(false);
 
-    const closeMenu = () => {
-        setIsMenuOpen(false);
-    };
+    // Same page, other language
+    const otherLang = lang === 'es' ? 'en' : 'es';
+    const switchHref = localePath(otherLang, stripLocale(pathname));
+
+    const links = [
+        { href: localePath(lang, '/'), label: dict.home },
+        { href: localePath(lang, '#players'), label: dict.players },
+        { href: localePath(lang, '/deals'), label: dict.deals },
+        { href: localePath(lang, '/news'), label: dict.news },
+        { href: localePath(lang, '#services'), label: dict.services },
+        { href: localePath(lang, '#about'), label: dict.about },
+    ];
 
     return (
         <header className={styles.header}>
             <div className={`container ${styles.headerContainer}`}>
                 {/* LOGO */}
-                <Link href="/" className={styles.logo} onClick={closeMenu}>
+                <Link href={localePath(lang, '/')} className={styles.logo} onClick={closeMenu}>
                     <img src="/assets/logo-mark-dark.png" alt="Aquila SM" style={{ height: '40px', width: 'auto' }} />
                 </Link>
 
                 {/* DESKTOP NAV */}
                 <nav className={styles.nav}>
-                    <Link href="/" className={styles.navLink}>Home</Link>
-                    <Link href="/#players" className={styles.navLink}>Players</Link>
-                    <Link href="/deals" className={styles.navLink}>Deals</Link>
-                    <Link href="/#services" className={styles.navLink}>Services</Link>
-                    <Link href="/#about" className={styles.navLink}>About</Link>
-                    <Link href="/#contact" className={styles.navLinkButton}>Get in touch</Link>
+                    {links.map(l => (
+                        <Link key={l.href} href={l.href} className={styles.navLink}>{l.label}</Link>
+                    ))}
+                    <Link href={switchHref} className={styles.langSwitch} aria-label={dict.switchLabel} hrefLang={otherLang}>
+                        {otherLang.toUpperCase()}
+                    </Link>
+                    <Link href={localePath(lang, '#contact')} className={styles.navLinkButton}>{dict.contact}</Link>
                 </nav>
 
                 {/* HAMBURGER BUTTON (Mobile) */}
                 <button
                     className={`${styles.hamburger} ${isMenuOpen ? styles.open : ''}`}
                     onClick={toggleMenu}
-                    aria-label="Toggle menu"
+                    aria-label={dict.toggleMenu}
+                    aria-expanded={isMenuOpen}
                 >
                     <span></span>
                     <span></span>
@@ -46,12 +59,13 @@ const Header = () => {
 
                 {/* MOBILE OVERLAY */}
                 <div className={`${styles.mobileMenuOverlay} ${isMenuOpen ? styles.open : ''}`}>
-                    <Link href="/" className={styles.mobileNavLink} onClick={closeMenu}>Home</Link>
-                    <Link href="/#players" className={styles.mobileNavLink} onClick={closeMenu}>Players</Link>
-                    <Link href="/deals" className={styles.mobileNavLink} onClick={closeMenu}>Deals</Link>
-                    <Link href="/#services" className={styles.mobileNavLink} onClick={closeMenu}>Services</Link>
-                    <Link href="/#about" className={styles.mobileNavLink} onClick={closeMenu}>About</Link>
-                    <Link href="/#contact" className={`${styles.navLinkButton} ${styles.mobileNavButton}`} onClick={closeMenu}>Get in touch</Link>
+                    {links.map(l => (
+                        <Link key={l.href} href={l.href} className={styles.mobileNavLink} onClick={closeMenu}>{l.label}</Link>
+                    ))}
+                    <Link href={switchHref} className={styles.mobileNavLink} onClick={closeMenu} hrefLang={otherLang}>
+                        {dict.switchTo}
+                    </Link>
+                    <Link href={localePath(lang, '#contact')} className={`${styles.navLinkButton} ${styles.mobileNavButton}`} onClick={closeMenu}>{dict.contact}</Link>
                 </div>
             </div>
         </header>
