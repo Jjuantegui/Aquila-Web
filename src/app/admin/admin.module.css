@@ -1,0 +1,28 @@
+.topbar {
+    background: var(--color-aquila-green);
+    color: var(--color-aquila-beige);
+    padding: 0.9rem 0;
+}
+
+.topbarInner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    height: 36px;
+    width: auto;
+}
+
+.topbarTitle {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.main {
+    min-height: 80vh;
+    padding: 3rem 0 5rem;
+}
