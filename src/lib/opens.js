@@ -252,7 +252,9 @@ export async function getSummary({ dossier: onlyDossier, dossiers = [] } = {}) {
                 add(d.slug, slug, extra);
             });
         }
-        for (const e of events) {
+        // Solo las aperturas humanas crean filas: la vista previa de WhatsApp de un
+        // enlace reenviado no debe aparecer en la tabla hasta que alguien lo abra.
+        for (const e of humans) {
             if (onlyDossier && e.dossier !== onlyDossier) continue;
             // Aperturas antiguas registradas como "unknown:<slug>" de un club dado de alta después.
             const slug = recipientSlugFromKey(e.recipient);

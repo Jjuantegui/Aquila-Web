@@ -31,6 +31,12 @@ export const dossierLink = (dossierSlug, recipientSlug) => `${SITE_URL}/d/${doss
 export const normalizeSlug = (raw = "") =>
     String(raw)
         .toLowerCase()
+        .replace(/[łŀ]/g, "l")
+        .replace(/ø/g, "o")
+        .replace(/đ/g, "d")
+        .replace(/ß/g, "ss")
+        .replace(/æ/g, "ae")
+        .replace(/œ/g, "oe")
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/[^a-z0-9-]+/g, "-")

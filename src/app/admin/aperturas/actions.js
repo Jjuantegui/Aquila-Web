@@ -75,7 +75,9 @@ export async function bulkCreateRecipients(_prevState, formData) {
     const skipped = [];
     for (const line of lines) {
         const label = line.slice(0, 120);
-        const slug = normalizeSlug(prefix ? `${prefix}-${label}` : label);
+        // El identificador sale solo del nombre del club; el cargo ("— DD", ", scout") se queda en la etiqueta.
+        const club = label.split(/\s+[—–-]\s+|,|\(|\|/)[0].trim() || label;
+        const slug = normalizeSlug(prefix ? `${prefix}-${club}` : club);
         if (!slug || seen.has(slug)) {
             skipped.push(line);
             continue;

@@ -48,6 +48,7 @@ export async function GET(request) {
                 lastCity: r.lastEvent?.city || null,
                 lastCountry: r.lastEvent?.country || null,
                 lastDevice: r.lastEvent?.device || null,
+                lang: r.lang || null,
             })),
             events: events.map(publicEvent),
         },
