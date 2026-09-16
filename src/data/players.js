@@ -37,10 +37,10 @@ export const players = [
         nationality: "Spanish",
         height: "1.91m",
         preferredFoot: "Right",
-        currentClub: "Real Avilés Industrial - Spain",
-        league: "Segunda Federación",
-        contractUntil: "2026",
-        status: "Under Contract",
+        currentClub: "Free Agent",
+        league: "",
+        contractUntil: "",
+        status: "Free Agent",
         transfermarktUrl: "https://www.transfermarkt.es/christian-rivera/profil/spieler/374077",
         photoUrl: "/assets/players/christian-rivera.jpg",
         bioBullets: [
@@ -68,7 +68,7 @@ export const players = [
         preferredFoot: "Right",
         currentClub: "SD Logroñés - Spain",
         league: "Segunda Federación",
-        contractUntil: "2026",
+        contractUntil: "2027",
         status: "Under Contract",
         transfermarktUrl: "https://www.transfermarkt.es/dani-fernandez/profil/spieler/717942",
         photoUrl: "/assets/players/dani-fernandez.jpg",
@@ -153,24 +153,54 @@ export const players = [
         nationality: "Spanish",
         height: "1.78m",
         preferredFoot: "Right",
-        currentClub: "UE Santa Coloma - Andorra",
+        currentClub: "FC Santa Coloma - Andorra",
         league: "Primera Divisió",
-        contractUntil: "2026",
+        contractUntil: "2027",
         status: "Under Contract",
         transfermarktUrl: "https://www.transfermarkt.es/miguel-lopez/profil/spieler/741874",
         photoUrl: "/assets/players/miguel-lopez.jpg",
         bioBullets: [
             "Technical midfielder with great vision.",
             "Controls the tempo of the game.",
-            "Brings experience to the Andorran league."
+            "Brings experience to the Andorran league; now at FC Santa Coloma, in European competition."
         ],
         bioBullets_es: [
             "Centrocampista técnico con visión de juego.",
             "Marca el ritmo del partido y ordena la salida de balón.",
-            "Veteranía y experiencia para un equipo que compite arriba.",
+            "Veteranía y experiencia; desde 2026/27 en el FC Santa Coloma, con fútbol europeo.",
         ],
         strengths: ["Vision", "Passing", "Game Control"],
         instagramUrl: "https://www.instagram.com/miguelopez_18/",
+        seasonStats: []
+    },
+    {
+        id: 7,
+        name: "Ruxi",
+        fullName: "Roger Bonet Badia",
+        position: "Defender",
+        secondaryPosition: "Left Back / Centre-back",
+        birthDate: "11/04/1995",
+        nationality: "Spanish",
+        height: "1.80m",
+        preferredFoot: "Left",
+        currentClub: "IF Gnistan - Finland",
+        league: "Veikkausliiga",
+        contractUntil: "2026",
+        status: "Under Contract",
+        transfermarktUrl: "", // TODO: pegar URL de Transfermarkt de Ruxi
+        photoUrl: "/assets/players/ruxi.jpg", // TODO: sustituir por foto real
+        bioBullets: [
+            "Left-footed defender, comfortable at centre-back and left-back.",
+            "Knows the Veikkausliiga well: KTP, AC Oulu and FC Inter Turku before Gnistan.",
+            "Career across Spain, Iceland, Finland, the USA, Mexico and Indonesia."
+        ],
+        bioBullets_es: [
+            "Defensa zurdo, cómodo como central y como lateral izquierdo.",
+            "Conoce bien la Veikkausliiga: KTP, AC Oulu y FC Inter Turku antes del Gnistan.",
+            "Trayectoria por España, Islandia, Finlandia, Estados Unidos, México e Indonesia.",
+        ],
+        strengths: ["Experience", "Left Foot", "Adaptability"],
+        instagramUrl: "",
         seasonStats: []
     }
 ];
