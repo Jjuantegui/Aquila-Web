@@ -137,5 +137,52 @@ export const deals = [
         links: {
             transfermarkt: "https://www.transfermarkt.es/victor-bertomeu/profil/spieler/372243"
         }
+    },
+    {
+        id: 10,
+        playerId: 7,
+        playerName: "Ruxi",
+        dealType: "Free Transfer",
+        intermediation: true,
+        season: "2026",
+        date: "Aug 2026",
+        fromClub: { name: "Free Agent", city: "", country: "", iso: "es", lat: null, lon: null },
+        toClub: { name: "IF Gnistan", city: "Helsinki", country: "Finland", iso: "fi", lat: 60.1699, lon: 24.9384 },
+        scope: "International",
+        featured: true,
+        notes: "Return to the Veikkausliiga.",
+        links: {
+            article: "https://gnistan.fi/en/2026/08/kokenut-puolustaja-ruxi-vahvistaa-if-gnistanin-puolustuslinjaa/",
+            transfermarkt: "" // TODO: pegar URL de Transfermarkt de Roger Bonet
+        },
+        mapConfig: { scale: 500, center: [20, 55] }
+    },
+    {
+        id: 11,
+        playerId: 3,
+        playerName: "Dani Fernandez",
+        dealType: "Renewal",
+        season: "2026/27",
+        date: "Jul 2026",
+        fromClub: { name: "SD Logroñes", city: "Logroño", country: "Spain", iso: "es", lat: 42.4623, lon: -2.4449 },
+        toClub: { name: "SD Logroñes", city: "Logroño", country: "Spain", iso: "es", lat: 42.4623, lon: -2.4449 },
+        scope: "National",
+        featured: false,
+        notes: "One-year renewal with SD Logroñés.",
+        links: { transfermarkt: "https://www.transfermarkt.es/dani-fernandez/profil/spieler/717942" }
+    },
+    {
+        id: 12,
+        playerId: 6,
+        playerName: "Miguel López",
+        dealType: "Free Transfer",
+        season: "2026/27",
+        date: "Jul 2026",
+        fromClub: { name: "UE Santa Coloma", city: "Santa Coloma", country: "Andorra", iso: "ad", lat: 42.5050, lon: 1.5280 },
+        toClub: { name: "FC Santa Coloma", city: "Santa Coloma", country: "Andorra", iso: "ad", lat: 42.5050, lon: 1.5280 },
+        scope: "International",
+        featured: false,
+        notes: "Move to FC Santa Coloma, with European football.",
+        links: { transfermarkt: "https://www.transfermarkt.es/miguel-lopez/profil/spieler/741874" }
     }
 ];

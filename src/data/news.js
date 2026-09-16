@@ -18,6 +18,95 @@
  */
 export const news = [
     {
+        slug: 'miguel-lopez-joins-fc-santa-coloma',
+        date: '2026-09-16',
+        type: 'aquila',
+        playerIds: [6],
+        dealId: 12,
+        tags: ['Signing', 'Andorra', 'Europe'],
+        title: {
+            en: 'Miguel López joins FC Santa Coloma',
+            es: 'Miguel López ficha por el FC Santa Coloma',
+        },
+        excerpt: {
+            en: 'The midfielder stays in the Andorran Primera Divisió and moves to FC Santa Coloma, a club with European football this season.',
+            es: 'El centrocampista sigue en la Primera Divisió andorrana y se incorpora al FC Santa Coloma, un club con fútbol europeo esta temporada.',
+        },
+        body: {
+            en: [
+                'Miguel López has joined FC Santa Coloma for the 2026/27 season. After a strong spell at UE Santa Coloma, the midfielder moves across the city to one of the most successful clubs in Andorran football, which this summer competed in the UEFA Conference League qualifying rounds.',
+                'A technical midfielder who controls the tempo of the game, Miguel brings experience and calm to a squad that competes for titles every year. The move was structured and closed by Aquila Sports Management.',
+                'We wish Miguel a great season with FC Santa Coloma.',
+            ],
+            es: [
+                'Miguel López es nuevo jugador del FC Santa Coloma para la temporada 2026/27. Tras una buena etapa en la UE Santa Coloma, el centrocampista cambia de acera dentro de la ciudad para incorporarse a uno de los clubes más laureados del fútbol andorrano, que este verano ha competido en las rondas previas de la UEFA Conference League.',
+                'Centrocampista técnico y con criterio para marcar el ritmo del partido, Miguel aporta experiencia y pausa a una plantilla que pelea cada año por los títulos. Operación estructurada y cerrada por Aquila Sports Management.',
+                'Le deseamos a Miguel una gran temporada con el FC Santa Coloma.',
+            ],
+        },
+    },
+    {
+        slug: 'ruxi-assist-gnistan-win-oulu',
+        date: '2026-09-16',
+        type: 'player',
+        playerIds: [7],
+        dealId: 10,
+        image: '/assets/news/ruxi-stats-oulu.png',
+        tags: ['Stats', 'Veikkausliiga', 'Finland'],
+        title: {
+            en: 'Ruxi assists in IF Gnistan\'s win in Oulu',
+            es: 'Ruxi asiste en la victoria del IF Gnistan en Oulu',
+        },
+        excerpt: {
+            en: 'Ninety minutes and the assist for the opening goal in a 2–1 away win over AC Oulu in the Veikkausliiga Championship Group.',
+            es: 'Noventa minutos y la asistencia del primer gol en la victoria 2–1 ante el AC Oulu, en el Championship Group de la Veikkausliiga.',
+        },
+        body: {
+            en: [
+                'IF Gnistan won 2–1 away at AC Oulu on 12 September in the Veikkausliiga Championship Group, and Ruxi was involved from the first minute to the last.',
+                'The Spanish defender played the full ninety minutes and provided the assist for Saku Ylätupa\'s opening goal in the 58th minute, before Roman Eremenko sealed the win from the penalty spot. It was his fifth league appearance since joining the Helsinki club in August, and his fourth full game.',
+                'With a 7.7 rating he was also the best-rated player on the pitch and named player of the match (Sofascore).',
+                'Gnistan return to action on 18 September against HJK. Good luck, Ruxi.',
+            ],
+            es: [
+                'El IF Gnistan ganó 2–1 en Oulu el 12 de septiembre, en el Championship Group de la Veikkausliiga, y Ruxi estuvo en el partido del primer al último minuto.',
+                'El defensa español jugó los noventa minutos y dio la asistencia del primer gol, obra de Saku Ylätupa en el 58\', antes de que Roman Eremenko cerrara la victoria de penalti. Fue su quinto partido de liga desde que llegó al club de Helsinki en agosto, y el cuarto completo.',
+                'Con una valoración de 7,7 fue además el jugador mejor valorado del encuentro y elegido jugador del partido (Sofascore).',
+                'El Gnistan vuelve a jugar el 18 de septiembre ante el HJK. Suerte, Ruxi.',
+            ],
+        },
+    },
+    {
+        slug: 'ruxi-joins-if-gnistan',
+        date: '2026-09-14',
+        type: 'aquila',
+        playerIds: [7],
+        dealId: 10,
+        tags: ['Signing', 'Finland', 'Veikkausliiga'],
+        title: {
+            en: 'Ruxi returns to Finland with IF Gnistan',
+            es: 'Ruxi vuelve a Finlandia con el IF Gnistan',
+        },
+        excerpt: {
+            en: 'The Spanish defender joins the Helsinki club for the rest of the 2026 Veikkausliiga season, a league he knows well.',
+            es: 'El defensa español se incorpora al club de Helsinki hasta el final de la Veikkausliiga 2026, una liga que conoce bien.',
+        },
+        body: {
+            en: [
+                'Ruxi (Roger Bonet) has joined IF Gnistan for the remainder of the 2026 Veikkausliiga season. The 31-year-old Spanish defender, comfortable at centre-back and at left-back, arrived as a free agent and was presented by the Helsinki club in August.',
+                'It is a return to familiar ground. Ruxi already knows the Finnish top flight from previous spells with KTP, AC Oulu and FC Inter, and his career has also taken him to the United States, Mexico, Indonesia and Iceland. Gnistan\'s sporting director, Jarkko Jokiranta, described him as "an experienced, quality player" who would settle quickly, both tactically and in the dressing room.',
+                'He has done exactly that. Since his debut he has become a regular presence in the back line, and he played the full ninety minutes in the recent win over AC Oulu.',
+                'Aquila Sports Management took part in the operation as intermediary. The move reflects how we like to work: a short, well-defined agreement in a league the player knows well, with a club whose project is clear. We would like to thank IF Gnistan for a direct and constructive negotiation, and we wish Ruxi every success for the rest of the season.',
+            ],
+            es: [
+                'Ruxi (Roger Bonet) es nuevo jugador del IF Gnistan hasta el final de la Veikkausliiga 2026. Defensa español de 31 años, cómodo como central y como lateral izquierdo, llegó libre y fue presentado por el club de Helsinki en agosto.',
+                'Vuelve a terreno conocido: ya había jugado en la máxima categoría finlandesa con KTP, AC Oulu y FC Inter, y su carrera ha pasado también por Estados Unidos, México, Indonesia e Islandia. El director deportivo del Gnistan, Jarkko Jokiranta, lo definió como "un jugador experimentado y de calidad" que se adaptaría rápido, en lo táctico y en el vestuario.',
+                'Y así ha sido. Desde su debut se ha asentado en la línea defensiva y jugó los noventa minutos en la reciente victoria ante el AC Oulu.',
+                'Aquila Sports Management participó en la operación como intermediario. Resume nuestra forma de trabajar: un acuerdo corto y bien definido, en una liga que el jugador conoce y con un club de proyecto claro. Agradecemos al IF Gnistan una negociación directa y constructiva, y le deseamos a Ruxi lo mejor para lo que queda de temporada.',
+            ],
+        },
+    },
+    {
         slug: 'miguel-lopez-joins-ue-santa-coloma',
         date: '2026-02-01',
         type: 'aquila',
