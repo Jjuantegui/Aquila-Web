@@ -12,7 +12,17 @@ export const dynamic = "force-dynamic";
  * resumen por destinatario. Nunca incluye IPs, ni siquiera hasheadas.
  * Sin token válido responde 404 para no anunciar que existe.
  */
+async function fingerprint(value) {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
+    return Array.from(new Uint8Array(buf).slice(0, 6), (b) => b.toString(16).padStart(2, "0")).join("");
+}
+
 export async function GET(request) {
+    // Diagnóstico temporal: longitud y huella de ADMIN_TOKEN (nunca el valor).
+    if (new URL(request.url).searchParams.has("diag")) {
+        const raw = process.env.ADMIN_TOKEN || "";
+        console.log("[opens diag]", JSON.stringify({ set: !!raw, len: raw.length, trimmedLen: raw.trim().length, fp: await fingerprint(raw.trim()), head: raw.slice(0, 2), tail: raw.slice(-2) }));
+    }
     if (!isValidAdminToken(tokenFromRequest(request))) {
         return Response.json({ error: "Not found" }, { status: 404 });
     }
