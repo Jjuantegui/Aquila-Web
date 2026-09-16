@@ -11,8 +11,11 @@ function safeEqual(a, b) {
 
 /** Sin ADMIN_TOKEN configurado nada es válido (el panel siempre responde 404). */
 export function isValidAdminToken(candidate) {
-    const expected = process.env.ADMIN_TOKEN;
-    if (!expected || expected.length < 16 || typeof candidate !== "string" || !candidate) return false;
+    // trim(): al pegar en Vercel es fácil colar un espacio o salto de línea final.
+    const expected = (process.env.ADMIN_TOKEN || "").trim();
+    if (expected.length < 16 || typeof candidate !== "string") return false;
+    candidate = candidate.trim();
+    if (!candidate) return false;
     return safeEqual(candidate, expected);
 }
 
