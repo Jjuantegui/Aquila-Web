@@ -8,6 +8,7 @@ import { getSummary, listEvents, isDbConnected } from "../../../lib/opens";
 import { formatMadrid, deviceLabel, placeLabel } from "../../../lib/format";
 import CopyButton from "./CopyButton";
 import LinkBuilder from "./LinkBuilder";
+import BulkBuilder from "./BulkBuilder";
 import styles from "./aperturas.module.css";
 
 export const dynamic = "force-dynamic";
@@ -126,7 +127,21 @@ export default async function AperturasPage({ searchParams }) {
                 );
             })}
 
-            {/* 3. Crear enlaces sin tocar código */}
+            {/* 3a. Un mercado entero de una vez */}
+            <section className={styles.card}>
+                <div className={styles.cardHead}>
+                    <div>
+                        <h2 className={styles.h2}>Generar enlaces en bloque</h2>
+                        <p className={styles.muted}>
+                            Pega la lista de clubes de un mercado y sale un enlace exclusivo por club, con su nombre e idioma
+                            guardados. Por defecto en inglés.
+                        </p>
+                    </div>
+                </div>
+                <BulkBuilder dossiers={activeDossiers} dbConnected={dbConnected} />
+            </section>
+
+            {/* 3b. Crear un enlace suelto */}
             <section className={styles.card}>
                 <div className={styles.cardHead}>
                     <div>

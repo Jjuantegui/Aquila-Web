@@ -40,7 +40,7 @@ Enlaces de PDF distintos por club que registran cada apertura (fecha, ciudad, di
 - **Enlace que se comparte:** `https://www.aquilasports.es/d/<dossier>/<club>` (p. ej. `/d/rivera/oviedo`). Añade `?lang=en` o `?lang=es` para forzar el idioma del PDF.
 - **PDF:** en `private/dossiers/` (nunca en `public/`). Se sirven con `fs` desde `src/app/d/[dossier]/[recipient]/route.js`; `next.config.mjs` los incluye en el bundle de Vercel con `outputFileTracingIncludes`.
 - **Dossieres y destinatarios:** `src/data/dossiers.js`. Un `<club>` no dado de alta **también funciona**: se sirve el PDF y se registra como `unknown:<club>`.
-- **Panel privado:** `https://www.aquilasports.es/admin/aperturas?token=<ADMIN_TOKEN>`. La primera vez fija una cookie de 30 días; sin token válido responde 404. Muestra la tabla por destinatario, el historial (con conmutador "mostrar bots"), y permite crear enlaces y guardar etiquetas sin tocar código.
+- **Panel privado:** `https://www.aquilasports.es/admin/aperturas?token=<ADMIN_TOKEN>`. La primera vez fija una cookie de 30 días; sin token válido responde 404. Muestra la tabla por destinatario, el historial (con conmutador "mostrar bots"), permite crear enlaces sueltos y **generar enlaces en bloque** (pegas los clubes de un mercado, uno por línea, con código de mercado e idioma — inglés por defecto — y obtienes un enlace por club con *Copiar todos* y descarga CSV). Los destinatarios creados desde el panel guardan etiqueta e idioma en Redis, así el enlace no necesita `?lang=`.
 - **API para automatizaciones:** `GET /api/opens?token=<ADMIN_TOKEN>&since=<ISO>&dossier=rivera` → JSON con aperturas humanas y resumen por destinatario (nunca IPs).
 - **Bots:** las vistas previas de WhatsApp, LinkedIn, Telegram, etc. y las peticiones `HEAD` se guardan con `isBot: true` y no cuentan como apertura. La misma persona recargando el PDF en menos de dos minutos cuenta una sola vez.
 
@@ -60,4 +60,4 @@ Copia `.env.example` a `.env.local` para desarrollo. Sin Redis, los PDF se sirve
 2. Añade una entrada en `dossiers` dentro de `src/data/dossiers.js` con `slug`, `title`, `file` (y opcionalmente `files: { es, en }`).
 3. Opcional: añade destinatarios en `recipients` con `label` e idioma. Si no, crea los enlaces desde el panel.
 
-Datos en Redis: `opens:{dossier}:{club}` (últimos 500 eventos), `opens:all` (últimos 2.000), `stats:{dossier}:{club}` (`count`, `first`, `last`) y `recipients:{dossier}` (etiquetas del panel).
+Datos en Redis: `opens:{dossier}:{club}` (últimos 500 eventos), `opens:all` (últimos 2.000), `stats:{dossier}:{club}` (`count`, `first`, `last`) y `recipients:{dossier}` (destinatarios creados desde el panel: `{ label, lang }` por slug).

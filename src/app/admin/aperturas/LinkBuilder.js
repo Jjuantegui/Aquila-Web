@@ -75,8 +75,9 @@ export default function LinkBuilder({ dossiers, siteUrl, dbConnected }) {
             <form action={formAction} className={styles.labelForm}>
                 <input type="hidden" name="dossier" value={dossier} />
                 <input type="hidden" name="slug" value={finalSlug} />
+                <input type="hidden" name="lang" value={lang} />
                 <label className={styles.field}>
-                    <span>Etiqueta para la tabla (club / persona)</span>
+                    <span>Etiqueta para la tabla (club / persona){lang ? ` · se guarda en ${lang.toUpperCase()}` : ""}</span>
                     <input type="text" name="label" placeholder="p. ej. Sevilla FC — Director deportivo" maxLength={120} />
                 </label>
                 <button type="submit" className={styles.primaryBtn} disabled={pending || !finalSlug || !dbConnected}>

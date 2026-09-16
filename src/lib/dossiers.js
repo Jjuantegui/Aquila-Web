@@ -16,8 +16,7 @@ export const getRecipient = (dossierSlug, slug) =>
     recipients.find((r) => r.dossier === dossierSlug && r.slug === slug) || null;
 
 /** Slug tal y como se guarda en el registro: los desconocidos llevan prefijo "unknown:". */
-export const recipientKey = (dossierSlug, slug) =>
-    getRecipient(dossierSlug, slug) ? slug : `${UNKNOWN_PREFIX}${slug}`;
+export const recipientKey = (known, slug) => (known ? slug : `${UNKNOWN_PREFIX}${slug}`);
 
 /** Slug limpio a partir de la clave registrada (quita "unknown:"). */
 export const recipientSlugFromKey = (key) =>
@@ -36,7 +35,8 @@ export const normalizeSlug = (raw = "") =>
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/[^a-z0-9-]+/g, "-")
         .replace(/^-+|-+$/g, "")
-        .slice(0, 40);
+        .slice(0, 40)
+        .replace(/-+$/, "");
 
 /** ?lang= si es válido → idioma del destinatario → idioma del dossier. */
 export function resolveLang({ query, recipient, dossier }) {

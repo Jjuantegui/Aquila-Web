@@ -305,8 +305,62 @@
     background: var(--color-white);
 }
 
+.field textarea {
+    font: inherit;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--color-text-dark);
+    padding: 0.6rem 0.75rem;
+    border: 1px solid rgba(35, 59, 53, 0.25);
+    border-radius: var(--border-radius-sm);
+    background: var(--color-white);
+    resize: vertical;
+    min-height: 8rem;
+}
+
+.bulkGrid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 1rem;
+}
+
+.radioRow {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    min-height: 2.75rem;
+    font-size: 0.95rem;
+    color: var(--color-text-dark);
+}
+
+.radio {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+}
+
+.radio input {
+    accent-color: var(--color-aquila-green);
+}
+
+.btnRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+fieldset.field {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+}
+
 .field input:focus,
-.field select:focus {
+.field select:focus,
+.field textarea:focus {
     outline: 2px solid rgba(35, 59, 53, 0.3);
     outline-offset: 1px;
 }
@@ -349,6 +403,7 @@
     }
 
     .builderGrid,
+    .bulkGrid,
     .labelForm {
         grid-template-columns: 1fr;
         flex-direction: column;

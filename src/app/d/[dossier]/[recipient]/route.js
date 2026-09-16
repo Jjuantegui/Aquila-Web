@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import { randomUUID } from "node:crypto";
 import { after } from "next/server";
-import { getDossier, getRecipient, recipientKey, resolveLang, resolvePdfPath } from "../../../../lib/dossiers";
-import { recordOpen } from "../../../../lib/opens";
+import { getDossier, recipientKey, resolveLang, resolvePdfPath } from "../../../../lib/dossiers";
+import { recordOpen, findRecipient } from "../../../../lib/opens";
 import { isBotUserAgent, deviceFromUserAgent, clientIp, hashIp, decodeHeader } from "../../../../lib/detect";
 
 export const dynamic = "force-dynamic";
@@ -20,7 +20,8 @@ async function handle(request, ctx, method) {
     const dossier = getDossier(dossierSlug);
     if (!dossier) return new Response("Not found", { status: 404 });
 
-    const recipient = getRecipient(dossierSlug, recipientSlug);
+    // Del repo o dado de alta desde el panel; un fallo de Redis no impide servir el PDF.
+    const recipient = await findRecipient(dossierSlug, recipientSlug).catch(() => null);
     const lang = resolveLang({ query: new URL(request.url).searchParams.get("lang"), recipient, dossier });
 
     const pdfPath = await resolvePdfPath(dossier, lang);
@@ -29,7 +30,7 @@ async function handle(request, ctx, method) {
         return new Response("Not found", { status: 404 });
     }
 
-    const event = buildEvent(request, { method, dossier, dossierSlug, recipientSlug, lang });
+    const event = buildEvent(request, { method, dossierSlug, recipientSlug, known: Boolean(recipient), lang });
     after(() => recordOpen(event));
 
     const body = method === "HEAD" ? null : await fs.readFile(pdfPath);
@@ -46,7 +47,7 @@ async function handle(request, ctx, method) {
     });
 }
 
-function buildEvent(request, { method, dossierSlug, recipientSlug, lang }) {
+function buildEvent(request, { method, dossierSlug, recipientSlug, known, lang }) {
     const h = request.headers;
     const ua = h.get("user-agent") || "";
     // Algunos visores piden el PDF por trozos (Range) tras la primera petición: no es otra apertura.
@@ -57,7 +58,7 @@ function buildEvent(request, { method, dossierSlug, recipientSlug, lang }) {
         id: randomUUID(),
         ts: new Date().toISOString(),
         dossier: dossierSlug,
-        recipient: recipientKey(dossierSlug, recipientSlug),
+        recipient: recipientKey(known, recipientSlug),
         lang,
         ip: hashIp(clientIp(h)),
         country: h.get("x-vercel-ip-country") || null,

@@ -1,6 +1,6 @@
 import { getRedis, memoryStore, isDbConnected } from "./redis";
 import { recipients } from "../data/dossiers";
-import { dossierLink, recipientSlugFromKey, isUnknownKey } from "./dossiers";
+import { dossierLink, recipientSlugFromKey, isUnknownKey, getRecipient, SUPPORTED_LANGS } from "./dossiers";
 
 /**
  * Registro de aperturas de dossieres.
@@ -9,7 +9,8 @@ import { dossierLink, recipientSlugFromKey, isUnknownKey } from "./dossiers";
  *   opens:{dossier}:{recipient}  → lista (LPUSH) de eventos JSON, máx. 500
  *   opens:all                    → lista global, últimos 2.000 eventos (panel y API)
  *   stats:{dossier}:{recipient}  → hash { count (solo humanos), first, last }
- *   recipients:{dossier}         → hash slug → etiqueta (editable desde el panel)
+ *   recipients:{dossier}         → hash slug → { label, lang } (creados desde el panel;
+ *                                   los valores antiguos son solo la etiqueta en texto)
  *   seen:{dossier}:{recipient}:{ip} → marca temporal para no contar dos veces la
  *                                     misma apertura (visores PDF que piden el
  *                                     archivo varias veces seguidas)
@@ -118,27 +119,80 @@ export async function listEvents({ limit = 200, includeBots = false, dossier, si
     }
 }
 
-/** Etiquetas de destinatarios guardadas desde el panel: { slug: label }. */
-export async function getLabels(dossier) {
+/** Normaliza un valor del hash recipients:* (texto antiguo u objeto { label, lang }). */
+function parseMeta(raw) {
+    let v = raw;
+    if (typeof v === "string" && v.startsWith("{")) {
+        try {
+            v = JSON.parse(v);
+        } catch {
+            // etiqueta en texto que casualmente empieza por "{"
+        }
+    }
+    if (v && typeof v === "object") {
+        const lang = SUPPORTED_LANGS.includes(v.lang) ? v.lang : null;
+        return { label: String(v.label || "").trim(), lang };
+    }
+    return { label: String(v || "").trim(), lang: null };
+}
+
+/** Destinatarios dados de alta desde el panel: { slug: { label, lang } }. */
+export async function getRecipientMeta(dossier) {
     try {
         const redis = getRedis();
         const h = redis ? await redis.hgetall(labelsKey(dossier)) : memoryStore.hgetall(labelsKey(dossier));
-        return h || {};
+        const out = {};
+        Object.entries(h || {}).forEach(([slug, raw]) => {
+            out[slug] = parseMeta(raw);
+        });
+        return out;
     } catch (err) {
-        console.error("[dossiers] no se pudieron leer las etiquetas:", err?.message || err);
+        console.error("[dossiers] no se pudieron leer los destinatarios:", err?.message || err);
         return {};
     }
 }
 
-export async function setLabel(dossier, slug, label) {
+/** Solo las etiquetas: { slug: label }. */
+export async function getLabels(dossier) {
+    const meta = await getRecipientMeta(dossier);
+    return Object.fromEntries(Object.entries(meta).map(([slug, m]) => [slug, m.label]));
+}
+
+/**
+ * Destinatario efectivo de un enlace: el del repo (src/data/dossiers.js) o el
+ * dado de alta desde el panel. `null` si no está en ninguno (se registra como
+ * "unknown:<slug>", pero el PDF se sirve igual).
+ */
+export async function findRecipient(dossierSlug, slug) {
+    const fromRepo = getRecipient(dossierSlug, slug);
+    if (fromRepo) return fromRepo;
+    const meta = await getRecipientMeta(dossierSlug);
+    const m = meta[slug];
+    return m ? { slug, dossier: dossierSlug, label: m.label, lang: m.lang, notes: "" } : null;
+}
+
+const metaValue = ({ label, lang }) => JSON.stringify({ label: label || "", lang: SUPPORTED_LANGS.includes(lang) ? lang : null });
+
+/** Guarda (o borra, si la etiqueta va vacía) un destinatario creado desde el panel. */
+export async function setLabel(dossier, slug, label, lang = null) {
     const redis = getRedis();
     if (!label) {
         if (redis) await redis.hdel(labelsKey(dossier), slug);
         else memoryStore.hdel(labelsKey(dossier), slug);
         return;
     }
-    if (redis) await redis.hset(labelsKey(dossier), { [slug]: label });
-    else memoryStore.hset(labelsKey(dossier), { [slug]: label });
+    const fields = { [slug]: metaValue({ label, lang }) };
+    if (redis) await redis.hset(labelsKey(dossier), fields);
+    else memoryStore.hset(labelsKey(dossier), fields);
+}
+
+/** Alta en bloque: entries = [{ slug, label, lang }]. */
+export async function bulkSetRecipients(dossier, entries) {
+    if (!entries.length) return;
+    const fields = Object.fromEntries(entries.map((e) => [e.slug, metaValue(e)]));
+    const redis = getRedis();
+    if (redis) await redis.hset(labelsKey(dossier), fields);
+    else memoryStore.hset(labelsKey(dossier), fields);
 }
 
 async function readStats(pairs) {
@@ -189,15 +243,21 @@ export async function getSummary({ dossier: onlyDossier, dossiers = [] } = {}) {
             recipients
                 .filter((r) => r.dossier === d.slug)
                 .forEach((r) => add(d.slug, r.slug, { label: r.label, lang: r.lang, notes: r.notes || "" }));
-            const labels = await getLabels(d.slug);
-            Object.entries(labels).forEach(([slug, label]) => {
-                const known = recipients.some((r) => r.dossier === d.slug && r.slug === slug);
-                add(d.slug, known ? slug : `unknown:${slug}`, { label });
+            // Dados de alta desde el panel: cuentan como conocidos (misma clave que el slug).
+            const meta = await getRecipientMeta(d.slug);
+            Object.entries(meta).forEach(([slug, m]) => {
+                const extra = {};
+                if (m.label) extra.label = m.label;
+                if (m.lang) extra.lang = m.lang;
+                add(d.slug, slug, extra);
             });
         }
         for (const e of events) {
             if (onlyDossier && e.dossier !== onlyDossier) continue;
-            add(e.dossier, e.recipient);
+            // Aperturas antiguas registradas como "unknown:<slug>" de un club dado de alta después.
+            const slug = recipientSlugFromKey(e.recipient);
+            const known = rows.has(`${e.dossier}|${slug}`);
+            add(e.dossier, known ? slug : e.recipient);
         }
 
         const list = [...rows.values()];
