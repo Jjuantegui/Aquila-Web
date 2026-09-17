@@ -194,6 +194,8 @@ export const deals = [
         date: "Sep 2026",
         fromClub: { name: "Austin FC", city: "Austin", country: "United States of America", iso: "us", lat: 30.2672, lon: -97.7431 },
         toClub: { name: "Melbourne City", city: "Melbourne", country: "Australia", iso: "au", lat: -37.8136, lon: 144.9631 },
+        // Visual route across the map, rather than the shortest path over the Pacific.
+        mapRoute: "across-map",
         scope: "International",
         featured: true,
         notes: "One-year deal with Melbourne City, with an option for a further season.",

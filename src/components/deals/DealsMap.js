@@ -1,9 +1,19 @@
 'use client';
 
 import React, { useMemo } from "react";
-import { ComposableMap, Geographies, Geography, Marker, Line } from "react-simple-maps";
+import { ComposableMap, Geographies, Geography, Marker, Line, useMapContext } from "react-simple-maps";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+
+// A continuous projected arc keeps selected long routes inside the world map.
+const AcrossMapLine = ({ from, to, ...props }) => {
+    const { projection } = useMapContext();
+    const [x1, y1] = projection(from);
+    const [x2, y2] = projection(to);
+    const controlX = (x1 + x2) / 2;
+    const controlY = Math.min(y1, y2) - 90;
+    return <path d={`M ${x1},${y1} Q ${controlX},${controlY} ${x2},${y2}`} fill="none" {...props} />;
+};
 
 const DealsMap = ({ deals, highlightedId, filter }) => {
 
@@ -62,10 +72,13 @@ const DealsMap = ({ deals, highlightedId, filter }) => {
 
                     if (!deal.fromClub.lat || !deal.toClub.lat) return null;
 
+                    const RouteLine = deal.mapRoute === "across-map" ? AcrossMapLine : Line;
+
                     return (
                         <React.Fragment key={deal.id}>
                             {/* Line */}
-                            <Line
+                            <RouteLine
+                                data-deal-id={deal.id}
                                 from={[deal.fromClub.lon, deal.fromClub.lat]}
                                 to={[deal.toClub.lon, deal.toClub.lat]}
                                 stroke={strokeColor}
