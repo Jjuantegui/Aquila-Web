@@ -187,8 +187,9 @@ export const players = [
         league: "Veikkausliiga",
         contractUntil: "2026",
         status: "Under Contract",
-        transfermarktUrl: "", // TODO: pegar URL de Transfermarkt de Ruxi
-        photoUrl: "/assets/players/ruxi.jpg", // TODO: sustituir por foto real
+        transfermarktUrl: "https://www.transfermarkt.us/ruxi/profil/spieler/382956",
+        photoUrl: "/assets/players/ruxi-gnistan-signing-4x5.png",
+        photoFit: "contain",
         bioBullets: [
             "Left-footed defender, comfortable at centre-back and left-back.",
             "Knows the Veikkausliiga well: KTP, AC Oulu and FC Inter Turku before Gnistan.",
@@ -200,7 +201,37 @@ export const players = [
             "Trayectoria por España, Islandia, Finlandia, Estados Unidos, México e Indonesia.",
         ],
         strengths: ["Experience", "Left Foot", "Adaptability"],
-        instagramUrl: "",
+        instagramUrl: "https://www.instagram.com/ruxiiii4/?hl=es",
+        seasonStats: []
+    },
+    {
+        id: 8,
+        name: "Julio Cascante",
+        position: "Centre-back",
+        secondaryPosition: "",
+        birthDate: "03/10/1993",
+        nationality: "Costa Rican",
+        height: "1.85m",
+        preferredFoot: "Right",
+        currentClub: "Melbourne City - Australia",
+        league: "A-League Men",
+        contractUntil: "2027",
+        status: "Under Contract",
+        transfermarktUrl: "https://www.transfermarkt.es/julio-cascante/profil/spieler/194909",
+        photoUrl: "/assets/news/julio-cascante-melbourne-signing.png",
+        photoFit: "contain",
+        bioBullets: [
+            "Costa Rica international centre-back.",
+            "Experience in Major League Soccer with Austin FC and Portland Timbers.",
+            "Joins Melbourne City for 2026/27 on a one-year deal, with an option for a further season."
+        ],
+        bioBullets_es: [
+            "Defensa central internacional con Costa Rica.",
+            "Experiencia en la Major League Soccer con Austin FC y Portland Timbers.",
+            "Se incorpora al Melbourne City para 2026/27 por una temporada, con opción a otra."
+        ],
+        strengths: ["Aerial Ability", "Distribution", "Experience"],
+        instagramUrl: "https://www.instagram.com/juliocasca03/?hl=es",
         seasonStats: []
     }
 ];

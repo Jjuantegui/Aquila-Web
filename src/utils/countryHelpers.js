@@ -3,6 +3,8 @@ export const countryToIso = {
     "Spain": "es",
     "Australia": "au",
     "India": "in",
+    "Indonesia": "id",
+    "Costa Rica": "cr",
     "Andorra": "ad",
 
     // Reach / Global Network (Europe, America, Asia)

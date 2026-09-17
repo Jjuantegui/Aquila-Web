@@ -7,7 +7,7 @@ const PlayerCard = ({ player, lang = 'en', dict }) => {
     const age = calculateAge(player.birthDate);
 
     return (
-        <Link href={localePath(lang, `/players/${player.id}`)} className={styles.card}>
+        <Link href={localePath(lang, `/players/${player.id}`)} className={`${styles.card} ${player.photoFit === 'contain' ? styles.artworkCard : ''}`}>
             <div className={styles.imageContainer}>
                 <img src={player.photoUrl} alt={player.name} className={styles.image} />
                 <div className={styles.gradient}></div>

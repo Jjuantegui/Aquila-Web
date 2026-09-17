@@ -215,10 +215,13 @@ const es = {
         'Central Midfielder': 'Mediocentro',
         'Midfielder': 'Centrocampista',
         'Defender': 'Defensa',
+        'Centre-back': 'Central',
+        'Left Back / Centre-back': 'Lateral izquierdo / Central',
         'Right/Left Back': 'Lateral',
         'Goalkeeper': 'Portero',
         // Nationality
         'Spanish': 'Español',
+        'Costa Rican': 'Costarricense',
         // Foot
         'Left': 'Zurdo',
         'Right': 'Diestro',
@@ -227,6 +230,7 @@ const es = {
         // Deal types
         'Free Transfer': 'Libre',
         'Transfer': 'Traspaso',
+        'Signing': 'Fichaje',
         'Loan': 'Cesión',
         'Renewal': 'Renovación',
         // Strengths
@@ -234,6 +238,9 @@ const es = {
         'Off-ball Movement': 'Desmarque',
         'Versatility': 'Polivalencia',
         'Aerial Ability': 'Juego aéreo',
+        'Experience': 'Experiencia',
+        'Left Foot': 'Pierna izquierda',
+        'Adaptability': 'Adaptabilidad',
         'Distribution': 'Salida de balón',
         'Tactical Discipline': 'Orden táctico',
         'Speed': 'Velocidad',
@@ -251,6 +258,9 @@ const es = {
         'India': 'India',
         'Andorra': 'Andorra',
         'Brunei': 'Brunéi',
+        'Finland': 'Finlandia',
+        'Indonesia': 'Indonesia',
+        'United States of America': 'Estados Unidos',
     },
 
     months: { Jan: 'Ene', Feb: 'Feb', Mar: 'Mar', Apr: 'Abr', May: 'May', Jun: 'Jun', Jul: 'Jul', Aug: 'Ago', Sep: 'Sep', Oct: 'Oct', Nov: 'Nov', Dec: 'Dic' },

@@ -26,7 +26,7 @@ const NewsCard = ({ item, lang, dict, compact = false }) => {
 
     return (
         <Link href={href} className={styles.card}>
-            <div className={styles.cardImage}>
+            <div className={`${styles.cardImage} ${item.imageFit === 'contain' ? styles.artworkImage : ''}`}>
                 <img src={newsImage(item)} alt={item.title[lang] || item.title.en} loading="lazy" />
             </div>
             <div className={styles.cardBody}>

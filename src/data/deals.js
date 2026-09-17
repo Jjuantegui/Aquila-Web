@@ -146,16 +146,16 @@ export const deals = [
         intermediation: true,
         season: "2026",
         date: "Aug 2026",
-        fromClub: { name: "Free Agent", city: "", country: "", iso: "es", lat: null, lon: null },
+        fromClub: { name: "Madura United", city: "Pamekasan", country: "Indonesia", iso: "id", lat: -7.1614, lon: 113.4825 },
         toClub: { name: "IF Gnistan", city: "Helsinki", country: "Finland", iso: "fi", lat: 60.1699, lon: 24.9384 },
         scope: "International",
         featured: true,
         notes: "Return to the Veikkausliiga.",
         links: {
             article: "https://gnistan.fi/en/2026/08/kokenut-puolustaja-ruxi-vahvistaa-if-gnistanin-puolustuslinjaa/",
-            transfermarkt: "" // TODO: pegar URL de Transfermarkt de Roger Bonet
+            transfermarkt: "https://www.transfermarkt.us/ruxi/profil/spieler/382956"
         },
-        mapConfig: { scale: 500, center: [20, 55] }
+        mapConfig: { scale: 180, center: [70, 25] }
     },
     {
         id: 11,
@@ -184,5 +184,22 @@ export const deals = [
         featured: false,
         notes: "Move to FC Santa Coloma, with European football.",
         links: { transfermarkt: "https://www.transfermarkt.es/miguel-lopez/profil/spieler/741874" }
+    },
+    {
+        id: 13,
+        playerId: 8,
+        playerName: "Julio Cascante",
+        dealType: "Signing",
+        season: "2026/27",
+        date: "Sep 2026",
+        fromClub: { name: "Austin FC", city: "Austin", country: "United States of America", iso: "us", lat: 30.2672, lon: -97.7431 },
+        toClub: { name: "Melbourne City", city: "Melbourne", country: "Australia", iso: "au", lat: -37.8136, lon: 144.9631 },
+        scope: "International",
+        featured: true,
+        notes: "One-year deal with Melbourne City, with an option for a further season.",
+        links: {
+            transfermarkt: "https://www.transfermarkt.es/julio-cascante/profil/spieler/194909",
+            article: "https://melbournecityfc.com.au/news/20260917-cascante-signs/"
+        }
     }
 ];

@@ -18,6 +18,37 @@
  */
 export const news = [
     {
+        slug: 'julio-cascante-joins-melbourne-city',
+        date: '2026-09-17',
+        type: 'aquila',
+        playerIds: [8],
+        dealId: 13,
+        image: '/assets/news/julio-cascante-melbourne-signing.png',
+        imageFit: 'contain',
+        source: { name: 'Melbourne City FC', url: 'https://melbournecityfc.com.au/news/20260917-cascante-signs/' },
+        tags: ['Signing', 'Australia', 'A-League Men'],
+        title: {
+            en: 'Julio Cascante joins Melbourne City',
+            es: 'Julio Cascante ficha por el Melbourne City',
+        },
+        excerpt: {
+            en: 'From Austin to Melbourne: the Costa Rica international starts a new chapter in the A-League Men.',
+            es: 'De Austin a Melbourne: el internacional costarricense abre una nueva etapa en la A-League Men.',
+        },
+        body: {
+            en: [
+                'Julio Cascante joins Melbourne City for the 2026/27 season after his time with Austin FC in Major League Soccer.',
+                'The Costa Rica international centre-back has signed a one-year deal with an option for a further season, as confirmed by Melbourne City.',
+                'A new destination for an experienced defender. We wish Julio every success in Australia.',
+            ],
+            es: [
+                'Julio Cascante se incorpora al Melbourne City para la temporada 2026/27 tras su etapa en el Austin FC de la Major League Soccer.',
+                'El central internacional con Costa Rica firma por una temporada con opción a otra, según el anuncio oficial del Melbourne City.',
+                'Un nuevo destino para un defensa con experiencia internacional. Le deseamos a Julio muchos éxitos en Australia.',
+            ],
+        },
+    },
+    {
         slug: 'miguel-lopez-joins-fc-santa-coloma',
         date: '2026-09-16',
         type: 'aquila',
@@ -82,6 +113,9 @@ export const news = [
         type: 'aquila',
         playerIds: [7],
         dealId: 10,
+        image: '/assets/players/ruxi-gnistan-signing.png',
+        imageFit: 'contain',
+        source: { name: 'IF Gnistan', url: 'https://gnistan.fi/en/2026/08/kokenut-puolustaja-ruxi-vahvistaa-if-gnistanin-puolustuslinjaa/' },
         tags: ['Signing', 'Finland', 'Veikkausliiga'],
         title: {
             en: 'Ruxi returns to Finland with IF Gnistan',
@@ -93,13 +127,13 @@ export const news = [
         },
         body: {
             en: [
-                'Ruxi (Roger Bonet) has joined IF Gnistan for the remainder of the 2026 Veikkausliiga season. The 31-year-old Spanish defender, comfortable at centre-back and at left-back, arrived as a free agent and was presented by the Helsinki club in August.',
+                'Ruxi (Roger Bonet) has joined IF Gnistan for the remainder of the 2026 Veikkausliiga season. The 31-year-old Spanish defender, comfortable at centre-back and at left-back, arrived as a free agent after his spell with Madura United in Indonesia and was presented by the Helsinki club in August.',
                 'It is a return to familiar ground. Ruxi already knows the Finnish top flight from previous spells with KTP, AC Oulu and FC Inter, and his career has also taken him to the United States, Mexico, Indonesia and Iceland. Gnistan\'s sporting director, Jarkko Jokiranta, described him as "an experienced, quality player" who would settle quickly, both tactically and in the dressing room.',
                 'He has done exactly that. Since his debut he has become a regular presence in the back line, and he played the full ninety minutes in the recent win over AC Oulu.',
                 'Aquila Sports Management took part in the operation as intermediary. The move reflects how we like to work: a short, well-defined agreement in a league the player knows well, with a club whose project is clear. We would like to thank IF Gnistan for a direct and constructive negotiation, and we wish Ruxi every success for the rest of the season.',
             ],
             es: [
-                'Ruxi (Roger Bonet) es nuevo jugador del IF Gnistan hasta el final de la Veikkausliiga 2026. Defensa español de 31 años, cómodo como central y como lateral izquierdo, llegó libre y fue presentado por el club de Helsinki en agosto.',
+                'Ruxi (Roger Bonet) es nuevo jugador del IF Gnistan hasta el final de la Veikkausliiga 2026. Defensa español de 31 años, cómodo como central y como lateral izquierdo, llegó libre tras su etapa en el Madura United de Indonesia y fue presentado por el club de Helsinki en agosto.',
                 'Vuelve a terreno conocido: ya había jugado en la máxima categoría finlandesa con KTP, AC Oulu y FC Inter, y su carrera ha pasado también por Estados Unidos, México, Indonesia e Islandia. El director deportivo del Gnistan, Jarkko Jokiranta, lo definió como "un jugador experimentado y de calidad" que se adaptaría rápido, en lo táctico y en el vestuario.',
                 'Y así ha sido. Desde su debut se ha asentado en la línea defensiva y jugó los noventa minutos en la reciente victoria ante el AC Oulu.',
                 'Aquila Sports Management participó en la operación como intermediario. Resume nuestra forma de trabajar: un acuerdo corto y bien definido, en una liga que el jugador conoce y con un club de proyecto claro. Agradecemos al IF Gnistan una negociación directa y constructiva, y le deseamos a Ruxi lo mejor para lo que queda de temporada.',
