@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react";
-import { ComposableMap, Geographies, Geography } from "react-simple-maps";
+import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
 import { Tooltip } from "react-tooltip";
 import { getFlagUrl } from "../../utils/countryHelpers";
 import { players } from "../../data/players";
@@ -119,6 +119,18 @@ const GlobalPresenceMap = ({ labels = DEFAULT_LABELS, terms = {} }) => {
                         })
                     }
                 </Geographies>
+                {/* Maldives is too small to appear in the 110m world geometry. */}
+                {ACTIVE_PLAYERS.Maldives && (
+                    <Marker coordinates={[73.5093, 4.1755]}>
+                        <a href={terms.Maldives ? '/es/players/5' : '/players/5'}
+                            aria-label={`${localName('Maldives')}: ${ACTIVE_PLAYERS.Maldives.join(', ')}`}
+                            data-tooltip-id="map-tooltip"
+                            data-tooltip-content={`${localName('Maldives')}: ${ACTIVE_PLAYERS.Maldives.join(', ')}`}>
+                            <circle r={7} fill="#233B35" stroke="#E9DCC9" strokeWidth={2} />
+                            <text x={11} y={4} fill="#233B35" fontSize={11}>{localName('Maldives')}</text>
+                        </a>
+                    </Marker>
+                )}
             </ComposableMap>
             <Tooltip
                 id="map-tooltip"

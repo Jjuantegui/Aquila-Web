@@ -7,7 +7,7 @@ const en = {
         },
         deals: {
             title: 'Deals | Aquila Sports Management',
-            description: 'Transfers and intermediation deals closed by Aquila Sports Management across Spain, Andorra, India and Australia.',
+            description: 'Transfers and intermediation deals closed by Aquila Sports Management across Spain, Andorra, India, the Maldives and Australia.',
         },
         services: {
             title: 'Our Services | Aquila Sports Management',

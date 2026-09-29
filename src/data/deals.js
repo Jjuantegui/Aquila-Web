@@ -203,5 +203,22 @@ export const deals = [
             transfermarkt: "https://www.transfermarkt.es/julio-cascante/profil/spieler/194909",
             article: "https://melbournecityfc.com.au/news/20260917-cascante-signs/"
         }
+    },
+    {
+        id: 14,
+        playerId: 5,
+        playerName: 'Luis Matias Hernandez "Mati"',
+        dealType: "Free Transfer",
+        season: "2026/27",
+        date: "Sep 2026",
+        fromClub: { name: "Kerala Blasters", city: "Kochi", country: "India", iso: "in", lat: 9.9312, lon: 76.2673 },
+        toClub: { name: "New Radiant SC", city: "Malé", country: "Maldives", iso: "mv", lat: 4.1755, lon: 73.5093 },
+        scope: "International",
+        featured: true,
+        notes: "Move to New Radiant SC in the Dhivehi Premier League.",
+        links: {
+            transfermarkt: "https://www.transfermarkt.es/matias-hernandez/profil/spieler/598616",
+            article: "https://www.besoccer.com/player/luis-362532"
+        }
     }
 ];

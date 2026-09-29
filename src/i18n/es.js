@@ -7,7 +7,7 @@ const es = {
         },
         deals: {
             title: 'Operaciones | Aquila Sports Management',
-            description: 'Fichajes, renovaciones e intermediaciones cerradas por Aquila Sports Management en España, Andorra, India y Australia.',
+            description: 'Fichajes, renovaciones e intermediaciones cerradas por Aquila Sports Management en España, Andorra, India, Maldivas y Australia.',
         },
         services: {
             title: 'Servicios | Aquila Sports Management',
@@ -256,6 +256,7 @@ const es = {
         'Spain': 'España',
         'Australia': 'Australia',
         'India': 'India',
+        'Maldives': 'Maldivas',
         'Andorra': 'Andorra',
         'Brunei': 'Brunéi',
         'Finland': 'Finlandia',

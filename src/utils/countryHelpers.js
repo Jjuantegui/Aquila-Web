@@ -3,6 +3,7 @@ export const countryToIso = {
     "Spain": "es",
     "Australia": "au",
     "India": "in",
+    "Maldives": "mv",
     "Indonesia": "id",
     "Costa Rica": "cr",
     "Andorra": "ad",

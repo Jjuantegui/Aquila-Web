@@ -124,18 +124,20 @@ export const players = [
         nationality: "Spanish",
         height: "1.86m",
         preferredFoot: "Right",
-        currentClub: "Kerala Blasters - India",
-        league: "Indian Super League (ISL)",
-        contractUntil: "2027",
+        currentClub: "New Radiant SC - Maldives",
+        league: "Dhivehi Premier League",
+        contractUntil: "",
         status: "Under Contract",
         transfermarktUrl: "https://www.transfermarkt.es/matias-hernandez/profil/spieler/598616",
         photoUrl: "/assets/players/matias-hernandez.jpg",
         bioBullets: [
+            "Playing for New Radiant SC in the Maldives after his spell with Kerala Blasters in India.",
             "Dynamic midfielder with high work rate.",
             "Adapts well to different styles.",
             "Brings energy to the midfield."
         ],
         bioBullets_es: [
+            "Jugador del New Radiant SC de Maldivas tras su etapa en el Kerala Blasters de India.",
             "Centrocampista dinámico, de ida y vuelta y gran despliegue físico.",
             "Se adapta con rapidez a distintos estilos, ligas y contextos.",
             "Contagia intensidad y energía al centro del campo.",
