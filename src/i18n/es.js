@@ -35,12 +35,15 @@ const es = {
     },
 
     hero: {
-        titleA: 'Una agencia boutique',
-        titleB: 'basada en la confianza.',
-        subtitle: 'Pocos jugadores y trato directo. Gestionamos carreras, no solo contratos.',
+        eyebrow: 'Representación de futbolistas',
+        titleA: 'Pocos jugadores.',
+        titleB: 'Toda nuestra dedicación.',
+        subtitle: 'Representación y oportunidades internacionales, con trato directo. A tu lado en cada paso de tu carrera.',
         explorePlayers: 'Nuestros jugadores',
         viewDeals: 'Ver operaciones',
-        chips: ['Cartera reducida', 'Red internacional', 'Máxima discreción'],
+        chips: ['Cartera reducida', 'Trato directo', 'Alcance internacional'],
+        featured: 'Nuestros protagonistas',
+        featuredLink: 'Conoce a Julio',
     },
 
     about: {

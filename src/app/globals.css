@@ -7,14 +7,17 @@
   --color-border: #E6EAED;
   --color-error: #EF4444;
 
-  --font-primary: var(--font-inter);
+  --font-primary: var(--font-dm-sans, Arial);
+  --color-deep-green: #1A2E29;
+  --color-sage: #8BAB7F;
+  --header-height: 88px;
 
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
   --spacing-md: 2rem;
   --spacing-lg: 5rem;
-  --spacing-xl: 10rem;
-  /* Standardized generous spacing (160px) for all sections */
+  --spacing-xl: clamp(4rem, 7vw, 7rem);
+  /* Responsive section spacing. */
 
   --border-radius-sm: 4px;
   --border-radius-md: 8px;
@@ -38,41 +41,16 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   position: relative;
-  /* Premium Background System */
-  background-image:
-    /* Grain Texture */
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E"),
-    /* Micro Grid */
-    linear-gradient(rgba(35, 59, 53, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(35, 59, 53, 0.03) 1px, transparent 1px);
-  background-size: 150px 150px, 40px 40px, 40px 40px;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  top: -20%;
-  left: -20%;
-  width: 60%;
-  height: 60%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(35, 59, 53, 0.06), transparent 70%);
-  pointer-events: none;
-  z-index: -1;
-}
+html { scroll-padding-top: calc(var(--header-height) + 24px); }
 
-body::after {
-  content: "";
-  position: fixed;
-  bottom: -20%;
-  right: -20%;
-  width: 60%;
-  height: 60%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(35, 59, 53, 0.06), transparent 70%);
-  pointer-events: none;
-  z-index: -1;
-}
+h1, h2, h3 { font-family: var(--font-playfair, Georgia), serif; }
+
+:focus-visible { outline: 2px solid var(--color-sage); outline-offset: 5px; }
+
+@media (max-width: 1080px) { :root { --header-height: 76px; } }
+
 
 a {
   color: inherit;
@@ -95,8 +73,7 @@ button {
 
 @media (max-width: 768px) {
   .container {
-    padding: 0 1.5rem !important;
-    /* Force side padding: 1.5rem (24px). Using !important to ensure no overrides */
+    padding-inline: 1.5rem;
   }
 }
 
@@ -148,4 +125,7 @@ button {
 
 .animate-fade-in {
   animation: fadeIn 0.6s ease-out forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }

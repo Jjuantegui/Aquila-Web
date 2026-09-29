@@ -35,6 +35,12 @@ export default async function Home({ params }) {
     <>
       <Hero lang={lang} dict={dict.hero} />
 
+      {/* 3. PLAYERS */}
+      <section id="players" className="section container animate-fade-in">
+        <h2 style={sectionTitleStyle}>{dict.home.players}</h2>
+        <PlayerGrid lang={lang} dict={dict} />
+      </section>
+
       {/* 1. THE BOUTIQUE MODEL */}
       <section id="about" className="section container animate-fade-in">
         <About dict={dict.about} />
@@ -43,12 +49,6 @@ export default async function Home({ params }) {
       {/* 2. OUR SERVICES (SUMMARY) */}
       <section id="services" className="section container animate-fade-in">
         <Services lang={lang} dict={dict.services} />
-      </section>
-
-      {/* 3. PLAYERS */}
-      <section id="players" className="section container animate-fade-in">
-        <h2 style={sectionTitleStyle}>{dict.home.players}</h2>
-        <PlayerGrid lang={lang} dict={dict} />
       </section>
 
       {/* 4. GLOBAL REACH */}

@@ -35,12 +35,15 @@ const en = {
     },
 
     hero: {
-        titleA: 'A boutique agency',
-        titleB: 'built on trust.',
-        subtitle: 'Selective representation with a human approach. We manage careers, not just contracts.',
-        explorePlayers: 'Explore Players',
-        viewDeals: 'View Deals',
-        chips: ['Selective Roster', 'International Network', 'Discreet Execution'],
+        eyebrow: 'Football player representation',
+        titleA: 'A select few.',
+        titleB: 'Our full dedication.',
+        subtitle: 'Player representation and international opportunities, with a personal approach. By your side at every step of your career.',
+        explorePlayers: 'Our players',
+        viewDeals: 'Explore our deals',
+        chips: ['Selective roster', 'Personal attention', 'International reach'],
+        featured: 'The people we represent',
+        featuredLink: 'Meet Julio',
     },
 
     about: {

@@ -1,35 +1,4 @@
-/* Filters removed */
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
-}
-
-@media (max-width: 600px) {
-    .grid {
-        grid-template-columns: 1fr 1fr;
-        /* Force 2 columns */
-        gap: 1rem;
-        /* Reduce gap for mobile */
-    }
-}
-
-.noResults {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 4rem;
-    color: var(--color-text-light);
-    font-style: italic;
-}
-
-@media (max-width: 600px) {
-    .filters {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .filterGroup {
-        flex-direction: column;
-    }
-}
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 2rem; }
+@media (min-width: 1400px) { .grid { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 1.5rem; } }
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1.5rem; } }
+@media (max-width: 560px) { .grid { grid-template-columns: minmax(0,1fr); gap: 1.5rem; } }

@@ -1,4 +1,4 @@
-import { Inter, Playfair_Display } from "next/font/google";
+import { DM_Sans, Playfair_Display, Space_Grotesk } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
 
@@ -6,8 +6,8 @@ import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import { getDictionary, locales, isLocale, alternatesFor } from "../../i18n";
 
-const inter = Inter({
-  variable: "--font-inter",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
 });
 
@@ -15,6 +15,11 @@ const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
 });
 
 export const dynamicParams = false;
@@ -53,10 +58,10 @@ export default async function RootLayout({ children, params }) {
   const dict = getDictionary(lang);
 
   return (
-    <html lang={lang}>
-      <body className={`${inter.variable} ${playfair.variable}`}>
+    <html lang={lang} className={`${dmSans.variable} ${playfair.variable} ${spaceGrotesk.variable}`}>
+      <body>
         <Header lang={lang} dict={dict.nav} />
-        <main style={{ minHeight: "80vh", paddingTop: "80px" }}>
+        <main style={{ minHeight: "80vh", paddingTop: "var(--header-height)" }}>
           {children}
         </main>
         <Footer lang={lang} dict={dict} />

@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import Image from 'next/image';
+
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { localePath, stripLocale } from '../../i18n/config';
@@ -8,10 +10,40 @@ import styles from './Header.module.css';
 
 const Header = ({ lang = 'en', dict }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const menuRef = useRef(null);
+    const toggleRef = useRef(null);
     const pathname = usePathname() || '/';
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const closeMenu = () => setIsMenuOpen(false);
+
+    useEffect(() => {
+        if (!isMenuOpen) return;
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        menuRef.current?.querySelector('a')?.focus();
+        const onResize = () => { if (window.innerWidth > 1080) setIsMenuOpen(false); };
+        window.addEventListener('resize', onResize);
+        return () => {
+            document.body.style.overflow = previousOverflow;
+            window.removeEventListener('resize', onResize);
+        };
+    }, [isMenuOpen]);
+
+    const handleMenuKey = (event) => {
+        if (!isMenuOpen) return;
+        if (event.key === 'Escape') {
+            closeMenu();
+            toggleRef.current?.focus();
+        }
+        if (event.key === 'Tab') {
+            const items = [toggleRef.current, ...menuRef.current.querySelectorAll('a')];
+            const first = items[0];
+            const last = items[items.length - 1];
+            if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+            if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        }
+    };
 
     // Same page, other language
     const otherLang = lang === 'es' ? 'en' : 'es';
@@ -27,11 +59,11 @@ const Header = ({ lang = 'en', dict }) => {
     ];
 
     return (
-        <header className={styles.header}>
+        <header className={styles.header} onKeyDown={handleMenuKey}>
             <div className={`container ${styles.headerContainer}`}>
                 {/* LOGO */}
                 <Link href={localePath(lang, '/')} className={styles.logo} onClick={closeMenu}>
-                    <img src="/assets/logo-mark-dark.png" alt="Aquila SM" style={{ height: '40px', width: 'auto' }} />
+                    <Image sizes="280px" src="/assets/brand/aquila-primary-green.png" alt="Aquila Sports Management" width="1400" height="420" />
                 </Link>
 
                 {/* DESKTOP NAV */}
@@ -47,6 +79,8 @@ const Header = ({ lang = 'en', dict }) => {
 
                 {/* HAMBURGER BUTTON (Mobile) */}
                 <button
+                    ref={toggleRef}
+                    aria-controls="mobile-navigation"
                     className={`${styles.hamburger} ${isMenuOpen ? styles.open : ''}`}
                     onClick={toggleMenu}
                     aria-label={dict.toggleMenu}
@@ -58,7 +92,7 @@ const Header = ({ lang = 'en', dict }) => {
                 </button>
 
                 {/* MOBILE OVERLAY */}
-                <div className={`${styles.mobileMenuOverlay} ${isMenuOpen ? styles.open : ''}`}>
+                <div id="mobile-navigation" ref={menuRef} inert={!isMenuOpen} className={`${styles.mobileMenuOverlay} ${isMenuOpen ? styles.open : ''}`}>
                     {links.map(l => (
                         <Link key={l.href} href={l.href} className={styles.mobileNavLink} onClick={closeMenu}>{l.label}</Link>
                     ))}

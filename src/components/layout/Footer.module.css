@@ -55,3 +55,6 @@
     color: rgba(255, 255, 255, 0.5);
     font-size: 0.85rem;
 }
+.logo { position: relative; width: 240px; max-width: 100%; height: 56px; overflow: hidden; }
+.logo img { position: absolute; width: 280px; height: 84px; max-width: none; left: -22px; top: -18px; }
+.footer { background: var(--color-deep-green); color: var(--color-aquila-beige); }

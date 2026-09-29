@@ -1,35 +1,28 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { calculateAge } from '../../utils/dateHelpers';
-import { localePath, term } from '../../i18n';
+import { localePath, term, clubLabel } from '../../i18n';
 import styles from './PlayerCard.module.css';
 
-const PlayerCard = ({ player, lang = 'en', dict }) => {
-    const age = calculateAge(player.birthDate);
-
-    return (
-        <Link href={localePath(lang, `/players/${player.id}`)} className={`${styles.card} ${player.photoFit === 'contain' ? styles.artworkCard : ''}`}>
-            <div className={styles.imageContainer}>
-                <img src={player.photoUrl} alt={player.name} className={styles.image} />
-                <div className={styles.gradient}></div>
-            </div>
-
+const PlayerCard = ({ player, lang = 'en', dict }) => (
+    <Link href={localePath(lang, `/players/${player.id}`)} className={styles.card}>
+        <div className={styles.imageContainer}>
+            <Image src={player.photoUrl} alt={player.name} className={styles.image} fill sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, (min-width: 1400px) 25vw, 33vw" />
+        </div>
+        <div className={styles.info}>
             <span className={styles.statusBadge}>{term(dict, player.status)}</span>
-
-            <div className={styles.info}>
-                <h3 className={styles.name}>{player.name}</h3>
-                <p className={styles.meta}>
-                    {term(dict, player.position)} <span className={styles.separator}>•</span> {age} <span className={styles.separator}>•</span> {term(dict, player.nationality)}
-                </p>
-                <span className={styles.cta}>
-                    {dict.players.viewProfile}
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </span>
-            </div>
-        </Link>
-    );
-};
+            <h3 className={styles.name}>{player.name}</h3>
+            <p className={styles.club}>{clubLabel(dict, term(dict, player.currentClub))}</p>
+            <p className={styles.meta}>
+                <span>{term(dict, player.position)}</span>
+                <span aria-hidden="true">·</span>
+                <span>{calculateAge(player.birthDate)}</span>
+                <span aria-hidden="true">·</span>
+                <span>{term(dict, player.nationality)}</span>
+            </p>
+            <span className={styles.cta}>{dict.players.viewProfile}<span aria-hidden="true">↗</span></span>
+        </div>
+    </Link>
+);
 
 export default PlayerCard;

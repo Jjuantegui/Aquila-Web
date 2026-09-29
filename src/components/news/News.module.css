@@ -116,8 +116,8 @@
 }
 
 .typePlayer {
-    background: #8A6A2C;
-    color: var(--color-aquila-beige);
+    background: var(--color-sage);
+    color: var(--color-deep-green);
 }
 
 .cardTitle {
@@ -374,3 +374,5 @@
     top: var(--thumbnail-top);
 }
 .card:hover .croppedImage img { transform: none; }
+
+.cardMeta { flex-wrap: wrap; }

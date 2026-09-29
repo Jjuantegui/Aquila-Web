@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { localePath } from '../../i18n/config';
 import styles from './Footer.module.css';
@@ -10,7 +11,7 @@ const Footer = ({ lang = 'en', dict }) => {
             <div className={`container ${styles.footerContainer}`}>
                 <div className={styles.column}>
                     <div className={styles.logo}>
-                        <img src="/assets/logo-mark-beige.png" alt="Aquila SM" style={{ height: '50px', width: 'auto' }} />
+                        <Image sizes="280px" src="/assets/brand/aquila-primary-beige.png" alt="Aquila Sports Management" width="1400" height="420" />
                     </div>
                     <p className={styles.tagline}>{t.tagline}</p>
                 </div>
