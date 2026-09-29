@@ -27,7 +27,7 @@ const Hero = ({ lang = 'en', dict }) => (
             </div>
             <Link href={localePath(lang, '/players/8')} className={styles.portrait} aria-label={dict.featuredLink}>
                 <Image
-                    src="/assets/brand/julio-melbourne-portrait.jpg"
+                    src="/assets/brand/julio-melbourne-smile.jpg"
                     alt="Julio Cascante — Melbourne City"
                     fill
                     sizes="(max-width: 760px) 100vw, 45vw"

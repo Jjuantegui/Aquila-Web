@@ -21,7 +21,7 @@ const DEFAULT_LABELS = { activePlayers: "Active Players", network: "Global Netwo
 
 // Countries with "Llegada/Contacto" (Reach)
 const REACH_COUNTRIES = [
-    "United States of America", "Canada", "Mexico", "China",
+    "United States of America", "Canada", "Mexico", "China", "India",
     // Europe
     "France", "Germany", "Italy", "United Kingdom", "Portugal",
     "Netherlands", "Belgium", "Switzerland", "Austria", "Sweden",
