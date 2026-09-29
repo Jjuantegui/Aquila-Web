@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { deals } from '../../data/deals';
@@ -19,11 +19,20 @@ const parseDate = (d) => {
 
 const seasonsAvailable = [...new Set(deals.map(d => d.season))].sort().reverse();
 
+const subscribeToHash = (onChange) => {
+    window.addEventListener('hashchange', onChange);
+    return () => window.removeEventListener('hashchange', onChange);
+};
+const readHash = () => window.location.hash;
+const serverHash = () => '';
+
 export default function DealsView({ lang, dict }) {
     const t = dict.deals;
     const [activeTab, setActiveTab] = useState('All'); // All | National | International
     const [season, setSeason] = useState('all');
     const [highlightedId, setHighlightedId] = useState(null);
+    const hash = useSyncExternalStore(subscribeToHash, readHash, serverHash);
+    const linkedDealId = /^#deal-\d+$/.test(hash) ? Number(hash.slice(6)) : null;
 
     // Filter Logic
     const filteredDeals = deals
@@ -96,7 +105,8 @@ export default function DealsView({ lang, dict }) {
                         {filteredDeals.map(deal => (
                             <div
                                 key={deal.id}
-                                className={styles.card}
+                                id={`deal-${deal.id}`}
+                                className={`${styles.card} ${linkedDealId === deal.id ? styles.linkedCard : ''}`}
                                 onMouseEnter={() => setHighlightedId(deal.id)}
                                 onMouseLeave={() => setHighlightedId(null)}
                             >
@@ -162,7 +172,7 @@ export default function DealsView({ lang, dict }) {
                             <DealsMap
                                 deals={filteredDeals}
                                 filter={activeTab}
-                                highlightedId={highlightedId}
+                                highlightedId={highlightedId ?? linkedDealId}
                             />
                         </div>
                     )}

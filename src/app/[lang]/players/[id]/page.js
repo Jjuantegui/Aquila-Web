@@ -5,6 +5,7 @@ import { getNewsForPlayer } from '../../../../data/news';
 import { calculateAge } from '../../../../utils/dateHelpers';
 import { getDictionary, locales, localePath, alternatesFor, term, clubLabel, dealDate, fill } from '../../../../i18n';
 import NewsCard from '../../../../components/news/NewsCard';
+import PlayerContact from '../../../../components/players/PlayerContact';
 import newsStyles from '../../../../components/news/News.module.css';
 import styles from '../../../../components/players/PlayerProfile.module.css';
 
@@ -54,6 +55,53 @@ export default async function PlayerProfile({ params }) {
             </Link>
 
             <div className={styles.grid}>
+                {/* Header */}
+                <header className={styles.header}>
+                    <span className={styles.statusBadge}>{term(dict, player.status)}</span>
+                    <h1 className={styles.name}>{player.name}</h1>
+                    <p className={styles.metaPosition}>
+                        {term(dict, player.position)}
+                        {player.secondaryPosition && <span style={{ opacity: 0.6 }}> / {term(dict, player.secondaryPosition)}</span>}
+                        <span style={{ margin: '0 0.8rem', opacity: 0.3 }}>|</span>
+                        {clubLabel(dict, term(dict, player.currentClub))}
+                    </p>
+
+                    <div className={styles.actions}>
+                        <a href="#player-contact" className={styles.primaryBtn}>{t.contactAction}</a>
+                        {player.videoUrl && (
+                            <a href="#player-video" className={styles.linkBtn}>{t.watchHighlights}</a>
+                        )}
+                        <a
+                            href={player.transfermarktUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.linkBtn}
+                        >
+                            Transfermarkt
+                            <svg className={styles.linkIcon} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="7" y1="17" x2="17" y2="7"></line>
+                                <polyline points="7 7 17 7 17 17"></polyline>
+                            </svg>
+                        </a>
+                        {player.instagramUrl && (
+                            <a
+                                href={player.instagramUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={styles.linkBtn}
+                                style={{ padding: '0.6rem' }}
+                                aria-label={`Instagram: ${player.name}`}
+                                title="Instagram"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                            </a>
+                        )}
+                    </div>
+                </header>
                 {/* LEFT: Image & Video */}
                 <div className={styles.leftColumn}>
                     <div className={styles.imageCard}>
@@ -62,11 +110,11 @@ export default async function PlayerProfile({ params }) {
 
                     {/* Video Embed if available */}
                     {player.videoUrl && (
-                        <div className={styles.videoContainer}>
+                        <div id="player-video" className={styles.videoContainer}>
                             <iframe
                                 className={styles.videoFrame}
                                 src={player.videoUrl}
-                                title="Player Highlights"
+                                title={`${player.name} — ${t.watchHighlights}`}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                             ></iframe>
@@ -76,52 +124,6 @@ export default async function PlayerProfile({ params }) {
 
                 {/* RIGHT: Info & Stats */}
                 <div className={styles.rightColumn}>
-                    {/* Header */}
-                    <header className={styles.header}>
-                        <span className={styles.statusBadge}>{term(dict, player.status)}</span>
-                        <h1 className={styles.name}>{player.name}</h1>
-                        <p className={styles.metaPosition}>
-                            {term(dict, player.position)}
-                            {player.secondaryPosition && <span style={{ opacity: 0.6 }}> / {term(dict, player.secondaryPosition)}</span>}
-                            <span style={{ margin: '0 0.8rem', opacity: 0.3 }}>|</span>
-                            {clubLabel(dict, term(dict, player.currentClub))}
-                        </p>
-
-                        <div className={styles.actions}>
-                            {player.videoUrl && (
-                                <button className="btn btn-primary">{t.watchHighlights}</button>
-                            )}
-                            <a
-                                href={player.transfermarktUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={styles.linkBtn}
-                            >
-                                Transfermarkt
-                                <svg className={styles.linkIcon} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                                    <polyline points="7 7 17 7 17 17"></polyline>
-                                </svg>
-                            </a>
-                            {player.instagramUrl && (
-                                <a
-                                    href={player.instagramUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={styles.linkBtn}
-                                    style={{ padding: '0.6rem' }}
-                                    title="Instagram"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                                    </svg>
-                                </a>
-                            )}
-                        </div>
-                    </header>
-
                     {/* Info Chips Grid */}
                     <div className={styles.infoGrid}>
                         <div className={styles.infoChip}>
@@ -146,9 +148,11 @@ export default async function PlayerProfile({ params }) {
                         </div>}
                     </div>
 
+                    <PlayerContact player={player} lang={lang} dict={dict} />
+
                     {/* Scouting Report */}
                     <div className={styles.scoutingSection}>
-                        <h3 className={styles.sectionTitle}>{t.scoutingReport}</h3>
+                        <h2 className={styles.sectionTitle}>{t.scoutingReport}</h2>
                         <div className={styles.scoutingText}>
                             {bullets ? (
                                 <ul>
@@ -172,7 +176,7 @@ export default async function PlayerProfile({ params }) {
                     {/* Timeline (Aquila Movements) */}
                     {playerDeals.length > 0 && (
                         <div>
-                            <h3 className={styles.sectionTitle}>{t.movements}</h3>
+                            <h2 className={styles.sectionTitle}>{t.movements}</h2>
                             <div className={styles.timeline}>
                                 {playerDeals.map(deal => (
                                     <div key={deal.id} className={styles.timelineItem}>
@@ -195,7 +199,7 @@ export default async function PlayerProfile({ params }) {
                     {/* Related news */}
                     {playerNews.length > 0 && (
                         <div style={{ marginTop: '3rem' }}>
-                            <h3 className={styles.sectionTitle}>{t.relatedNews}</h3>
+                            <h2 className={styles.sectionTitle}>{t.relatedNews}</h2>
                             <div className={newsStyles.compactList}>
                                 {playerNews.map(item => (
                                     <NewsCard key={item.slug} item={item} lang={lang} dict={dict} compact />

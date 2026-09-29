@@ -1,4 +1,5 @@
 import Hero from "../../components/home/Hero";
+import FeaturedDeals from "../../components/home/FeaturedDeals";
 import ValuesCarousel from "../../components/home/ValuesCarousel";
 import GlobalPresenceMap from "../../components/home/GlobalPresenceMap";
 import PlayerGrid from "../../components/players/PlayerGrid";
@@ -40,6 +41,8 @@ export default async function Home({ params }) {
         <h2 style={sectionTitleStyle}>{dict.home.players}</h2>
         <PlayerGrid lang={lang} dict={dict} />
       </section>
+
+      <FeaturedDeals lang={lang} dict={dict} />
 
       {/* 1. THE BOUTIQUE MODEL */}
       <section id="about" className="section container animate-fade-in">

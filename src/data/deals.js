@@ -140,6 +140,7 @@ export const deals = [
     },
     {
         id: 10,
+        homepageOrder: 2,
         playerId: 7,
         playerName: "Ruxi",
         dealType: "Free Transfer",
@@ -173,6 +174,7 @@ export const deals = [
     },
     {
         id: 12,
+        homepageOrder: 3,
         playerId: 6,
         playerName: "Miguel López",
         dealType: "Free Transfer",
@@ -187,6 +189,7 @@ export const deals = [
     },
     {
         id: 13,
+        homepageOrder: 1,
         playerId: 8,
         playerName: "Julio Cascante",
         dealType: "Signing",

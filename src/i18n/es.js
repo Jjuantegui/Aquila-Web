@@ -122,6 +122,17 @@ const es = {
         },
     },
 
+    featuredDeals: {
+        eyebrow: 'Nuestro trabajo',
+        title: 'Trayectorias que cruzan fronteras.',
+        intro: 'Una selección de fichajes e intermediaciones en los que Aquila ha participado. Cada operación, una nueva etapa.',
+        viewAll: 'Todas las operaciones',
+        from: 'Desde',
+        to: 'Hacia',
+        viewDealFor: 'Ver la operación de {name}',
+        freeTransfer: 'Fichaje libre',
+    },
+
     home: {
         players: 'Nuestros jugadores',
         globalReach: 'Presencia internacional',
@@ -155,6 +166,15 @@ const es = {
     },
 
     players: {
+        directContact: 'Trato directo con Aquila',
+        contactAction: 'Consultar',
+        contactTitle: 'Contacto para clubes',
+        playerContact: 'Consulta por el jugador y cuéntanos qué necesita tu equipo. Te atenderemos personalmente.',
+        freeAgentContact: 'Agente libre para un nuevo proyecto. Hablemos de su encaje en tu equipo.',
+        contactWhatsapp: 'Consultar por WhatsApp',
+        contactEmail: 'Enviar email',
+        contactSubject: 'Consulta por {name}',
+        contactMessage: 'Hola Aquila, me gustaría recibir información sobre {name}.',
         filterPlayers: 'Filtrar jugadores',
         allPlayers: 'Todos',
         freeAgents: 'Agentes libres',

@@ -1,0 +1,11 @@
+.panel { scroll-margin-top: calc(var(--header-height) + 1rem); padding: 1.6rem 1.8rem; margin-bottom: 2.5rem; background: var(--color-deep-green); color: var(--color-aquila-beige); }
+.label { font-family: var(--font-space-grotesk), sans-serif; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-sage); margin-bottom: 0.75rem; }
+.title { font-size: clamp(1.5rem, 2vw, 1.9rem); font-weight: 400; line-height: 1.25; }
+.description { margin-top: 0.8rem; max-width: 52ch; font-size: 0.85rem; line-height: 1.7; opacity: 0.85; }
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; align-items: center; margin-top: 1.25rem; }
+.whatsapp, .email { display: inline-flex; align-items: center; gap: 1.5rem; min-height: 44px; font-size: 0.78rem; }
+.whatsapp { background: var(--color-aquila-beige); color: var(--color-deep-green); padding: 0.75rem 1rem; border-radius: 2px; }
+.whatsapp:hover { background: var(--color-sage); }
+.email { border-bottom: 1px solid rgba(233,220,201,0.5); }
+.email:hover { border-color: var(--color-sage); color: var(--color-sage); }
+@media (max-width: 560px) { .panel { padding: 1.4rem; } }

@@ -122,6 +122,17 @@ const en = {
         },
     },
 
+    featuredDeals: {
+        eyebrow: 'Our work',
+        title: 'Careers beyond borders.',
+        intro: 'Selected signings and intermediations involving Aquila. Each deal, a new chapter.',
+        viewAll: 'All our deals',
+        from: 'From',
+        to: 'To',
+        viewDealFor: 'View the {name} deal',
+        freeTransfer: 'Free transfer',
+    },
+
     home: {
         players: 'Selected Players',
         globalReach: 'Global Reach',
@@ -155,6 +166,15 @@ const en = {
     },
 
     players: {
+        directContact: 'Speak directly with Aquila',
+        contactAction: 'Enquire',
+        contactTitle: 'Club enquiries',
+        playerContact: 'Enquire about the player and tell us what your team needs. We will respond personally.',
+        freeAgentContact: 'A free agent ready for a new project. Let’s discuss his fit for your team.',
+        contactWhatsapp: 'Enquire on WhatsApp',
+        contactEmail: 'Send an email',
+        contactSubject: 'Enquiry about {name}',
+        contactMessage: 'Hello Aquila, I would like to receive information about {name}.',
         filterPlayers: 'Filter players',
         allPlayers: 'All players',
         freeAgents: 'Free agents',

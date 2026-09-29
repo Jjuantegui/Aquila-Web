@@ -1,0 +1,31 @@
+.section { background: var(--color-deep-green); color: var(--color-aquila-beige); }
+.header { display: grid; grid-template-columns: 1.15fr 1fr; align-items: end; gap: 3rem; margin-bottom: 3rem; }
+.eyebrow, .type, .place { font-family: var(--font-space-grotesk), sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.eyebrow { color: var(--color-sage); margin-bottom: 1rem; }
+.title { max-width: 17ch; font-size: clamp(2.2rem, 3.4vw, 3.2rem); font-weight: 400; line-height: 1.15; text-wrap: balance; }
+.intro { max-width: 42ch; justify-self: end; font-size: 0.9rem; line-height: 1.8; }
+.intro p { opacity: 0.85; }
+.allLink { display: inline-flex; align-items: center; gap: 2rem; min-height: 44px; margin-top: 1rem; border-bottom: 1px solid var(--color-sage); font-size: 0.8rem; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.card { display: flex; flex-direction: column; min-width: 0; padding: 1.6rem; border: 1px solid rgba(233,220,201,0.25); }
+.edition { display: flex; justify-content: space-between; font-family: var(--font-space-grotesk), sans-serif; font-size: 0.75rem; color: var(--color-sage); margin-bottom: 2rem; }
+.type { opacity: 0.8; margin-bottom: 0.65rem; }
+.player { font-size: clamp(1.7rem, 2.5vw, 2.25rem); line-height: 1.2; font-weight: 400; margin-bottom: 2rem; }
+.route { list-style: none; padding: 0 0 0 1.4rem; margin-top: auto; }
+.route li { position: relative; display: flex; flex-direction: column; gap: 0.35rem; padding-bottom: 1.6rem; }
+.route li:first-child::after { content: ''; position: absolute; left: -1.15rem; top: 10px; bottom: -3px; width: 1px; background: rgba(139,171,127,0.45); }
+.route li::before { content: ''; position: absolute; left: -1.4rem; top: 4px; width: 9px; height: 9px; border: 1px solid var(--color-sage); border-radius: 50%; }
+.route li:last-child::before { background: var(--color-sage); }
+.place { color: var(--color-sage); }
+.club { font-size: 1rem; line-height: 1.5; }
+.dealLink { display: flex; align-items: center; justify-content: space-between; min-height: 48px; border-top: 1px solid rgba(233,220,201,0.2); padding-top: 1rem; font-size: 0.75rem; }
+.dealLink span, .allLink span { font-size: 1.2rem; }
+.dealLink:hover, .allLink:hover { color: var(--color-sage); }
+@media (max-width: 800px) {
+    .header { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .intro { justify-self: start; }
+    .grid { grid-template-columns: 1fr; gap: 1rem; }
+    .card { padding: 1.4rem; }
+    .edition { margin-bottom: 1.25rem; }
+    .player { margin-bottom: 1.5rem; }
+}
