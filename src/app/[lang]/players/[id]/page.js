@@ -6,6 +6,7 @@ import { calculateAge } from '../../../../utils/dateHelpers';
 import { getDictionary, locales, localePath, alternatesFor, term, clubLabel, dealDate, fill } from '../../../../i18n';
 import NewsCard from '../../../../components/news/NewsCard';
 import PlayerContact from '../../../../components/players/PlayerContact';
+import CopyLinkButton from '../../../../components/players/CopyLinkButton';
 import newsStyles from '../../../../components/news/News.module.css';
 import styles from '../../../../components/players/PlayerProfile.module.css';
 
@@ -68,6 +69,7 @@ export default async function PlayerProfile({ params }) {
 
                     <div className={styles.actions}>
                         <a href="#player-contact" className={styles.primaryBtn}>{t.contactAction}</a>
+                        <CopyLinkButton url={`https://www.aquilasports.es${localePath(lang, `/players/${player.id}`)}`} label={t.copyProfile} dict={t} />
                         {player.videoUrl && (
                             <a href="#player-video" className={styles.linkBtn}>{t.watchHighlights}</a>
                         )}

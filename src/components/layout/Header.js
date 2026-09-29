@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { localePath, stripLocale } from '../../i18n/config';
+import usePlayerFilters from '../players/usePlayerFilters';
+import { hasPlayerFilters, playerListPath } from '../players/playerFilters.mjs';
 import styles from './Header.module.css';
 
 const Header = ({ lang = 'en', dict }) => {
@@ -13,6 +15,7 @@ const Header = ({ lang = 'en', dict }) => {
     const menuRef = useRef(null);
     const toggleRef = useRef(null);
     const pathname = usePathname() || '/';
+    const { filters: playerFilters } = usePlayerFilters();
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const closeMenu = () => setIsMenuOpen(false);
@@ -47,7 +50,9 @@ const Header = ({ lang = 'en', dict }) => {
 
     // Same page, other language
     const otherLang = lang === 'es' ? 'en' : 'es';
-    const switchHref = localePath(otherLang, stripLocale(pathname));
+    const switchHref = stripLocale(pathname) === '/' && hasPlayerFilters(playerFilters)
+        ? playerListPath(localePath(otherLang, '/'), playerFilters)
+        : localePath(otherLang, stripLocale(pathname));
 
     const links = [
         { href: localePath(lang, '/'), label: dict.home },
