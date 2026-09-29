@@ -26,7 +26,8 @@ const NewsCard = ({ item, lang, dict, compact = false }) => {
 
     return (
         <Link href={href} className={styles.card}>
-            <div className={`${styles.cardImage} ${item.imageFit === 'contain' ? styles.artworkImage : ''}`}>
+            <div className={`${styles.cardImage} ${item.imageFit === 'contain' ? styles.artworkImage : ''} ${item.thumbnailCrop ? styles.croppedImage : ''}`}
+                style={item.thumbnailCrop ? { '--thumbnail-scale': item.thumbnailCrop.scale, '--thumbnail-top': item.thumbnailCrop.top } : undefined}>
                 <img src={newsImage(item)} alt={item.title[lang] || item.title.en} loading="lazy" />
             </div>
             <div className={styles.cardBody}>

@@ -24,7 +24,6 @@ export const news = [
         playerIds: [8],
         dealId: 13,
         image: '/assets/news/julio-cascante-melbourne-signing.png',
-        imageFit: 'contain',
         source: { name: 'Melbourne City FC', url: 'https://melbournecityfc.com.au/news/20260917-cascante-signs/' },
         tags: ['Signing', 'Australia', 'A-League Men'],
         title: {
@@ -83,6 +82,7 @@ export const news = [
         playerIds: [7],
         dealId: 10,
         image: '/assets/news/ruxi-stats-oulu.png',
+        thumbnailCrop: { scale: 3.5, top: '-13%' },
         tags: ['Stats', 'Veikkausliiga', 'Finland'],
         title: {
             en: 'Ruxi assists in IF Gnistan\'s win in Oulu',

@@ -363,3 +363,14 @@
 .artworkImage { background: #1A2E29; }
 .artworkImage img { object-fit: contain; }
 .card:hover .artworkImage img { transform: none; }
+
+/* Crop embedded artwork margins only in thumbnails; articles retain the full image. */
+.croppedImage img {
+    position: absolute;
+    width: calc(100% * var(--thumbnail-scale));
+    height: calc(100% * var(--thumbnail-scale));
+    max-width: none;
+    left: calc((1 - var(--thumbnail-scale)) * 50%);
+    top: var(--thumbnail-top);
+}
+.card:hover .croppedImage img { transform: none; }
