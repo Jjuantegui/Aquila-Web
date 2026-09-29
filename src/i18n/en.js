@@ -7,7 +7,7 @@ const en = {
         },
         deals: {
             title: 'Deals | Aquila Sports Management',
-            description: 'Transfers and intermediation deals closed by Aquila Sports Management across Spain, Andorra, India, the Maldives and Australia.',
+            description: 'Transfers and intermediation deals closed by Aquila Sports Management across Spain, Andorra, India, Finland and Australia.',
         },
         services: {
             title: 'Our Services | Aquila Sports Management',
@@ -19,6 +19,7 @@ const en = {
         },
         player: '{name} | Aquila Sports Management',
         playerDescription: '{name}, {position} at {club}. Represented by Aquila Sports Management.',
+        freeAgentDescription: '{name}, {position}. Free agent represented by Aquila Sports Management.',
     },
 
     nav: {
@@ -154,6 +155,11 @@ const en = {
     },
 
     players: {
+        filterPlayers: 'Filter players',
+        allPlayers: 'All players',
+        freeAgents: 'Free agents',
+        showingPlayers: 'Showing {count} of {total} players',
+        noFreeAgents: 'There are currently no free agents in our roster.',
         viewProfile: 'View Profile',
         breadcrumb: 'Players',
         watchHighlights: 'Watch Highlights',

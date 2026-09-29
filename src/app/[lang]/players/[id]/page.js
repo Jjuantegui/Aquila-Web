@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
     if (!player) return {};
     return {
         title: { absolute: fill(dict.meta.player, { name: player.name }) },
-        description: fill(dict.meta.playerDescription, { name: player.name, position: term(dict, player.position), club: clubLabel(dict, player.currentClub) }),
+        description: fill(player.status === 'Free Agent' ? dict.meta.freeAgentDescription : dict.meta.playerDescription, { name: player.name, position: term(dict, player.position), club: clubLabel(dict, term(dict, player.currentClub)) }),
         alternates: alternatesFor(`/players/${id}`),
         openGraph: {
             title: player.name,
@@ -84,7 +84,7 @@ export default async function PlayerProfile({ params }) {
                             {term(dict, player.position)}
                             {player.secondaryPosition && <span style={{ opacity: 0.6 }}> / {term(dict, player.secondaryPosition)}</span>}
                             <span style={{ margin: '0 0.8rem', opacity: 0.3 }}>|</span>
-                            {clubLabel(dict, player.currentClub)}
+                            {clubLabel(dict, term(dict, player.currentClub))}
                         </p>
 
                         <div className={styles.actions}>
@@ -140,10 +140,10 @@ export default async function PlayerProfile({ params }) {
                             <span className={styles.chipLabel}>{t.height}</span>
                             <span className={styles.chipValue}>{player.height || t.na}</span>
                         </div>
-                        <div className={styles.infoChip}>
+                        {player.status !== 'Free Agent' && <div className={styles.infoChip}>
                             <span className={styles.chipLabel}>{t.contractUntil}</span>
                             <span className={styles.chipValue}>{player.contractUntil || t.na}</span>
-                        </div>
+                        </div>}
                     </div>
 
                     {/* Scouting Report */}

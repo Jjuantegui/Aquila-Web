@@ -7,7 +7,7 @@ const es = {
         },
         deals: {
             title: 'Operaciones | Aquila Sports Management',
-            description: 'Fichajes, renovaciones e intermediaciones cerradas por Aquila Sports Management en España, Andorra, India, Maldivas y Australia.',
+            description: 'Fichajes, renovaciones e intermediaciones cerradas por Aquila Sports Management en España, Andorra, India, Finlandia y Australia.',
         },
         services: {
             title: 'Servicios | Aquila Sports Management',
@@ -19,6 +19,7 @@ const es = {
         },
         player: '{name} | Aquila Sports Management',
         playerDescription: '{name}, {position} del {club}. Jugador representado por Aquila Sports Management.',
+        freeAgentDescription: '{name}, {position}. Agente libre representado por Aquila Sports Management.',
     },
 
     nav: {
@@ -154,6 +155,11 @@ const es = {
     },
 
     players: {
+        filterPlayers: 'Filtrar jugadores',
+        allPlayers: 'Todos',
+        freeAgents: 'Agentes libres',
+        showingPlayers: 'Mostrando {count} de {total} jugadores',
+        noFreeAgents: 'Actualmente no hay agentes libres en nuestra cartera.',
         viewProfile: 'Ver perfil',
         breadcrumb: 'Jugadores',
         watchHighlights: 'Ver vídeo',
