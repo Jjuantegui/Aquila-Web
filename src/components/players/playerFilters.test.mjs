@@ -26,7 +26,7 @@ test('search recognises positions and current club countries in both languages',
 test('position groups include secondary positions and combine with availability', () => {
     assert.deepEqual(matches({ position: 'defence' }), [2, 4, 5, 7, 8]);
     assert.deepEqual(matches({ position: 'midfield' }), [1, 2, 5, 6]);
-    assert.deepEqual(matches({ position: 'attack' }), [1, 3]);
+    assert.deepEqual(matches({ position: 'attack' }), [1, 3, 9]);
     assert.deepEqual(matches({ status: 'free' }), [2, 4]);
     assert.deepEqual(matches({ status: 'free', position: 'midfield' }), [2]);
     assert.deepEqual(matches({ status: 'free', position: 'attack' }), []);

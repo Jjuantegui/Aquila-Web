@@ -58,7 +58,7 @@ export default async function Home({ params }) {
       <section className="section animate-fade-in" style={{ padding: '4rem 0' }}>
         <div className="container">
           <h2 style={sectionTitleStyle}>{dict.home.globalReach}</h2>
-          <GlobalPresenceMap labels={dict.map} terms={dict.terms} />
+          <GlobalPresenceMap lang={lang} labels={dict.map} terms={dict.terms} />
         </div>
       </section>
 

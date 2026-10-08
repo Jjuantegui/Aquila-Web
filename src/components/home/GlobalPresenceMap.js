@@ -5,6 +5,7 @@ import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps
 import { Tooltip } from "react-tooltip";
 import { getFlagUrl } from "../../utils/countryHelpers";
 import { players } from "../../data/players";
+import { localePath } from "../../i18n/config";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
@@ -30,7 +31,7 @@ const REACH_COUNTRIES = [
     "Romania", "Ireland", "Scotland", "Wales", "Czech Republic", "Hungary"
 ];
 
-const GlobalPresenceMap = ({ labels = DEFAULT_LABELS, terms = {} }) => {
+const GlobalPresenceMap = ({ lang = 'en', labels = DEFAULT_LABELS, terms = {} }) => {
     const t = { ...DEFAULT_LABELS, ...labels };
     const localName = (name) => terms[name] || name;
     return (
@@ -119,6 +120,18 @@ const GlobalPresenceMap = ({ labels = DEFAULT_LABELS, terms = {} }) => {
                         })
                     }
                 </Geographies>
+                {/* Hong Kong needs a marker at this world-map resolution. */}
+                {ACTIVE_PLAYERS['Hong Kong'] && (
+                    <Marker coordinates={[114.2240, 22.2841]}>
+                        <a href={localePath(lang, '/players/9')}
+                            aria-label={`Hong Kong: ${ACTIVE_PLAYERS['Hong Kong'].join(', ')}`}
+                            data-tooltip-id="map-tooltip"
+                            data-tooltip-content={`Hong Kong: ${ACTIVE_PLAYERS['Hong Kong'].join(', ')}`}>
+                            <circle r={7} fill="#233B35" stroke="#E9DCC9" strokeWidth={2} />
+                            <text x={11} y={4} fill="#233B35" fontSize={11}>Hong Kong</text>
+                        </a>
+                    </Marker>
+                )}
                 {/* Maldives is too small to appear in the 110m world geometry. */}
                 {ACTIVE_PLAYERS.Maldives && (
                     <Marker coordinates={[73.5093, 4.1755]}>

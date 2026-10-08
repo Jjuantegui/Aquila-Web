@@ -18,6 +18,35 @@
  */
 export const news = [
     {
+        slug: 'alvaro-salinas-joins-eastern-district',
+        date: '2026-10-08',
+        type: 'aquila',
+        playerIds: [9],
+        dealId: 14,
+        image: '/assets/news/alvaro-salinas-eastern-district-signing.png',
+        tags: ['Signing', 'Hong Kong', 'Hong Kong Premier League'],
+        title: {
+            en: 'Álvaro Salinas joins Eastern District FC',
+            es: 'Álvaro Salinas ficha por el Eastern District FC',
+        },
+        excerpt: {
+            en: 'A new international move and an exciting opportunity in the Hong Kong Premier League.',
+            es: 'Un nuevo movimiento internacional y una gran oportunidad en la Premier League de Hong Kong.',
+        },
+        body: {
+            en: [
+                'Álvaro Salinas joins Eastern District FC in Hong Kong after his spell with CF La Nucía in Spain. The Spanish attacker begins a new chapter in the Hong Kong Premier League.',
+                'Aquila Sports Management facilitated the move, helping Álvaro take the next step in his career in a new football market.',
+                'We thank Álvaro and Eastern District FC for their trust and wish him every success in Hong Kong.',
+            ],
+            es: [
+                'Álvaro Salinas se incorpora al Eastern District FC de Hong Kong tras su etapa en el CF La Nucía. El atacante español abre una nueva etapa en la Premier League de Hong Kong.',
+                'Aquila Sports Management ha facilitado la operación, acompañando a Álvaro en este nuevo paso de su carrera en un mercado diferente.',
+                'Agradecemos a Álvaro y al Eastern District FC su confianza y le deseamos muchos éxitos en Hong Kong.',
+            ],
+        },
+    },
+    {
         slug: 'julio-cascante-joins-melbourne-city',
         date: '2026-09-17',
         type: 'aquila',

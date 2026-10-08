@@ -206,5 +206,23 @@ export const deals = [
             transfermarkt: "https://www.transfermarkt.es/julio-cascante/profil/spieler/194909",
             article: "https://melbournecityfc.com.au/news/20260917-cascante-signs/"
         }
+    },
+    {
+        id: 14,
+        playerId: 9,
+        playerName: "Álvaro Salinas",
+        dealType: "Signing",
+        season: "2026/27",
+        date: "Sep 2026",
+        fromClub: { name: "CF La Nucía", city: "La Nucía", country: "Spain", iso: "es", lat: 38.6137, lon: -0.1269 },
+        toClub: { name: "Eastern District FC", city: "Hong Kong", country: "Hong Kong", iso: "hk", lat: 22.2841, lon: 114.2240 },
+        scope: "International",
+        featured: true,
+        notes: "A new international opportunity in the Hong Kong Premier League.",
+        links: {
+            transfermarkt: "https://www.transfermarkt.es/alvaro-salinas/profil/spieler/423289",
+            article: "https://www.aquilasports.es/news/alvaro-salinas-joins-eastern-district"
+        },
+        mapConfig: { scale: 230, center: [55, 30] }
     }
 ];

@@ -7,6 +7,7 @@ export const countryToIso = {
     "Indonesia": "id",
     "Costa Rica": "cr",
     "Andorra": "ad",
+    "Hong Kong": "hk",
 
     // Reach / Global Network (Europe, America, Asia)
     "United States of America": "us",

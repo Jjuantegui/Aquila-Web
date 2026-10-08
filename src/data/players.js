@@ -235,5 +235,34 @@ export const players = [
         strengths: ["Aerial Ability", "Distribution", "Experience"],
         instagramUrl: "https://www.instagram.com/juliocasca03/?hl=es",
         seasonStats: []
+    },
+    {
+        id: 9,
+        name: "Álvaro Salinas",
+        fullName: "Álvaro Salinas García",
+        position: "Winger",
+        secondaryPosition: "Striker",
+        birthDate: "10/01/1996",
+        nationality: "Spanish",
+        height: "1.86m",
+        preferredFoot: "Right",
+        currentClub: "Eastern District FC - Hong Kong",
+        league: "Hong Kong Premier League",
+        contractUntil: "",
+        status: "Under Contract",
+        transfermarktUrl: "https://www.transfermarkt.es/alvaro-salinas/profil/spieler/423289",
+        photoUrl: "/assets/news/alvaro-salinas-eastern-district-signing.png",
+        photoFit: "contain",
+        bioBullets: [
+            "Spanish attacker who can play on the wing or through the middle.",
+            "Joins Eastern District FC after his spell with CF La Nucía in Spain.",
+            "A new international opportunity in the Hong Kong Premier League, in a move facilitated by Aquila Sports Management."
+        ],
+        bioBullets_es: [
+            "Atacante español que puede actuar en banda o por el centro.",
+            "Se incorpora al Eastern District FC tras su etapa en el CF La Nucía.",
+            "Una nueva oportunidad internacional en la Premier League de Hong Kong, en una operación facilitada por Aquila Sports Management."
+        ],
+        seasonStats: []
     }
 ];

@@ -301,6 +301,7 @@ const es = {
         'India': 'India',
         'Maldives': 'Maldivas',
         'Andorra': 'Andorra',
+        'Hong Kong': 'Hong Kong',
         'Brunei': 'Brunéi',
         'Finland': 'Finlandia',
         'Indonesia': 'Indonesia',
