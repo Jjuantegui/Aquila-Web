@@ -18,6 +18,45 @@
  */
 export const news = [
     {
+        "slug": "dani-fernandez-returns-to-action",
+        "date": "2026-10-20",
+        "type": "aquila",
+        "playerIds": [
+            3
+        ],
+        "image": "/assets/news/dani-fernandez-return-2026-10-18.jpg",
+        "imagePosition": "50% 36%",
+        "source": {
+            "name": "Mundo Deportivo",
+            "url": "https://www.mundodeportivo.com/futbol/futbol-catala/20261018/1004240305/concluye-jornada-grupo-2-segunda-federacion.html"
+        },
+        "tags": [
+            "SD Logroñés",
+            "Segunda Federación",
+            "Return"
+        ],
+        "title": {
+            "es": "Dani Fernández vuelve a los terrenos de juego",
+            "en": "Dani Fernández returns to action"
+        },
+        "excerpt": {
+            "es": "El delantero vuelve a competir con la SD Logroñés en el empate 1–1 ante el Náxara.",
+            "en": "The forward returns for SD Logroñés in a 1–1 draw against Náxara."
+        },
+        "body": {
+            "es": [
+                "Dani Fernández volvió a competir con la SD Logroñés el domingo 18 de octubre, ante el Náxara en Pradoviejo. El encuentro de la séptima jornada de Segunda Federación terminó 1–1.",
+                "Dani entró en el minuto 68 en lugar de Mikel Arbeloa: 22 minutos reglamentarios más el añadido. Pepe Blanco había adelantado al Náxara y Arbeloa había empatado de penalti antes del descanso.",
+                "Volver a sentirlo. Desde Aquila nos alegra verle de nuevo en el campo y acompañarle en este regreso. ¡Vamos, Dani!"
+            ],
+            "en": [
+                "Dani Fernández returned for SD Logroñés against Náxara at Pradoviejo on Sunday 18 October. The Segunda Federación matchday seven fixture ended 1–1.",
+                "Dani replaced Mikel Arbeloa in the 68th minute, playing 22 regulation minutes plus stoppage time. Pepe Blanco had put Náxara ahead before Arbeloa equalised from the penalty spot before half-time.",
+                "That feeling again. Everyone at Aquila is delighted to see Dani back on the pitch and to support him on his return. Vamos, Dani!"
+            ]
+        }
+    },
+    {
         slug: 'alvaro-salinas-joins-eastern-district',
         date: '2026-10-08',
         type: 'aquila',
