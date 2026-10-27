@@ -61,3 +61,18 @@ Copia `.env.example` a `.env.local` para desarrollo. Sin Redis, los PDF se sirve
 3. Opcional: añade destinatarios en `recipients` con `label` e idioma. Si no, crea los enlaces desde el panel.
 
 Datos en Redis: `opens:{dossier}:{club}` (últimos 500 eventos), `opens:all` (últimos 2.000), `stats:{dossier}:{club}` (`count`, `first`, `last`) y `recipients:{dossier}` (destinatarios creados desde el panel: `{ label, lang }` por slug).
+
+## Stories de Instagram (conector privado «Aquila Instagram»)
+
+Publica las stories aprobadas en @aquilasportsm con la API de Instagram (inicio de sesión empresarial), con mención al jugador. Lo usan las tareas programadas de Claude a través de un conector MCP privado.
+
+- **Conector (MCP):** `POST /api/mcp/<CONNECTOR_KEY>`. Con otra clave responde 404. Herramientas: `check_connection`, `create_image_upload`, `schedule_story`, `list_stories`, `cancel_story`, `publish_due`, `publish_now`, `refresh_token`.
+- **Subida de imágenes:** `PUT /api/ig/upload/<id>?exp=&sig=` (URL firmada de 30 min que da `create_image_upload`; solo JPEG, máx. 700 KB).
+- **Imagen pública para Meta:** `GET /api/ig/img/<id>.jpg` (id aleatorio, sin enlaces en la web, caduca a los 21 días).
+- **Datos en Redis:** `ig:img:<id>`, `ig:stories` (hash id → JSON), `ig:token` (token renovado), `ig:lock:<id>`.
+
+| Variable | Valor |
+|---|---|
+| `IG_ACCESS_TOKEN` | Token largo de Meta for Developers (app «Aquila Stories»). Dura 60 días; `refresh_token` lo renueva y lo guarda en Redis. |
+| `IG_USER_ID` | `17841471503444352` (@aquilasportsm). |
+| `CONNECTOR_KEY` | Cadena aleatoria de 32+ caracteres. Forma parte de la URL del conector y firma las subidas. No compartir. |
