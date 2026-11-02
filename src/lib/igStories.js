@@ -1,5 +1,15 @@
 import crypto from "node:crypto";
 import { getRedis } from "./redis";
+import {
+    MAX_VIDEO_BYTES,
+    isBlobConfigured,
+    canUseMemoryVideos,
+    videoPathname,
+    blobPublicUrl,
+    presignVideoUpload,
+    deleteBlob,
+    inspectRemoteMp4,
+} from "./igVideo";
 
 /**
  * Publicador de stories de Instagram para Aquila (API de Instagram con inicio de sesión empresarial).
@@ -15,7 +25,11 @@ import { getRedis } from "./redis";
  *   ig:img:<id>      JPEG en base64 (caduca a los 21 días)
  *   ig:stories       hash  id → JSON de la story programada
  *   ig:token         token renovado { token, refreshedAt } (tiene prioridad sobre IG_ACCESS_TOKEN)
- *   ig:lock:<id>     candado para no publicar dos veces la misma story
+ *   ig:lock:<id>     candado para no publicar dos veces la misma story o reel
+ *   ig:media         hash  id → JSON con los metadatos de cada vídeo ({ media_id, kind, blob_url, bytes, ... })
+ *   ig:reels         hash  id → JSON del reel programado
+ *
+ * Los vídeos (stories en vídeo y reels) viven en Vercel Blob, no en Redis: ver src/lib/igVideo.js.
  */
 
 const IMG_TTL = 60 * 60 * 24 * 21;
@@ -23,6 +37,9 @@ export const MAX_IMAGE_BYTES = 700 * 1024; // con base64 queda por debajo del l�
 const UPLOAD_TTL = 60 * 30;
 
 const mem = (globalThis.__aquilaIgStore ??= { keys: new Map(), stories: new Map() });
+mem.reels ??= new Map();
+mem.media ??= new Map();
+mem.videos ??= new Map(); // MP4 en memoria (solo desarrollo, sin Blob)
 
 function apiBase() {
     return (process.env.IG_API_BASE || "https://graph.instagram.com/v26.0").replace(/\/$/, "");
@@ -93,6 +110,34 @@ async function storyAll() {
 async function storyGet(id) {
     return (await storyAll()).find((s) => s.id === id) || null;
 }
+async function hashPut(key, memMap, item) {
+    const r = getRedis();
+    if (r) return r.hset(key, { [item.id]: JSON.stringify(item) });
+    memMap.set(item.id, JSON.stringify(item));
+}
+async function hashAll(key, memMap) {
+    const r = getRedis();
+    const raw = r ? (await r.hgetall(key)) || {} : Object.fromEntries(memMap);
+    return Object.values(raw).map((v) => (typeof v === "string" ? JSON.parse(v) : v));
+}
+async function hashGet(key, memMap, id) {
+    const r = getRedis();
+    const v = r ? await r.hget(key, id) : memMap.get(id);
+    if (!v) return null;
+    return typeof v === "string" ? JSON.parse(v) : v;
+}
+async function hashDel(key, memMap, id) {
+    const r = getRedis();
+    if (r) return r.hdel(key, id);
+    memMap.delete(id);
+}
+const reelPut = (reel) => hashPut("ig:reels", mem.reels, reel);
+const reelGet = (id) => hashGet("ig:reels", mem.reels, id);
+async function reelAll() {
+    return (await hashAll("ig:reels", mem.reels)).sort((a, b) => String(a.publish_at).localeCompare(String(b.publish_at)));
+}
+const mediaPut = (m) => hashPut("ig:media", mem.media, { ...m, id: m.media_id });
+const mediaGet = (id) => hashGet("ig:media", mem.media, id);
 
 // ---------- imágenes ----------
 function sign(payload) {
@@ -107,6 +152,8 @@ export function createUpload(filename) {
     const sig = sign(`${id}.${exp}`);
     return {
         image_id: id,
+        media_id: id,
+        kind: "image",
         upload_url: `${siteUrl()}/api/ig/upload/${id}?exp=${exp}&sig=${sig}`,
         method: "PUT",
         content_type: "image/jpeg",
@@ -117,10 +164,10 @@ export function createUpload(filename) {
     };
 }
 
-export function verifyUpload(id, exp, sig) {
+export function verifyUpload(id, exp, sig, kind = "image") {
     if (!connectorKey() || !id || !exp || !sig) return false;
     if (Number(exp) < Date.now() / 1000) return false;
-    return safeEqual(sig, sign(`${id}.${exp}`));
+    return safeEqual(sig, sign(kind === "video" ? `${id}.${exp}.video` : `${id}.${exp}`));
 }
 
 export function isJpeg(buf) {
@@ -176,6 +223,7 @@ export async function checkConnection() {
     const stored = await kvGet("ig:token");
     const parsed = typeof stored === "string" ? JSON.parse(stored) : stored;
     const stories = await storyAll();
+    const reels = await reelAll();
     return {
         ok: true,
         username: me.username,
@@ -184,7 +232,9 @@ export async function checkConnection() {
         token_source: parsed?.token ? "redis (renovado)" : "IG_ACCESS_TOKEN",
         token_refreshed_at: parsed?.refreshedAt || null,
         scheduled: stories.filter((s) => s.status === "scheduled").length,
+        scheduled_reels: reels.filter((r) => r.status === "scheduled").length,
         storage: getRedis() ? "redis" : "memoria (solo desarrollo)",
+        video_storage: isBlobConfigured() ? "vercel blob" : canUseMemoryVideos() ? "memoria (solo desarrollo)" : "sin configurar (falta BLOB_READ_WRITE_TOKEN)",
     };
 }
 
@@ -196,7 +246,11 @@ export async function refreshToken() {
 }
 
 // ---------- cola ----------
-export async function scheduleStory({ image_id, publish_at, mention, label }) {
+export async function scheduleStory({ image_id, media_id, publish_at, mention, label }) {
+    if (!image_id && media_id) {
+        if (await kvGet(`ig:img:${media_id}`)) image_id = media_id;
+        else return scheduleVideoStory({ media_id, publish_at, mention, label });
+    }
     if (!image_id || !(await kvGet(`ig:img:${image_id}`))) throw new Error("La imagen no existe o ha caducado: súbela primero.");
     const when = new Date(publish_at);
     if (Number.isNaN(when.getTime())) throw new Error("publish_at no es una fecha válida (usa ISO 8601 con zona, p. ej. 2026-10-30T11:00:00+01:00).");
@@ -263,18 +317,389 @@ async function publishOne(s) {
     }
 }
 
-/** Publica las stories cuya hora ya ha llegado (con 2 minutos de margen). */
+/**
+ * Publica las stories y reels cuya hora ya ha llegado (con 2 minutos de margen).
+ * Como mucho 1 reel por ejecución, y sin pasarse del tiempo de la función: si Meta sigue
+ * procesando un vídeo al acabar el presupuesto, se guarda el contenedor y se retoma en la siguiente.
+ */
 export async function publishDue({ max = 10 } = {}) {
-    const now = Date.now() + 2 * 60 * 1000;
-    const due = (await storyAll()).filter((s) => s.status === "scheduled" && new Date(s.publish_at).getTime() <= now).slice(0, max);
+    const started = Date.now();
+    const deadline = started + RUN_BUDGET_MS;
+    const now = started + 2 * 60 * 1000;
+    const isDue = (p) => p.status === "scheduled" && new Date(p.publish_at).getTime() <= now;
+    const dueStories = (await storyAll()).filter(isDue).slice(0, max);
+    const dueReels = (await reelAll()).filter(isDue);
     const results = [];
-    for (const s of due) results.push(await publishOne(s));
-    return { checked_at: new Date().toISOString(), due: due.length, results };
+    for (const s of dueStories) {
+        if (s.kind !== "video") {
+            results.push(await publishOne(s));
+            continue;
+        }
+        if (deadline - Date.now() < MIN_VIDEO_BUDGET_MS) {
+            results.push({ id: s.id, type: "story", skipped: "sin tiempo en esta ejecución; sale en la siguiente" });
+            continue;
+        }
+        results.push(await publishVideo(s, "story", deadline));
+    }
+    const reel = dueReels[0];
+    if (reel) {
+        if (deadline - Date.now() < MIN_VIDEO_BUDGET_MS) results.push({ id: reel.id, type: "reel", skipped: "sin tiempo en esta ejecución; sale en la siguiente" });
+        else results.push(await publishVideo(reel, "reel", deadline));
+    }
+    const cleaned = await cleanupVideos().catch((e) => ({ error: String(e.message || e) }));
+    return {
+        checked_at: new Date().toISOString(),
+        due: dueStories.length + (reel ? 1 : 0),
+        reels_waiting: Math.max(0, dueReels.length - 1),
+        results,
+        cleaned_videos: cleaned,
+    };
 }
 
 export async function publishNow(id) {
     const s = await storyGet(id);
     if (!s) throw new Error("No existe esa story.");
     if (s.status !== "scheduled") throw new Error(`No se puede publicar: estado ${s.status}.`);
+    if (s.kind === "video") return publishVideo(s, "story", Date.now() + RUN_BUDGET_MS);
     return publishOne(s);
+}
+
+// ---------- vídeos: subidas ----------
+const RUN_BUDGET_MS = 270 * 1000; // la función tiene maxDuration 300
+const MIN_VIDEO_BUDGET_MS = 30 * 1000;
+const POLL_MS = 5000;
+const POLL_LIMIT_MS = { story: 120 * 1000, reel: 5 * 60 * 1000 };
+const LIMITS_S = { story: [3, 60], reel: [3, 15 * 60] };
+const CLEANUP_GRACE_MS = 7 * 24 * 60 * 60 * 1000;
+const MAX_ATTEMPTS = 3;
+
+/** Prepara una subida (imagen o vídeo). Para vídeo devuelve una URL PUT de un solo uso (30 min, video/mp4, máx. 60 MB). */
+export async function createMediaUpload({ kind = "image", filename } = {}) {
+    if (kind === "image") return createUpload(filename);
+    if (kind !== "video") throw new Error('kind debe ser "image" o "video".');
+    if (!connectorKey()) throw new Error("Falta CONNECTOR_KEY en Vercel.");
+    const id = newId(16);
+    const pathname = videoPathname(id);
+    let upload;
+    let blob_url;
+    if (isBlobConfigured()) {
+        upload = await presignVideoUpload(pathname);
+        blob_url = blobPublicUrl(pathname);
+    } else if (canUseMemoryVideos()) {
+        const exp = Math.floor(Date.now() / 1000) + UPLOAD_TTL;
+        upload = {
+            upload_url: `${siteUrl()}/api/ig/upload/${id}?kind=video&exp=${exp}&sig=${sign(`${id}.${exp}.video`)}`,
+            headers: { "Content-Type": "video/mp4" },
+            expires_at: new Date(exp * 1000).toISOString(),
+        };
+        blob_url = `${siteUrl()}/api/ig/vid/${id}.mp4`;
+    } else {
+        throw new Error("Falta BLOB_READ_WRITE_TOKEN en Vercel: activa Vercel Blob en el proyecto (Storage → Blob).");
+    }
+    await mediaPut({
+        media_id: id,
+        kind: "video",
+        storage: isBlobConfigured() ? "blob" : "memory",
+        pathname,
+        blob_url,
+        bytes: null,
+        duration_s: null,
+        status: "pending",
+        filename: filename ? String(filename).slice(0, 140) : null,
+        created_at: new Date().toISOString(),
+    });
+    const curlHeaders = Object.entries(upload.headers)
+        .map(([k, v]) => `-H '${k}: ${v}'`)
+        .join(" ");
+    return {
+        media_id: id,
+        kind: "video",
+        upload_url: upload.upload_url,
+        method: "PUT",
+        headers: upload.headers,
+        content_type: "video/mp4",
+        max_bytes: MAX_VIDEO_BYTES,
+        public_url: `${siteUrl()}/api/ig/vid/${id}.mp4`,
+        expires_in_seconds: UPLOAD_TTL,
+        expires_at: upload.expires_at,
+        curl: `curl -X PUT ${curlHeaders} -T archivo.mp4 '${upload.upload_url}'`,
+        filename: filename || null,
+    };
+}
+
+/** Desarrollo sin Blob: guarda el MP4 recibido en /api/ig/upload/<id>?kind=video. */
+export async function saveMemoryVideo(id, buf, info) {
+    const m = await mediaGet(id);
+    if (!m || m.kind !== "video") throw new Error("No existe esa subida.");
+    if (mem.videos.has(id)) throw new Error("Esta subida ya se usó.");
+    mem.videos.set(id, buf);
+    Object.assign(m, { status: "ready", bytes: buf.length, duration_s: info.duration_s, faststart: info.faststart, validated_at: new Date().toISOString() });
+    await mediaPut(m);
+    return m;
+}
+export const loadMemoryVideo = (id) => mem.videos.get(id) || null;
+export const getVideoMeta = (id) => mediaGet(id);
+
+/**
+ * Comprueba que el vídeo está subido y es un MP4 válido (ftyp, tamaño, duración del mvhd).
+ * Con Blob la subida va directa a Vercel, así que la validación se hace aquí, la primera vez que se usa.
+ * Si no es válido se borra el blob y se marca como rechazado.
+ */
+async function ensureVideoReady(media_id) {
+    const m = media_id ? await mediaGet(media_id) : null;
+    if (!m || m.kind !== "video") throw new Error("El vídeo no existe: créalo con create_media_upload(kind=video) y súbelo primero.");
+    if (m.status === "rejected") throw new Error(`El vídeo se rechazó: ${m.error}`);
+    if (m.status === "ready") return m;
+    const info = await inspectRemoteMp4(m.blob_url);
+    if (!info.ok) {
+        if (info.status === 404) throw new Error(info.error);
+        Object.assign(m, { status: "rejected", error: `${info.status}: ${info.error}`, bytes: info.bytes ?? null });
+        await mediaPut(m);
+        await deleteBlob(m.storage === "blob" ? m.blob_url : null).catch(() => {});
+        throw new Error(`El vídeo se rechazó (${info.status}): ${info.error}`);
+    }
+    Object.assign(m, {
+        status: "ready",
+        bytes: info.bytes,
+        duration_s: info.duration_s,
+        faststart: info.faststart,
+        range: info.range,
+        validated_at: new Date().toISOString(),
+    });
+    await mediaPut(m);
+    return m;
+}
+
+function checkDuration(m, type) {
+    const [min, max] = LIMITS_S[type];
+    if (m.duration_s == null) return;
+    if (m.duration_s > max) throw new Error(`El vídeo dura ${m.duration_s} s; el máximo para ${type === "story" ? "una story" : "un reel"} es ${max} s.`);
+    if (m.duration_s < min) throw new Error(`El vídeo dura ${m.duration_s} s; el mínimo es ${min} s.`);
+}
+
+function parseWhen(publish_at) {
+    const when = new Date(publish_at);
+    if (Number.isNaN(when.getTime())) throw new Error("publish_at no es una fecha válida (usa ISO 8601 con zona, p. ej. 2026-10-30T11:00:00+01:00).");
+    return when;
+}
+
+const IG_USERNAME = /^[A-Za-z0-9._]{1,30}$/;
+
+const videoFields = () => ({
+    attempts: 0,
+    last_error: null,
+    container_id: null,
+    container_created_at: null,
+    ig_media_id: null,
+    permalink: null,
+    published_at: null,
+});
+
+// ---------- stories en vídeo ----------
+async function scheduleVideoStory({ media_id, publish_at, mention, label }) {
+    const m = await ensureVideoReady(media_id);
+    checkDuration(m, "story");
+    const when = parseWhen(publish_at);
+    const username = mention ? String(mention).trim().replace(/^@/, "") : null;
+    if (username && !IG_USERNAME.test(username)) throw new Error("La mención no parece un usuario de Instagram válido.");
+    const story = {
+        id: newId(9),
+        kind: "video",
+        media_id,
+        video_url: m.blob_url,
+        duration_s: m.duration_s,
+        publish_at: when.toISOString(),
+        mention: username,
+        label: label ? String(label).slice(0, 140) : null,
+        status: "scheduled",
+        created_at: new Date().toISOString(),
+        ...videoFields(),
+    };
+    await storyPut(story);
+    return story;
+}
+
+// ---------- reels ----------
+export async function scheduleReel({ media_id, publish_at, label, caption, share_to_feed = true, cover_url, thumb_offset, collaborators }) {
+    const m = await ensureVideoReady(media_id);
+    checkDuration(m, "reel");
+    const when = parseWhen(publish_at);
+    const text = caption ? String(caption) : "";
+    if (text.length > 2200) throw new Error(`El caption tiene ${text.length} caracteres; el máximo es 2.200.`);
+    const hashtags = text.match(/#[\p{L}\p{N}_]+/gu) || [];
+    if (hashtags.length > 30) throw new Error(`El caption tiene ${hashtags.length} hashtags; el máximo es 30.`);
+    const mentions = text.match(/@[A-Za-z0-9._]+/g) || [];
+    if (mentions.length > 20) throw new Error(`El caption tiene ${mentions.length} menciones; el máximo es 20.`);
+    if (cover_url != null && thumb_offset != null) throw new Error("Usa cover_url o thumb_offset, no los dos.");
+    if (cover_url != null && !/^https:\/\/\S+$/i.test(String(cover_url))) throw new Error("cover_url debe ser una URL https pública de un JPEG.");
+    let offset = null;
+    if (thumb_offset != null) {
+        offset = Number(thumb_offset);
+        if (!Number.isInteger(offset) || offset < 0) throw new Error("thumb_offset debe ser un número entero de milisegundos.");
+        if (m.duration_s != null && offset > m.duration_s * 1000) throw new Error(`thumb_offset (${offset} ms) supera la duración del vídeo.`);
+    }
+    const collabs = (collaborators || []).map((u) => String(u).trim().replace(/^@/, "")).filter(Boolean);
+    if (collabs.length > 3) throw new Error("Instagram admite como máximo 3 colaboradores por reel.");
+    for (const u of collabs) if (!IG_USERNAME.test(u)) throw new Error(`"${u}" no parece un usuario de Instagram válido.`);
+    const reel = {
+        id: newId(9),
+        kind: "reel",
+        media_id,
+        video_url: m.blob_url,
+        duration_s: m.duration_s,
+        publish_at: when.toISOString(),
+        label: label ? String(label).slice(0, 140) : null,
+        caption: text,
+        share_to_feed: share_to_feed !== false,
+        cover_url: cover_url || null,
+        thumb_offset: offset,
+        collaborators: collabs,
+        status: "scheduled",
+        created_at: new Date().toISOString(),
+        ...videoFields(),
+    };
+    await reelPut(reel);
+    return reel;
+}
+
+export async function listReels(status) {
+    const all = await reelAll();
+    return status ? all.filter((r) => r.status === status) : all;
+}
+
+export async function cancelReel(id) {
+    const r = await reelGet(id);
+    if (!r) throw new Error("No existe ese reel.");
+    if (r.status !== "scheduled") throw new Error(`No se puede cancelar: estado ${r.status}.`);
+    r.status = "cancelled";
+    r.cancelled_at = new Date().toISOString();
+    await reelPut(r);
+    return r;
+}
+
+export async function publishReelNow(id) {
+    const r = await reelGet(id);
+    if (!r) throw new Error("No existe ese reel.");
+    if (r.status !== "scheduled") throw new Error(`No se puede publicar: estado ${r.status}.`);
+    return publishVideo(r, "reel", Date.now() + RUN_BUDGET_MS);
+}
+
+// ---------- vídeos: publicación ----------
+/** Cuota de publicaciones de la API en 24 h. Si no se puede leer, no bloquea. */
+async function publishingQuota() {
+    try {
+        const d = await ig(`${igUserId()}/content_publishing_limit`, { params: { fields: "quota_usage,config" } });
+        const row = d?.data?.[0] || {};
+        return { usage: Number(row.quota_usage ?? 0), total: Number(row.config?.quota_total ?? Infinity) };
+    } catch {
+        return null;
+    }
+}
+
+function containerParams(p, type) {
+    if (type === "story") {
+        const params = { media_type: "STORIES", video_url: p.video_url };
+        if (p.mention) params.user_tags = JSON.stringify([{ username: p.mention }]);
+        return params;
+    }
+    const params = { media_type: "REELS", video_url: p.video_url, share_to_feed: p.share_to_feed ? "true" : "false" };
+    if (p.caption) params.caption = p.caption;
+    if (p.cover_url) params.cover_url = p.cover_url;
+    if (p.thumb_offset != null) params.thumb_offset = String(p.thumb_offset);
+    if (p.collaborators?.length) params.collaborators = JSON.stringify(p.collaborators);
+    return params;
+}
+
+class StillProcessing extends Error {}
+
+async function publishVideo(p, type, deadline) {
+    const put = type === "reel" ? reelPut : storyPut;
+    const base = { id: p.id, type, label: p.label };
+    const lock = await kvSetNx(`ig:lock:${p.id}`, "1", 600);
+    if (!lock) return { ...base, skipped: "otra ejecución la está publicando" };
+    try {
+        const quota = await publishingQuota();
+        if (quota && quota.usage >= quota.total) {
+            p.last_error = `Sin cuota de publicación de Meta (${quota.usage}/${quota.total} en 24 h); se reintentará.`;
+            await put(p);
+            return { ...base, published: false, skipped: p.last_error };
+        }
+        // Reutiliza el contenedor si una ejecución anterior lo dejó procesando (caducan a las 24 h).
+        const fresh = p.container_id && Date.now() - new Date(p.container_created_at).getTime() < 23 * 3600 * 1000;
+        if (!fresh) {
+            const container = await ig(`${igUserId()}/media`, { method: "POST", params: containerParams(p, type) });
+            Object.assign(p, { container_id: container.id, container_created_at: new Date().toISOString() });
+            await put(p);
+        }
+        const limitAt = Date.now() + POLL_LIMIT_MS[type];
+        const until = Math.min(limitAt, deadline);
+        let status = "IN_PROGRESS";
+        while (true) {
+            const st = await ig(p.container_id, { params: { fields: "status_code,status" } });
+            status = st.status_code;
+            if (status === "FINISHED") break;
+            if (status === "ERROR" || status === "EXPIRED") {
+                p.container_id = null;
+                throw new Error(`Meta rechazó el vídeo (${status})${st.status ? `: ${st.status}` : ""}.`);
+            }
+            if (Date.now() + POLL_MS > until) break;
+            await sleep(POLL_MS);
+        }
+        if (status !== "FINISHED") {
+            if (deadline < limitAt) throw new StillProcessing();
+            throw new Error(`Meta no terminó de procesar el vídeo en ${POLL_LIMIT_MS[type] / 1000} s; se reintentará.`);
+        }
+        const pub = await ig(`${igUserId()}/media_publish`, { method: "POST", params: { creation_id: p.container_id } });
+        let permalink = null;
+        try {
+            permalink = (await ig(pub.id, { params: { fields: "permalink" } })).permalink || null;
+        } catch {
+            // El permalink es informativo: la pieza ya está publicada.
+        }
+        Object.assign(p, { status: "published", ig_media_id: pub.id, permalink, published_at: new Date().toISOString(), last_error: null });
+        await put(p);
+        return { ...base, published: true, ig_media_id: pub.id, permalink };
+    } catch (e) {
+        if (e instanceof StillProcessing) {
+            p.last_error = "Meta sigue procesando el vídeo; se retoma en la siguiente ejecución.";
+            await put(p);
+            return { ...base, published: false, pending: true, container_id: p.container_id };
+        }
+        p.attempts = (p.attempts || 0) + 1;
+        p.last_error = String(e.message || e);
+        if (p.attempts >= MAX_ATTEMPTS) {
+            p.status = "failed";
+            p.failed_at = new Date().toISOString();
+        }
+        await put(p);
+        return { ...base, published: false, error: p.last_error, attempts: p.attempts };
+    } finally {
+        await kvDel(`ig:lock:${p.id}`);
+    }
+}
+
+/**
+ * Borra los vídeos que ya no hacen falta: ninguna pieza programada los usa y la última terminó
+ * (publicada, cancelada o fallida) hace más de 7 días. Los vídeos subidos y nunca usados, a los 7 días.
+ */
+async function cleanupVideos() {
+    const media = await hashAll("ig:media", mem.media);
+    if (!media.length) return 0;
+    const pieces = [...(await storyAll()), ...(await reelAll())].filter((p) => p.kind === "video" || p.kind === "reel");
+    const cutoff = Date.now() - CLEANUP_GRACE_MS;
+    let cleaned = 0;
+    for (const m of media) {
+        const refs = pieces.filter((p) => p.media_id === m.media_id);
+        if (refs.some((p) => p.status === "scheduled")) continue;
+        const last = Math.max(
+            new Date(m.created_at).getTime(),
+            ...refs.map((p) => new Date(p.published_at || p.cancelled_at || p.failed_at || p.created_at).getTime()),
+        );
+        if (last > cutoff) continue;
+        if (m.storage === "blob") await deleteBlob(m.blob_url);
+        mem.videos.delete(m.media_id);
+        await hashDel("ig:media", mem.media, m.media_id);
+        cleaned++;
+    }
+    return cleaned;
 }
