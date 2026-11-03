@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { preload } from 'react-dom';
 import Image from 'next/image';
 import Link from 'next/link';
 import { heroVideo } from '../../data/heroClips';
@@ -10,8 +11,13 @@ import styles from './Hero.module.css';
 // Vídeo de portada a sangre: póster (imagen LCP, prioridad alta) + <video> silencioso en bucle que solo se monta en
 // cliente, sin movimiento reducido ni ahorro de datos, y después del póster. preload="metadata" para no competir con
 // el LCP. El rótulo «Ahora · jugador · club» sigue al clip en reproducción (heroClips.js) y enlaza a su ficha.
+const PORTRAIT = '(orientation: portrait) and (max-width: 760px)';
+
 export default function HeroVideo({ lang, dict }) {
     const ref = useRef(null);
+    // El póster es la imagen LCP. El de escritorio ya lo precarga next/image (priority); el móvil va en un <source>
+    // que next/image no anuncia, así que se precarga aquí para que el navegador lo pida junto con el HTML.
+    preload(heroVideo.poster.portrait, { as: 'image', fetchPriority: 'high', media: PORTRAIT });
     // En servidor y en la hidratación no hay vídeo (solo póster); en cliente se decide por reduced motion y save-data.
     const canPlay = useSyncExternalStore(() => () => {}, () => {
         if (!heroVideo.sources) return false;
@@ -41,13 +47,13 @@ export default function HeroVideo({ lang, dict }) {
         <>
             <div className={styles.media} aria-hidden="true">
                 <picture>
-                    <source media="(orientation: portrait) and (max-width: 760px)" srcSet={heroVideo.poster.portrait} />
+                    <source media={PORTRAIT} srcSet={heroVideo.poster.portrait} />
                     <Image src={heroVideo.poster.landscape} alt="" fill priority fetchPriority="high" sizes="100vw" className={styles.poster} />
                 </picture>
                 {showVideo && src && (
                     <video ref={ref} className={styles.video} muted loop playsInline autoPlay preload="metadata" poster={heroVideo.poster.landscape} aria-label={dict.videoLabel}>
-                        <source src={src.portrait.webm} type="video/webm" media="(orientation: portrait) and (max-width: 760px)" />
-                        <source src={src.portrait.mp4} type="video/mp4" media="(orientation: portrait) and (max-width: 760px)" />
+                        <source src={src.portrait.webm} type="video/webm" media={PORTRAIT} />
+                        <source src={src.portrait.mp4} type="video/mp4" media={PORTRAIT} />
                         <source src={src.landscape.webm} type="video/webm" />
                         <source src={src.landscape.mp4} type="video/mp4" />
                     </video>
