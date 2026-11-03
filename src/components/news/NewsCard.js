@@ -26,11 +26,11 @@ const NewsCard = ({ item, lang, dict, compact = false }) => {
 
     return (
         <Link href={href} className={styles.card}>
-            <div className={`${styles.cardImage} ${item.imageFit === 'contain' ? styles.artworkImage : ''} ${item.thumbnailCrop ? styles.croppedImage : ''}`}
+            <div className={`${styles.cardImage} m-curtain ${item.imageFit === 'contain' ? styles.artworkImage : ''} ${item.thumbnailCrop ? styles.croppedImage : ''}`}
                 style={item.thumbnailCrop ? { '--thumbnail-scale': item.thumbnailCrop.scale, '--thumbnail-top': item.thumbnailCrop.top } : undefined}>
                 <img src={newsImage(item)} alt={item.title[lang] || item.title.en} loading="lazy" style={item.imagePosition ? { objectPosition: item.imagePosition } : undefined} />
             </div>
-            <div className={styles.cardBody}>
+            <div className={`${styles.cardBody} m-rise`} style={{ '--d': '0.2s' }}>
                 <div className={styles.cardMeta}>
                     <span className={`${styles.typeBadge} ${typeClass[item.type] || ''}`}>{t.types[item.type] || item.type}</span>
                     <span>{longDate(lang, item.date)}</span>

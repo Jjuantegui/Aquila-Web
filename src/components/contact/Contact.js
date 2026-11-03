@@ -20,7 +20,7 @@ const Contact = ({ dict }) => {
 
                 <div className={styles.grid}>
                     {/* EMAIL COLUMN */}
-                    <div className={styles.item}>
+                    <div className={`${styles.item} m-rise`} style={{ '--d': '0.4s' }}>
                         <span className={styles.label}>{dict.email}</span>
                         <span className={styles.value}>{email}</span>
                         <div className={styles.actions}>
@@ -40,7 +40,7 @@ const Contact = ({ dict }) => {
                     <div className={styles.divider}></div>
 
                     {/* PHONE COLUMN */}
-                    <div className={styles.item}>
+                    <div className={`${styles.item} m-rise`} style={{ '--d': '0.52s' }}>
                         <span className={styles.label}>{dict.phone}</span>
                         <span className={styles.value}>+34 636 321 577</span>
                         <div className={styles.actions}>
@@ -59,7 +59,7 @@ const Contact = ({ dict }) => {
                     </div>
                 </div>
 
-                <div className={styles.microcopy}>{dict.microcopy}</div>
+                <div className={`${styles.microcopy} m-rise`} style={{ '--d': '0.7s' }}>{dict.microcopy}</div>
             </div>
         </section>
     );

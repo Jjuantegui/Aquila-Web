@@ -60,6 +60,7 @@ export const players = [
     {
         id: 3,
         name: "Dani Fernandez",
+        number: 7,  // dorsal confirmado por Joaquín el 06/10/2026
         position: "Striker",
         secondaryPosition: "Winger",
         birthDate: "31/08/2001",
@@ -209,6 +210,7 @@ export const players = [
     {
         id: 8,
         name: "Julio Cascante",
+        number: 18,  // dorsal confirmado por Joaquín el 06/10/2026
         position: "Centre-back",
         secondaryPosition: "",
         birthDate: "03/10/1993",
@@ -239,6 +241,7 @@ export const players = [
     {
         id: 9,
         name: "Álvaro Salinas",
+        number: 10,  // dorsal confirmado por Joaquín el 06/10/2026
         fullName: "Álvaro Salinas García",
         position: "Winger",
         secondaryPosition: "Striker",

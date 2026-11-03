@@ -1,0 +1,8 @@
+.ribbon { --ribbon-bg: var(--color-sage); --ribbon-fg: var(--color-deep-green); --ribbon-speed: 26s; position: relative; overflow: hidden; white-space: nowrap; background: var(--ribbon-bg); color: var(--ribbon-fg); font-family: var(--font-space-grotesk), sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; line-height: 40px; height: 40px; }
+.track { display: inline-block; animation: ribbon var(--ribbon-speed) linear infinite; will-change: transform; }
+.track span { display: inline-block; padding-right: 2.2em; }
+.ribbon:hover .track { animation-play-state: paused; }
+.large { height: auto; line-height: 1.3; padding: 1.4rem 0; font-family: var(--font-playfair), Georgia, serif; font-style: italic; font-weight: 400; font-size: 1.9rem; letter-spacing: 0; text-transform: none; --ribbon-bg: var(--color-deep-green); --ribbon-fg: var(--color-sage); --ribbon-speed: 48s; }
+.large .track span { padding-right: 3rem; }
+@keyframes ribbon { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (max-width: 760px) { .ribbon { height: 32px; line-height: 32px; font-size: 0.68rem; } .large { height: auto; line-height: 1.3; font-size: 1.4rem; } }

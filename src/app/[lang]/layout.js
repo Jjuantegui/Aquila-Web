@@ -1,5 +1,6 @@
 import { DM_Sans, Playfair_Display, Space_Grotesk } from "next/font/google";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import "../globals.css";
 
 import Header from "../../components/layout/Header";
@@ -60,6 +61,8 @@ export default async function RootLayout({ children, params }) {
   return (
     <html lang={lang} className={`${dmSans.variable} ${playfair.variable} ${spaceGrotesk.variable}`}>
       <body>
+        {/* Marca html.js antes del primer pintado: los estados ocultos del sistema de movimiento solo existen con JS. */}
+        <Script id="js-flag" strategy="beforeInteractive">{`document.documentElement.classList.add('js')`}</Script>
         <Header lang={lang} dict={dict.nav} />
         <main style={{ minHeight: "80vh", paddingTop: "var(--header-height)" }}>
           {children}

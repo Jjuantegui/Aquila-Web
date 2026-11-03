@@ -7,6 +7,10 @@ import { getDictionary, locales, localePath, alternatesFor, term, clubLabel, dea
 import NewsCard from '../../../../components/news/NewsCard';
 import PlayerContact from '../../../../components/players/PlayerContact';
 import CopyLinkButton from '../../../../components/players/CopyLinkButton';
+import SeasonStats from '../../../../components/players/SeasonStats';
+import Reveal from '../../../../components/motion/Reveal';
+import Ribbon from '../../../../components/motion/Ribbon';
+import { clubAccent } from '../../../../data/clubColors';
 import newsStyles from '../../../../components/news/News.module.css';
 import styles from '../../../../components/players/PlayerProfile.module.css';
 
@@ -47,9 +51,16 @@ export default async function PlayerProfile({ params }) {
     const playerDeals = deals.filter(d => d.playerId === parseInt(player.id));
     const playerNews = getNewsForPlayer(player.id);
     const bullets = (lang === 'es' && player.bioBullets_es) ? player.bioBullets_es : player.bioBullets;
+    // Color del club solo aquí (cinta y filete de stats); clubes sin color registrado usan salvia. Agentes libres, sin cinta.
+    const accent = player.status === 'Free Agent' ? null : clubAccent(player.currentClub);
+    const clubName = (player.currentClub || '').split(' - ')[0];
+    const ribbonItems = player.status === 'Free Agent' ? null : [player.name.toUpperCase(), clubLabel(dict, term(dict, clubName)).toUpperCase(), (player.league || '').toUpperCase()].filter(Boolean);
 
     return (
         <article className={`container section ${styles.profileContainer}`}>
+            {ribbonItems && (
+                <Ribbon items={ribbonItems} accent={accent || undefined} color={accent ? 'var(--color-deep-green)' : undefined} className={styles.clubRibbon} speed={22} />
+            )}
             {/* Breadcrumb / Back */}
             <Link href={localePath(lang, '#players')} className={styles.backLink}>
                 {t.breadcrumb} <span className={styles.breadcrumb}>/</span> {player.name}
@@ -57,9 +68,10 @@ export default async function PlayerProfile({ params }) {
 
             <div className={styles.grid}>
                 {/* Header */}
-                <header className={styles.header}>
-                    <span className={styles.statusBadge}>{term(dict, player.status)}</span>
-                    <h1 className={styles.name}>{player.name}</h1>
+                <Reveal as="header" variant="items" immediate className={styles.header}>
+                    {player.number && <span className={styles.shirtNumber} aria-hidden="true" style={accent ? { '--accent': accent } : undefined}>{player.number}</span>}
+                    <span className={`${styles.statusBadge} m-rise`}>{term(dict, player.status)}</span>
+                    <h1 className={`${styles.name} m-rise`} style={{ '--d': '0.1s' }}>{player.name}</h1>
                     <p className={styles.metaPosition}>
                         {term(dict, player.position)}
                         {player.secondaryPosition && <span style={{ opacity: 0.6 }}> / {term(dict, player.secondaryPosition)}</span>}
@@ -103,12 +115,12 @@ export default async function PlayerProfile({ params }) {
                             </a>
                         )}
                     </div>
-                </header>
+                </Reveal>
                 {/* LEFT: Image & Video */}
                 <div className={styles.leftColumn}>
-                    <div className={styles.imageCard}>
+                    <Reveal variant="rise" immediate className={styles.imageCard}>
                         <img src={player.photoUrl} alt={player.name} className={styles.image} />
-                    </div>
+                    </Reveal>
 
                     {/* Video Embed if available */}
                     {player.videoUrl && (
@@ -151,6 +163,8 @@ export default async function PlayerProfile({ params }) {
                     </div>
 
                     <PlayerContact player={player} lang={lang} dict={dict} />
+
+                    <SeasonStats stats={player.seasonStats} dict={dict} lang={lang} accent={accent || undefined} />
 
                     {/* Scouting Report */}
                     <div className={styles.scoutingSection}>

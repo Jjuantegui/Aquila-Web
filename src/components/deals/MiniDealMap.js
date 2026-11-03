@@ -6,8 +6,6 @@ import { ComposableMap, Geographies, Geography, Marker, Line } from "react-simpl
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 const MiniDealMap = ({ from, to }) => {
-    if (!from.lat || !to.lat) return null;
-
     // Auto-calculate center and scale based on coordinates
     const mapConfig = useMemo(() => {
         const minLon = Math.min(from.lon, to.lon);
@@ -41,6 +39,8 @@ const MiniDealMap = ({ from, to }) => {
             center: [centerLon, centerLat]
         };
     }, [from, to]);
+
+    if (!from.lat || !to.lat) return null;
 
     return (
         <div style={{ width: "100%", height: "200px", background: "#f8f9fa", borderRadius: "8px", overflow: "hidden", border: '1px solid #eee' }}>

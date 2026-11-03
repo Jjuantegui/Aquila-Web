@@ -1,22 +1,7 @@
-import styles from './ValuesCarousel.module.css';
+import Ribbon from '../motion/Ribbon';
 
-const ValuesCarousel = ({ values = [] }) => {
-    // Duplicate values enough times to ensure smooth scrolling on wide screens
-    // and to create the seamless loop effect
-    const carouselItems = [...values, ...values, ...values, ...values];
-
-    return (
-        <div className={styles.carouselContainer}>
-            <div className={styles.track}>
-                {carouselItems.map((value, index) => (
-                    <span key={index} className={styles.item}>
-                        {value}
-                        <span className={styles.separator}></span>
-                    </span>
-                ))}
-            </div>
-        </div>
-    );
-};
+// Cinta de valores (reel B), Playfair itálica salvia sobre verde profundo. Mismo contenido que el carrusel anterior;
+// se pausa al pasar el ratón y queda estática con movimiento reducido.
+const ValuesCarousel = ({ values = [] }) => <Ribbon items={values} size="large" />;
 
 export default ValuesCarousel;

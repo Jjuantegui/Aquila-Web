@@ -405,3 +405,10 @@
 }
 .videoContainer { aspect-ratio: 16 / 9; width: 100%; scroll-margin-top: calc(var(--header-height) + 1rem); }
 .videoFrame { width: 100%; height: 100%; border: 0; }
+
+/* Cinta superior con el acento del club y dorsal en contorno (solo con dorsal confirmado en datos) */
+.clubRibbon { margin-bottom: 2rem; }
+.header { position: relative; }
+.shirtNumber { --accent: var(--color-sage); position: absolute; right: 0; top: -0.6rem; z-index: 0; font-family: var(--font-space-grotesk), sans-serif; font-weight: 700; font-size: clamp(6rem, 14vw, 11rem); line-height: 1; letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 2px var(--accent); opacity: 0.85; pointer-events: none; }
+.header > * { position: relative; z-index: 1; }
+@media (max-width: 760px) { .shirtNumber { font-size: 5rem; top: -0.3rem; } }

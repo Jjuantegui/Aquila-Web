@@ -222,3 +222,6 @@
         width: 100%;
     }
 }
+/* Knockout del criterio: el h4 grande sustituye a .standardsHeadline; el bloque verde lleva el isotipo tenue */
+.knockout { margin-top: 1rem; }
+.knockoutIso { position: absolute; right: -18%; bottom: -14%; width: 110%; opacity: 0.22; pointer-events: none; }

@@ -44,6 +44,10 @@ const en = {
         viewDeals: 'Explore our deals',
         chips: ['Selective roster', 'Personal attention', 'International reach'],
         featured: 'The people we represent',
+        ribbon: ['AQUILA', 'SPORTS MANAGEMENT', 'Football player representation', 'Personal attention', 'International reach'],
+        now: 'Now',
+        scroll: 'Scroll',
+        videoLabel: 'Moments of our players',
         featuredLink: 'Meet Julio',
     },
 
@@ -131,6 +135,15 @@ const en = {
         to: 'To',
         viewDealFor: 'View the {name} deal',
         freeTransfer: 'Free transfer',
+    },
+
+    inNumbers: {
+        eyebrow: 'Aquila in numbers',
+        countries: 'Countries with players',
+        players: 'Players',
+        deals: 'Deals',
+        leagues: 'Leagues',
+        note: 'Figures computed from the players and deals published on this site.',
     },
 
     home: {

@@ -2,6 +2,7 @@
 
 import { useId, useRef } from 'react';
 import PlayerCard from './PlayerCard';
+import Reveal from '../motion/Reveal';
 import CopyLinkButton from './CopyLinkButton';
 import usePlayerFilters from './usePlayerFilters';
 import { filterPlayers, hasPlayerFilters, playerListPath, positionGroups } from './playerFilters.mjs';
@@ -76,11 +77,11 @@ const PlayerGrid = ({ lang = 'en', dict }) => {
                     <CopyLinkButton key={shareUrl} url={shareUrl} label={t.copySelection} dict={t} />
                 </div>
             </div>
-            <div id={gridId} className={styles.grid}>
+            <Reveal id={gridId} variant="stagger" ease="back" stagger={0.12} delay={0.2} className={styles.grid}>
                 {visiblePlayers.map(player => (
                     <PlayerCard key={player.id} player={player} lang={lang} dict={dict} />
                 ))}
-            </div>
+            </Reveal>
             {visiblePlayers.length === 0 && (
                 <div className={styles.empty}>
                     <h3>{t.noMatches}</h3>

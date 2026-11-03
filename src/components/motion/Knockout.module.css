@@ -1,0 +1,13 @@
+/* El bloque verde ocupa la columna derecha (--ko-block, 42 %); el corte de la capa beige coincide con su borde. */
+.wrap { --ko-block: 42%; position: relative; display: grid; grid-template-columns: 1fr var(--ko-block); gap: 0 3rem; align-items: start; }
+.block { position: relative; grid-column: 2; grid-row: 1 / span 2; aspect-ratio: 4 / 4.6; background: var(--color-aquila-green); overflow: hidden; }
+.text { grid-column: 1 / -1; grid-row: 1; position: relative; z-index: 1; margin-top: clamp(4rem, 9vw, 7rem); font-family: var(--font-playfair), Georgia, serif; font-weight: 400; font-size: clamp(2.6rem, 6.4vw, 5.6rem); line-height: 0.98; letter-spacing: -0.04em; color: var(--color-aquila-green); pointer-events: none; }
+.over { color: var(--color-aquila-beige); clip-path: inset(0 0 0 calc(100% - var(--ko-block))); }  /* misma celda que .text: se superponen exactamente */
+.below { grid-column: 1; grid-row: 2; margin-top: clamp(2.5rem, 5vw, 4rem); }
+@media (max-width: 800px) {
+    .wrap { grid-template-columns: 1fr; }
+    .block { grid-column: 1; grid-row: 1; aspect-ratio: 16 / 10; }
+    .text { margin-top: 1.5rem; font-size: clamp(2.3rem, 10vw, 3.4rem); white-space: normal; }
+    .over { display: none; }
+    .below { grid-row: 3; margin-top: 1.5rem; }
+}

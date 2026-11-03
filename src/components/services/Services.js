@@ -29,7 +29,7 @@ const Services = ({ lang = 'en', dict }) => {
     return (
         <div className={styles.container}>
             {/* LEFT COLUMN: Editorial */}
-            <div className={styles.leftColumn}>
+            <div className={`${styles.leftColumn} m-rise`}>
                 <span className={styles.label}>{dict.label}</span>
                 <h2 className={styles.headline}>
                     {dict.headlineA} <br />
@@ -40,8 +40,9 @@ const Services = ({ lang = 'en', dict }) => {
 
             {/* RIGHT COLUMN: Feature Rows */}
             <div className={styles.rightColumn}>
-                {rows.map((service) => (
-                    <Link href={localePath(lang, '/services')} key={service.id} className={styles.serviceRow} style={{ textDecoration: 'none' }}>
+                {rows.map((service, index) => (
+                    <Link href={localePath(lang, '/services')} key={service.id} className={`${styles.serviceRow} m-rise`} style={{ textDecoration: 'none', '--i': index, '--stagger': '0.15s', '--d': '0.3s' }}>
+                        <span className={styles.outlineNumber} aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
                         <div className={styles.iconWrapper}>
                             {service.icon}
                         </div>

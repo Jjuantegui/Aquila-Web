@@ -21,6 +21,8 @@ const ACTIVE_PLAYERS = players.reduce((acc, p) => {
 const DEFAULT_LABELS = { activePlayers: "Active Players", network: "Global Network" };
 
 // Countries with "Llegada/Contacto" (Reach)
+const ACTIVE_ORDER = Object.keys(ACTIVE_PLAYERS);
+
 const REACH_COUNTRIES = [
     "United States of America", "Canada", "Mexico", "China", "India",
     // Europe
@@ -97,13 +99,15 @@ const GlobalPresenceMap = ({ lang = 'en', labels = DEFAULT_LABELS, terms = {} })
                                     data-tooltip-id="map-tooltip"
                                     data-tooltip-html={tooltipContent}
                                     fill={fillColor}
+                                    className={activePlayers ? 'm-country' : isReach ? 'm-country m-country-net' : undefined}
                                     stroke="#E9DCC9"
                                     strokeWidth={0.5}
                                     style={{
                                         default: {
                                             fill: fillColor,
                                             outline: "none",
-                                            transition: "all 0.3s"
+                                            transition: "all 0.3s",
+                                            '--i': activePlayers ? ACTIVE_ORDER.indexOf(countryName) : isReach ? ACTIVE_ORDER.length + 1 + (REACH_COUNTRIES.indexOf(countryName) % 6) : 0,
                                         },
                                         hover: {
                                             fill: hoverColor,

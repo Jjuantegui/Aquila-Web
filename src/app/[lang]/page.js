@@ -7,6 +7,8 @@ import Services from "../../components/services/Services";
 import LatestNews from "../../components/news/LatestNews";
 
 import About from "../../components/about/About";
+import InNumbers from "../../components/home/InNumbers";
+import Reveal from "../../components/motion/Reveal";
 import Contact from "../../components/contact/Contact";
 import { getDictionary, alternatesFor } from "../../i18n";
 
@@ -37,42 +39,45 @@ export default async function Home({ params }) {
       <Hero lang={lang} dict={dict.hero} />
 
       {/* 3. PLAYERS */}
-      <section id="players" className="section container animate-fade-in">
-        <h2 style={sectionTitleStyle}>{dict.home.players}</h2>
+      <section id="players" className="section container">
+        <Reveal><h2 style={sectionTitleStyle} className="m-line">{dict.home.players}</h2></Reveal>
         <PlayerGrid lang={lang} dict={dict} />
       </section>
 
       <FeaturedDeals lang={lang} dict={dict} />
 
       {/* 1. THE BOUTIQUE MODEL */}
-      <section id="about" className="section container animate-fade-in">
+      <Reveal as="section" id="about" variant="items" className="section container">
         <About dict={dict.about} />
-      </section>
+      </Reveal>
 
       {/* 2. OUR SERVICES (SUMMARY) */}
-      <section id="services" className="section container animate-fade-in">
+      <Reveal as="section" id="services" variant="items" className="section container">
         <Services lang={lang} dict={dict.services} />
-      </section>
+      </Reveal>
 
       {/* 4. GLOBAL REACH */}
-      <section className="section animate-fade-in" style={{ padding: '4rem 0' }}>
+      <Reveal as="section" id="map" variant="items" className="section" style={{ padding: '4rem 0' }}>
         <div className="container">
-          <h2 style={sectionTitleStyle}>{dict.home.globalReach}</h2>
+          <h2 style={sectionTitleStyle} className="m-line m-rise">{dict.home.globalReach}</h2>
           <GlobalPresenceMap lang={lang} labels={dict.map} terms={dict.terms} />
         </div>
-      </section>
+      </Reveal>
 
       {/* 5. WORD CAROUSEL (BRIDGE) */}
       <ValuesCarousel values={dict.values} />
+
+      {/* 5b. AQUILA IN NUMBERS — cifras calculadas desde src/data */}
+      <InNumbers lang={lang} dict={dict} />
 
       {/* 6. LATEST NEWS — what is happening now, once the visitor knows who we are */}
       <LatestNews lang={lang} dict={dict} />
 
       {/* 7. CONTACT US */}
-      <section id="contact" className="section container animate-fade-in">
-        <h2 style={sectionTitleStyle}>{dict.home.contact}</h2>
+      <Reveal as="section" id="contact" variant="items" className="section container">
+        <h2 style={sectionTitleStyle} className="m-line m-rise">{dict.home.contact}</h2>
         <Contact dict={dict.contact} />
-      </section>
+      </Reveal>
     </>
   );
 }

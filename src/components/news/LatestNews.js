@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { sortedNews } from '../../data/news';
 import { localePath } from '../../i18n';
 import NewsCard from './NewsCard';
+import Reveal from '../motion/Reveal';
 import styles from './News.module.css';
 
 const LatestNews = ({ lang, dict, limit = 3 }) => {
@@ -9,16 +10,16 @@ const LatestNews = ({ lang, dict, limit = 3 }) => {
     if (items.length === 0) return null;
 
     return (
-        <section id="news" className="section container animate-fade-in">
-            <div className={styles.sectionHead}>
+        <section id="news" className="section container">
+            <Reveal className={`${styles.sectionHead} m-line`}>
                 <h2 className={styles.sectionTitle}>{dict.home.latestNews}</h2>
                 <Link href={localePath(lang, '/news')} className={styles.sectionLink}>{dict.home.allNews} →</Link>
-            </div>
-            <div className={styles.grid}>
+            </Reveal>
+            <Reveal variant="items" stagger={0.15} className={styles.grid}>
                 {items.map(item => (
                     <NewsCard key={item.slug} item={item} lang={lang} dict={dict} />
                 ))}
-            </div>
+            </Reveal>
         </section>
     );
 };

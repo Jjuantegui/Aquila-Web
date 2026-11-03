@@ -44,6 +44,10 @@ const es = {
         viewDeals: 'Ver operaciones',
         chips: ['Cartera reducida', 'Trato directo', 'Alcance internacional'],
         featured: 'Nuestros protagonistas',
+        ribbon: ['AQUILA', 'SPORTS MANAGEMENT', 'Representación de futbolistas', 'Trato directo', 'Alcance internacional'],
+        now: 'Ahora',
+        scroll: 'Desplázate',
+        videoLabel: 'Momentos de nuestros jugadores',
         featuredLink: 'Conoce a Julio',
     },
 
@@ -131,6 +135,15 @@ const es = {
         to: 'Hacia',
         viewDealFor: 'Ver la operación de {name}',
         freeTransfer: 'Fichaje libre',
+    },
+
+    inNumbers: {
+        eyebrow: 'Aquila in numbers',
+        countries: 'Países con jugadores',
+        players: 'Jugadores',
+        deals: 'Operaciones',
+        leagues: 'Ligas',
+        note: 'Cifras calculadas sobre los jugadores y operaciones publicados en esta web.',
     },
 
     home: {

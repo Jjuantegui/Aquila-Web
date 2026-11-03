@@ -1,0 +1,32 @@
+.card { --accent: var(--color-sage); --stagger: 0.45s; position: relative; background: var(--color-deep-green); color: var(--color-aquila-beige); border-radius: 14px; padding: 1.1rem 1.25rem 1.2rem 1.5rem; min-height: 132px; display: flex; flex-direction: column; gap: 0.7rem; overflow: hidden; }
+.card::before { content: ''; position: absolute; left: 0; top: 24px; bottom: 24px; width: 5px; background: var(--accent); border-radius: 0 3px 3px 0; }
+.label { font-family: var(--font-space-grotesk), sans-serif; font-weight: 700; font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-sage); }
+.num { font-family: var(--font-space-grotesk), sans-serif; font-weight: 700; font-size: 2.3rem; line-height: 1; }
+.minutes { display: grid; grid-template-columns: 64px 1fr; gap: 0.9rem; align-items: center; }
+.ring { width: 64px; height: 64px; transform: rotate(-90deg); grid-row: 1; }
+.ringBg { fill: none; stroke: var(--color-aquila-green); stroke-width: 7; }
+.ringFg { fill: none; stroke: var(--accent); stroke-width: 7; stroke-linecap: butt; stroke-dashoffset: var(--dash); }
+.ringNum { grid-column: 1; grid-row: 1; justify-self: center; align-self: center; font-family: var(--font-space-grotesk), sans-serif; font-weight: 700; font-size: 0.95rem; }
+.segments { display: flex; gap: 5px; }
+.segments i { flex: 1; height: 12px; border-radius: 3px; background: var(--color-aquila-green); }
+.segments i.on { background: var(--accent); }
+.gauge { position: relative; display: flex; flex-direction: column; align-items: center; }
+.arc { width: 112px; height: 64px; }
+.gaugeNum { position: absolute; bottom: 0; font-family: var(--font-space-grotesk), sans-serif; font-weight: 700; font-size: 1.6rem; }
+.dots, .barWrap, .pipsWrap { display: flex; flex-direction: column; gap: 0.6rem; }
+.dotRow { display: flex; gap: 5px; }
+.dotRow i { width: 14px; height: 14px; border-radius: 50%; background: var(--color-aquila-green); box-shadow: inset 0 0 0 1px rgba(139,171,127,0.35); }
+.dotRow i.on { background: var(--accent); }
+.bar { height: 12px; border-radius: 6px; background: var(--color-aquila-green); overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 6px; }
+.pips { display: flex; gap: 4px; }
+.pips i { flex: 1; height: 12px; border-radius: 2px; background: var(--accent); }
+/* animación de los widgets al entrar (solo transform/opacity); el anillo usa stroke-dashoffset, que no provoca layout */
+@media (prefers-reduced-motion: no-preference) {
+    :global(html.js .reveal:not(.is-in)) .ringFg { stroke-dashoffset: var(--dasharray, 999); }
+    :global(html.js .reveal:not(.is-in)) :global(.m-seg) { opacity: 0; }
+    :global(.reveal.is-in) .ringFg { animation: ring 1.1s var(--m-ease) both; animation-delay: calc(0.35s + var(--i, 0) * var(--stagger)); }
+    :global(.reveal.is-in) :global(.m-seg) { animation: seg 0.2s linear both; animation-delay: calc(0.35s + var(--i, 0) * var(--stagger) + var(--k, 0) * (1s / var(--n, 6))); }
+}
+@keyframes ring { from { stroke-dashoffset: var(--dasharray, 999); } to { stroke-dashoffset: var(--dash); } }
+@keyframes seg { from { opacity: 0; } to { opacity: 1; } }

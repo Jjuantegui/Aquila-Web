@@ -174,3 +174,7 @@
         align-self: flex-end;
     }
 }
+/* número en contorno, como el dorsal del reel B */
+.serviceRow { position: relative; padding-right: 5.2rem; }
+.outlineNumber { position: absolute; right: 1.1rem; top: 50%; transform: translateY(-50%); font-family: var(--font-space-grotesk), sans-serif; font-weight: 700; font-size: 3.2rem; line-height: 1; letter-spacing: -0.02em; color: transparent; -webkit-text-stroke: 1px var(--color-sage); pointer-events: none; }
+@media (max-width: 760px) { .serviceRow { padding-right: 1.5rem; } .outlineNumber { top: 0.6rem; transform: none; font-size: 2.2rem; } }
